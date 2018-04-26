@@ -61,7 +61,7 @@ function buildRegex( urlParam ){
 };
 
 function request( host, req, res, filePath, redirect ) {
-  if ( !host || host === "localhost" || host === "local" ) {
+  if ( !host && (host === "localhost" || host === "local" )) {
     filePath = path.resolve( config.root, filePath );
     fs.exists( filePath, ( exists ) => {
       if (exists){
@@ -94,7 +94,7 @@ function request( host, req, res, filePath, redirect ) {
       });
     });
   } else {
-    filePath = filePath.replace(new RegExp(`${config.dataDir}\/`),'');
+    // filePath = filePath.replace(new RegExp(`${config.dataDir}\/`),'');
     let req = http.get( host + '/' + filePath, (_res) => {
       _res.setEncoding("utf8");
       let body = "";
@@ -126,25 +126,29 @@ function setupApp(){
   var app = express();
 
   app.get('/', ( req, res ) => {
-    response( envConfig.env.host, req, res, config.distDir + '/index.html', false );
+    response( 'localhost', req, res, config.distDir + '/index.html', false );
   });
 
   app.get('/environment.js', ( req, res ) => {
-    response( envConfig.env.host, req, res, config.distDir + '/environment.js', false );
+    response( 'localhost', req, res, config.distDir + '/environment.js', false );
   });
 
   app.get('/main.js', ( req, res ) => {
-    response( envConfig.env.host, req, res, config.distDir + '/main.js', false );
+    response( 'localhost', req, res, config.distDir + '/main.js', false );
   });
 
   app.get(buildRegex(), ( req, res ) => {
     var redirectPath = req.params[0].replace(new RegExp(`\/${envConfig.env.basehref}\/`),'');
-    if (redirectPath.indexOf(envConfig.env.apiURL) >= 0) {
-      // Local API ROUTE
-      redirectPath = redirectPath.replace(new RegExp(`\/${envConfig.env.apiURL}\/`),'');
-      response( envConfig.env.host, req, res, config.dataDir + '/' + redirectPath, false );
+    if ( !envConfig.env.host && ( envConfig.env.host != "localhost" || envConfig.env.host != "local" )) {
+      if (redirectPath.indexOf(envConfig.env.apiURL) >= 0) {
+        // Local API ROUTE
+        redirectPath = redirectPath.replace(new RegExp(`\/${envConfig.env.apiURL}\/`),'');
+        response( envConfig.env.host, req, res, config.dataDir + '/' + redirectPath, false );
+      } else {
+        response( envConfig.env.host, req, res, config.distDir + redirectPath, !Boolean(redirectPath) || redirectPath === '/' );
+      }
     } else {
-      response( envConfig.env.host, req, res, config.distDir + redirectPath, !Boolean(redirectPath) || redirectPath === '/' );
+      response( envConfig.env.host, req, res, redirectPath, !Boolean(redirectPath) || redirectPath === '/' );
     }
   });
 
