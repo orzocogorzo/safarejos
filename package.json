@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "serve:dev": "node express/app.js --dev --env=dev --basehref=map",
+    "serve:dev": "node express/app.js --dev --env=dev",
     "serve:pi": "node express/app.js --dev --env=pi",
     "build:pi": "node express/app.js --build --env=dev --basehref=map",
     "build:dev": "node express/app.js --build --env=pi --basehref=map"

@@ -24,7 +24,12 @@ const config = {
         hash: true,
         cache: true
       })
-    ]
+    ],
+    resolve: {
+      alias: {
+        'vue$': 'vue/dist/vue.esm.js'
+      }
+    }
 }
 
 module.exports = config;

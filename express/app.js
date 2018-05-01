@@ -17,6 +17,7 @@ function setupConfig(){
   config.api.set('entry',config.entry);
   config.api.set('module.rules', config.module.rules);
   config.api.set('plugins', config.plugins);
+  config.api.set('resolve', config.resolve);
   // config.api.set('context', path.resolve(__dirname));
 };
 
@@ -61,7 +62,8 @@ function buildRegex( urlParam ){
 };
 
 function request( host, req, res, filePath, redirect ) {
-  if ( !host && (host === "localhost" || host === "local" )) {
+  // console.log(host);
+  if ( !host || host === "localhost" || host === "local" ) {
     filePath = path.resolve( config.root, filePath );
     fs.exists( filePath, ( exists ) => {
       if (exists){
@@ -139,7 +141,7 @@ function setupApp(){
 
   app.get(buildRegex(), ( req, res ) => {
     var redirectPath = req.params[0].replace(new RegExp(`\/${envConfig.env.basehref}\/`),'');
-    if ( !envConfig.env.host && ( envConfig.env.host != "localhost" || envConfig.env.host != "local" )) {
+    if ( !envConfig.env.host || envConfig.env.host === "localhost" || envConfig.env.host === "local" ) {
       if (redirectPath.indexOf(envConfig.env.apiURL) >= 0) {
         // Local API ROUTE
         redirectPath = redirectPath.replace(new RegExp(`\/${envConfig.env.apiURL}\/`),'');
