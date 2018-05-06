@@ -1,0 +1,7 @@
+<div id="map-view" class="map-view-wrapper" v-on:view-attached="renderMap">
+  <draw-control 
+    v-on:mode-change="onDrawModeChange( $event )"
+    :map="map"
+  ></draw-control>
+  <div id="map"></div>
+</div>

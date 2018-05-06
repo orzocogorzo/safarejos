@@ -1,21 +1,5 @@
-import Vue from 'vue';
-import Router from './services/Router';
+import { App } from "./App";
+import style from '../styles/index.styl';
+import vendor from '../styles/vendor.css';
 
-Vue.component('app', {
-  props: ['todo'],
-  template: '<li>{{ todo.text }}</li>'
-});
-
-var app = new Vue({
-  el: '#app',
-  template: "<div id=app><app v-bind:todo='todo'></app></div>",
-  data: {
-    todo: {
-      text: 'Hello World!'
-    }
-  },
-  mounted: function(){
-    var router = new Router();
-    router.start();
-  }
-});
+var app = new App();

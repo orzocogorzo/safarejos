@@ -2,18 +2,18 @@ let Router = ( function( options ){
 
   const _routes = new Array();
 
-  function _initRoutes(){
-    Object.keys( this.routes ).map(k => {
+  function _initRoutes( routes ){
+    Object.keys( routes ).map(k => {
       let pathParams = k.split('/:');
       let path = pathParams.splice(0,1);
 
-      for (let idx in pathParams){
+      for ( let idx in pathParams ) {
         pathParams[idx] = '/(.+)'
       }
 
-      let route = new RegExp(['^'].concat(path).concat(pathParams).concat(['$']).join(''));
+      let route = new RegExp(['^'].concat( path ).concat( pathParams ).concat(['$']).join(''));
 
-      _routes.push({ rex: route, fn: this.routes[k] });
+      _routes.push({ rex: route, fn: routes[k] });
 
     });
   };
@@ -42,34 +42,16 @@ let Router = ( function( options ){
 
   class _Router {
 
-    constructor(){
-      this.routes = {
-        '': this.redirectToDefault,
-        'map': this.index,  
-        'map/:section/:scroll': this.renderMap,
-      };
-
-      _initRoutes.call(this);
-    }
-  
-    redirectToDefault() {
-      location.hash = 'map'
-    }
-
-    renderMap() {
-      console.log('render map');
-    }
-
-    index() {
-      console.log('index hash');
+    constructor( constroller ) {
+      _initRoutes.call( this, constroller.routes );
     }
 
     start() {
-      _start.call(this);
+      _start.call( this );
     }
 
     stop() {
-      _stop.call(this);
+      _stop.call( this );
     }
   }
 

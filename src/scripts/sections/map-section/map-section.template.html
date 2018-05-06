@@ -1,0 +1,16 @@
+<div class="map-section-wrapper">
+  <div class="map-section-title">
+    <h1 class="map-section-title__title">{{ title }}</h1>
+    <div class="map-section-title__subtitle">
+      <p>{{ message }}</p>
+    </div>
+  </div>
+  <div class="map-section-content-wrapper">
+    <map-view
+      :mounted="sections.map">
+    </map-view>
+    <sidebar-view
+      mounted="sections.sidebar">
+    </sidebar-view>
+  </div>
+</div>

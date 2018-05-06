@@ -1,0 +1,91 @@
+#draw-control
+  height: 100%
+  display flex
+  transition: width 1s
+  background: #688298
+  &.draw-control-wrapper
+    width: 50px
+  &.hidden
+    width: 0px
+    .draw-control-toggler
+      background-color: #688298
+      > div:hover
+        background-image: url('../../../../assets/images/right-double-arrow.svg')
+  .draw-control-toggler
+    border-radius: 50%
+    border: 2px solid #fffa
+    bottom: 15px
+    left: 6px
+    position absolute
+    z-index 1500
+    display: block
+    height 35px
+    width 35px
+    display flex
+    justify-content center
+    align-items: center
+    cursor pointer
+    overflow hidden
+    transition: background-color 1s
+    background-color: #ffffff55
+    > div
+      background-position: 50%
+      background-repeat: no-repeat
+      background-size: contain
+      background-image: url('../../../../assets/images/draw-tools.svg')
+      height 25px
+      width: 25px
+      flex: 1
+      &:hover
+        background-image: url('../../../../assets/images/left-double-arrow.svg')
+  .draw-control-content
+    flex: 1
+    display flex
+    flex-direction: column
+    height 80%
+    .option-button
+      display: flex
+      flex: 1
+      padding: 0px 5px
+      max-height 65px
+      cursor: pointer
+      transition: background-color 0.3s
+      &[active] .option-button__background-wrapper
+        background-color: #ffffff33
+        &:hover
+          opacity 1
+      &:hover .option-button__background-wrapper
+        opacity 0.5
+      .option-button__wrapper
+        flex: 1
+        border-bottom: 1px solid #dddd
+        .option-button__background-wrapper
+          background-position: 50%
+          background-size: contain
+          background-repeat: no-repeat
+          width: 100%
+          height: calc(100% - 10px)
+          transition: opacity 0.3s
+          border-radius: 10px
+          margin: 5px 0px
+      &:last-child .option-button__wrapper
+        border none
+
+#drag .option-button__background-wrapper
+  background-image: url('../../../../assets/images/drag-hand-icon.svg')
+
+#brush .option-button__background-wrapper
+  background-image: url('../../../../assets/images/brush-icon.svg')
+      
+#point .option-button__background-wrapper
+  background-image: url('../../../../assets/images/point-icon.svg')
+      
+#line .option-button__background-wrapper
+  background-image: url('../../../../assets/images/line-icon.svg')
+     
+#polygon .option-button__background-wrapper
+  background-image: url('../../../../assets/images/polygon-icon.svg')
+        
+#eraser .option-button__background-wrapper
+  background-image: url('../../../../assets/images/eraser-icon.svg')
+       

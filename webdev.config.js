@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const WebpackLiveReload = require('webpack-livereload-plugin');
 
 const config = {
 	distDir: path.resolve(__dirname, 'dist'),
@@ -23,8 +24,10 @@ const config = {
         minify: true,
         hash: true,
         cache: true
-      })
+      }),
+      new WebpackLiveReload()
     ],
+    context: path.resolve(__dirname),
     resolve: {
       alias: {
         'vue$': 'vue/dist/vue.esm.js'

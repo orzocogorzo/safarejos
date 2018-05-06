@@ -8,9 +8,9 @@ const envConfig = new Object();
 
 const http = require('http');
 const express = require('express');
-const livereload = require('express-livereload');
+// const livereload = require('express-livereload');
 const reload = require('./liveserver');
-
+const open = require("open");
 
 function setupConfig(){
   config.api.set('output',config.output);
@@ -176,42 +176,52 @@ function main(){
     function callback(){
       const app = setupApp();
       
-      config.api.set("watch", true);
+      // config.api.set("watch", true);
       config.api.set("mode", "development");
 
       setupConfig();
 
       function startApp(){
-        if (LISTENING){return}
+        if ( LISTENING ){ return }
         // Serve the files on port 8000.
-        server = http.createServer(app);
+        server = http.createServer( app );
         
         // server livereload
-        reload(app);
+        reload( app );
 
         // browser livereload
-        livereload(app, {watchDir: config.srcDir});
+        // livereload( app, { watchDir: config.srcDir });
 
-        server.listen(app.get('port'), function () {
-          console.log('Webpack watching for changes and app listening on port 8000!\n');
+        server.listen( app.get('port'), function () {
+          console.log( 'Webpack watching for changes and app listening on port 8000' );
+          !LISTENING && open("http://localhost:8000", "chromium-browser");
           LISTENING=true;
         });
       }
-      compiler = webpack(config.api.get(), (err, stats) => {
-        if (err) throw err;
+      compiler = webpack( config.api.get() ); //, (err, stats) => {
+      //   if (err) throw err;
+      //   startApp();
+      // });
+
+      compiler.watch({
+        aggregateTimeout: 300,
+        poll: undefined
+      }, ( err, stats ) => {
+        if ( err ) throw err;
         startApp();
+        console.log( new Date().toLocaleTimeString() + ": webpack build process ends with exit status" );
       });
     }
-  } else if (envConfig["build"]){
-    function callback(){
+  } else if ( envConfig[ "build" ] ) {
+    function callback() {
       
       config.api.set( "mode", envConfig["prod"] && "production" || "development" );
 
       setupConfig();
 
       compiler = webpack( config.api.get(), ( err, stats ) => {
-        if (err) throw err
-        console.log("Webpack build end with exit status");
+        if (err) throw err;
+        console.log("Webpack build ends with exit status");
       });
     }
   }

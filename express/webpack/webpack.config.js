@@ -12,15 +12,29 @@ const config = {
     rules: [
       { 
         test: /\.styl$/, 
-        use: 'style-loader!css-loader!stylus-loader' 
+        use: ['style-loader','css-loader','stylus-loader']
       },
       {
         test: /\.css$/,
-        use: 'style-loader!css-loader!'
+        use: ['style-loader','css-loader']
       },
       {
         test: /\.vue$/,
-        use: 'vue-loader'
+        use: 'vue-loader',
+        // options: {
+        //   hotReload: true
+        // }
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            }
+          }
+        ]
       },
       {
         test: /\.js$/,

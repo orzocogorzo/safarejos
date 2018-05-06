@@ -3,19 +3,19 @@
   <head>
     <meta charset="utf-8"/>
     <!-- <meta http-equiv="Content-type" content="text/html; charset=utf-8"/> -->
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
     <div id="app"></div>
     <script src="./environment.js" type="text/javascript"></script>
-    <script src="./main.js"></script>
+    <!-- <script src="./main.js"></script> -->
     <script>
       onload = function(){
         if ( environment.basehref && document.head.getElementsByTagName('base').length == 0 ){
           let base = document.createElement('base');
           base.setAttribute('href','/'+environment.basehref+'/');
           document.head.appendChild(base);
-          // document.write('<base href="/'+environment.basehref+'/"/>');
           if ( location.pathname.slice(1) != environment.basehref ) {
             history.replaceState({},'init', '/'+environment.basehref)
           }

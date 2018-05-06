@@ -1,0 +1,15 @@
+<div id="draw-control" class="draw-control-wrapper" :class="{ hidden: hidden }">
+  <div class="draw-control-content">
+    <div 
+      v-for="option in options"
+      :id="option.name"
+      :active="option.active"
+      v-on:click="onOptionClicked( $event, option )"
+      class="option-button">
+      <div class="option-button__wrapper">
+        <div class="option-button__background-wrapper"></div>
+      </div>
+    </div> 
+  </div>
+  <div class="draw-control-toggler" v-on:click="toggleVisibility"><div></div></div>
+</div>
