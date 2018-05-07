@@ -1,5 +1,6 @@
 // import MapGL from 'mapbox-gl/dist/mapbox-gl';
 import L from 'leaflet/dist/leaflet';
+import * as _ from 'lodash';
 
 import DrawControl from '../map-controls/draw-control/draw-control.vue'
 
@@ -10,22 +11,33 @@ export default {
       map: undefined
     }
   },
-  props: [ "mounted" ],
+  props: [ "mounted", "styleList" ],
   watch: {
     mounted: function( val ) {
       this.renderMap();
       return val;
     },
-    map: function( val ) {
-      return val;
+    styleList: function( val ) {
+      Object.keys( val ).map( k => {
+        this.$el.style[k] = String(val[k]);
+      });
+      
+      let interval = setInterval(() => {
+        this.map.invalidateSize();
+      }, 50 );
+      
+      setTimeout(() => {
+        clearInterval(interval);
+      }, 2500 );
     }
   },
   methods: {
     renderMap() {
-      // accesToken: "pk.eyJ1Ijoib3J6b2MiLCJhIjoiY2lzZGEzNXhmMDAwdjJvcGZ4NXU2bzU0NCJ9.RzrN_JISe561WfI1SjWCvw",
-      this.map = L.map('map').setView( [ 41.4515, 2.203 ], 16 );
+      this.map = L.map('map').setView( [ 41.4354394404612, 2.2126132249832158 ], 16 );
       L.tileLayer('https://api.mapbox.com/styles/v1/orzoc/cjeh8ep1s8xls2rpdmaidmh1d/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoib3J6b2MiLCJhIjoiY2lzZGEzNXhmMDAwdjJvcGZ4NXU2bzU0NCJ9.RzrN_JISe561WfI1SjWCvw')
         .addTo( this.map );
+
+      this.$emit("map-rendered", this.map );
     },
 
     onDrawModeChange( evt ) {

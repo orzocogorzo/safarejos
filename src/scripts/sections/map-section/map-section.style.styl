@@ -5,21 +5,34 @@
   .map-section-title
     // flex 1
     display flex
-    flex-direction column
-    background-color: #fdc
+    // flex-direction column
+    background-color: #1d2b38
     height: 50px
     justify-content: center
+    color #fcfcfc
     .map-section-title__subtitle
-      color #444
+      color #dddddd
       display flex
-      justify-content center
       align-items: center
+      flex: 1
+      justify-content: flex-start
+      padding-left: 10px
       p 
         margin 0px
     .map-section-title__title
       margin 0px
-      font-size 0.95em
       text-align: center
+      font-size: 1.4em
+      flex: 0
+      min-width: 250px
+      align-items: center
+      display: flex
+      justify-content: flex-end
+      padding-right: 10px
+      box-sizing: border-box
+      border-right: 1px solid #fff
+      background: #fff1
+      text-transform: uppercase
   .map-section-content-wrapper
     flex 1
     display flex

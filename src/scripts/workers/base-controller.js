@@ -52,6 +52,12 @@ const BaseController = (function(){
         "mouseup": _log,
         "click": _log
       };
+
+      this.layerStyle = {
+        "lineJoin": true,
+        "weight": 10,
+        "color": this.color
+      };
     }
 
     // public methods
@@ -97,14 +103,15 @@ const BaseController = (function(){
 
     genLayer() {
       this.layer = L.geoJSON( this.collection, {
-        style: {
-          "lineJoin": true,
-          "weight": 10,
-          "color": this.color
-        },
+        style: this.layerStyle,
+        pointToLayer: this.pointToLayer,
         isOverlay: true
       });
       this.layer.addTo( this.map );
+    }
+
+    static id() {
+      return "base-controller";
     }
   };
 

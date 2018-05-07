@@ -1,22 +1,27 @@
 import MapView from '../../components/map-view/map-view.vue';
 import SidebarView from '../../components/sidebar/sidebar.vue';
 
+import sectionsMap from './sections.map';
+
 export default {
   name: "map-section",
   props: [ "content" ],
   methods: {
     mapRenderer() {
-      this.$data.sections.map = true;
+      this.$data.sections.map.mounted = true;
     },
 
     sidebarRenderer() {
-      this.$data.sections.sidebar = true;
+      this.$data.sections.sidebar.mounted = true;
     },
 
     afterMount() {
-      console.log("afterMount");
       this.mapRenderer();
       this.sidebarRenderer();
+    },
+
+    getMapInstance( map ) {
+      this.map = map;
     }
   },
   components: {
@@ -26,11 +31,27 @@ export default {
   data: function() {
     return {
       sections: {
-        map: false,
-        sidebar: false
+        map: {
+          mounted: false,
+          styleList: false
+        },
+        sidebar: {
+          mounted: false,
+          styleList: false
+        },
       },
-      title: "MAP SECTION", 
-      message: "Welcome to the map section"
+      scrollHash: undefined,
+      title: "Safaretjos", 
+      subtitle: "Dibuixa el teu barri",
+      map: undefined
+    }
+  },
+  watch: {
+    scrollHash: function( val ) {
+      Object.keys(sectionsMap[val.section]).map(k => {
+        this.sections[k].styleList = sectionsMap[val.section][k]; 
+      });
+      return val;
     }
   }
 }

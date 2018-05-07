@@ -2,15 +2,19 @@
   <div class="map-section-title">
     <h1 class="map-section-title__title">{{ title }}</h1>
     <div class="map-section-title__subtitle">
-      <p>{{ message }}</p>
+      <p>{{ subtitle }}</p>
     </div>
   </div>
   <div class="map-section-content-wrapper">
     <map-view
-      :mounted="sections.map">
-    </map-view>
+      :mounted="sections.map.mounted"
+      :styleList="sections.map.styleList"
+      v-on:map-rendered="getMapInstance"
+    ></map-view>
     <sidebar-view
-      mounted="sections.sidebar">
-    </sidebar-view>
+      :styleList="sections.sidebar.styleList"
+      :scrollhash="scrollHash"
+      :map="map"
+    ></sidebar-view>
   </div>
 </div>

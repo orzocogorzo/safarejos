@@ -4,6 +4,7 @@
       v-for="option in options"
       :id="option.name"
       :active="option.active"
+      :controller="option.controller"
       v-on:click="onOptionClicked( $event, option )"
       class="option-button">
       <div class="option-button__wrapper">

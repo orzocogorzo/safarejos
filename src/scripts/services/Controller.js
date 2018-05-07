@@ -1,4 +1,4 @@
-import MapSection from '../sections/map-section/map-section.vue';
+import MapSection from '../sections/map-section/map-section.component.vue';
 import Vue from 'vue';
 
 const Controller = (function() {
@@ -65,12 +65,11 @@ const Controller = (function() {
   }
 
   function _appendView( Component, config ) {
-    const view = _instantiateComponent( Component, config );
-    // view.$mount();
+    const _config = config || {};
+    const view = _instantiateComponent( Component, _config );
     _app.router_component.attachCurrentComponent( view );
-    
-    // console.log( view, view.$emit, "emitted" );
     view.$emit( 'view-attached', view );
+    return view;
   }
   
   return class Controller {
@@ -79,10 +78,11 @@ const Controller = (function() {
       // class public properties
       this.routes = {
         '': this.redirectToDefault,
-        'map': this.renderMap,  
-        'map/:section/:scroll': this.scrollToSection,
+        'map': this.renderMap.bind( this ),  
+        'map/:section/:scroll': this.scrollToSection.bind( this ),
       };
 
+      this.currentSection = undefined;
       _app = appInstance;
     };
 
@@ -92,20 +92,20 @@ const Controller = (function() {
     };
   
     renderMap() {
-      _appendView.call( this, MapSection, {
-        // data: function() { 
-        //   return { "title": "MAP SECTION", "message": "Welcome to the map section" }
-        // }
-        // props: [ "message" ]
-        // propsData: [{
-        //   "message": "Welcome to the map section"
-        // }]
-      });
-      // console.log('render map');
+      _app.router_component.$el.innerHTML = "";
+      this.currentSection = _appendView.call( this, MapSection );
+      location.hash = 'map/cover/safaretjos';
     };
   
-    scrollToSection() {
-      console.log('scroll hash');
+    scrollToSection( args ) {
+      if ( !this.currentSection ) {
+        this.currentSection = _appendView.call( this, MapSection );
+      }
+
+      this.currentSection.scrollHash = {
+        section: args[0],
+        scroll: args[1]
+      };  
     };
   };
 

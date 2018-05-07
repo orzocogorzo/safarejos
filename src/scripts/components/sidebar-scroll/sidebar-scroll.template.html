@@ -1,0 +1,27 @@
+<div id="sidebar-scroll" class="sidebar-scroll-wrapper">
+  <div class="sidebar-scroll-layer">
+    <div class="scroll-gradient top-gradient"></div>
+    <div class="scroll-gradient bottom-gradient"></div>
+    <scroll-controller
+      :next="router.next"
+      :previous="router.previous"
+    ></scroll-controller>
+    <!-- v-on:mounted="onScrollMounted" -->
+    <cover-component
+      :offset="offsetHeight"
+      v-on:im-ready="onSectionReady"
+    ></cover-component>
+    <!-- v-on:on-scroll="onScroll( $event )" -->
+    <personal-component
+      :offset="offsetHeight"
+      v-on:im-ready="onSectionReady"
+    ></personal-component>
+    <!-- v-on:on-scroll="onScroll( $event )" -->
+    <home-component
+      :offset="offsetHeight"
+      v-on:im-ready="onSectionReady"
+      v-on:add-map-data="addMapData"
+    ></home-component>
+    <!-- v-on:on-scroll="onScroll( $event )" -->
+  </div>
+</div>

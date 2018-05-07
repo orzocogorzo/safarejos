@@ -1,0 +1,37 @@
+<div id="personal-component" class="personal-component-wrapper sidebar-scroll-section" v-bind:style="{ maxHeight: offset+'px', minHeight: offset+'px' }">
+  <div class="content-wrapper">
+    <div class="input-wrapper age-input">
+      <div class="input-title">Edat</div>
+      <div class="input-content">
+        <input type="number" name="age" placeholder="introdueïx aquí la teva edat" v-model:value="age"/>
+      </div>
+    </div>
+    <div class="input-wrapper gender-input">
+      <div class="input-title">Genere</div>
+      <div class="input-content">
+        <label>Dona</label>
+        <input type="radio" name="gender" value="female" v-on:click="onGenderChange( $event )" v-bind:checked="gender === 'female'"/>
+        <label>Home</label>
+        <input type="radio" name="gender" value="male" v-on:click="onGenderChange( $event )" v-bind:checked="gender === 'male'"/>
+        <label>Altres</label>
+        <input type="radio" name="gender" value="other" v-on:click="onGenderChange( $event )" v-bind:checked="gender === 'other'"/>
+      </div>
+    </div>
+    <div class="input-wrapper social-input">
+      <div class="input-title">Situació laboral</div>
+      <div class="input-content">
+        <label>Treballant</label>
+        <input type="radio" name="social_state" value="employee" v-bind:checked="social_status === 'employee'" v-on:click="onSocialChange( $event )"/>
+        <label>Estudiant</label>
+        <input type="radio" name="social_state" value="student" v-bind:checked="social_status === 'student'" v-on:click="onSocialChange( $event )"/>
+        <label>Aturat</label>
+        <input type="radio" name="social_state" value="unemployed" v-bind:checked="social_status === 'unemployed'" v-on:click="onSocialChange( $event )"/>
+        <label>Jubilat</label>
+        <input type="radio" name="social_state" value="" v-bind:checked="social_status === 'retired'" v-on:click="onSocialChange( $event )"/>
+        <label>Altres</label>
+        <input type="radio" name="social_state" value="" v-bind:checked="social_status === 'other'" v-on:click="onSocialChange( $event )"/>
+      </div>
+    </div>
+  </div>
+  <scroll-controller></scroll-controller>
+</div>

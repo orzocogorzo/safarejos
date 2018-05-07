@@ -1,0 +1,38 @@
+#sidebar-scroll
+    width: 100%
+    height: 100%
+    overflow: hidden
+    display: flex
+    background-color: #ccc;
+    border-left: 1.5px solid #000
+    position: relative
+    .sidebar-scroll-layer
+      flex: 1
+      // transition: margin 2s ease-in-out
+      margin-top: 0px
+      display: flex
+      flex-direction: column
+      .scroll-gradient
+        width: 100%
+        position absolute
+        z-index 20
+        height: 100px
+        left: 0px
+        &.top-gradient
+          top: 0px
+          background: linear-gradient(#ccc, #fff0)
+        &.bottom-gradient
+          bottom: 0px
+          background: linear-gradient(#fff0, #ccc)
+      .sidebar-scroll-section
+        flex: 1
+        display: flex
+        flex-direction: column
+        .content-wrapper
+          flex: 1
+          display: flex
+          justify-content: center
+          align-items: center
+        .scroll-controller-wrapper
+          flex: 0
+          height: 50px
