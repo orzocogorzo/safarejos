@@ -27,6 +27,15 @@ export default {
       background: null
     }
   },
+  work: {
+    map: {
+      flex: 1
+    },
+    sidebar: {
+      flex: 0,
+      background: null
+    }
+  },
   end: {
     map: {
       flex: 0

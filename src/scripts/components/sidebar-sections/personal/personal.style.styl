@@ -1,15 +1,22 @@
-#personal-component
+#personal-component.personal-component-wrapper.sidebar-scroll-section
   flex-direction: column
   .content-wrapper
-    flex-direction: column
-    padding: 20% 0px
+    transition margin 1s ease-in-out
+    overflow unset
+    max-width: calc(100vw - 10px)
+    flex-direction: row
+    display: none
+    justify-content: flex-start
     .input-wrapper
       display: flex
       flex-direction: column
-      width: 100%
       justify-content: center
       align-items: center
       flex: 1
+      transition: all 1s
+      &:not([visible])
+        min-width: 0px
+        max-width: 0px
       .input-content
         display: flex
       &.social-input

@@ -104,7 +104,7 @@ const Controller = (function() {
 
       this.currentSection.scrollHash = {
         section: args[0],
-        scroll: args[1]
+        subsection: args[1]
       };  
     };
   };

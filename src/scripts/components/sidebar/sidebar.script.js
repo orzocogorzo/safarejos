@@ -6,9 +6,9 @@ export default {
   name: "sidebar-view",
   props: [ "scrollhash", "styleList", "map" ],
   watch: {
-    scrollhash: function( val ) {
-      return val;
-    },
+    // scrollhash: function( val ) {
+    //   return val;
+    // },
     styleList: function( val ) {
       Object.keys( val ).map( k => {
         this.$el.style[k] = String(val[k]);
@@ -18,14 +18,13 @@ export default {
   methods: {
     storeSectionData( section, data ) {
       model[section] = data;
-      // console.log( model );
     },
 
     addMapData( data, layerOptions, viewOptions ) {
       const _options = layerOptions || new Object();
 
       this.map.eachLayer(layer => {
-        if ( layer.isAuxiliar ) {
+        if ( layer.options.isAuxiliar ) {
           this.map.removeLayer( layer );
         }
       });
@@ -37,7 +36,7 @@ export default {
       layer.addTo(this.map);
 
       if ( viewOptions ) {
-        this.map.setVie( viewOptions ); 
+        this.map.setView( viewOptions.latlng, viewOptions.zoom ); 
       }
 
     }

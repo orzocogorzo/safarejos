@@ -1,9 +1,9 @@
 export default {
   name: "cover-component",
-  props: [ "offset", "layer" ],
+  props: [ "offsetH", "offsetW", "layer", "visible" ],
   methods: {
     onStart( evt ) {
-      location.hash = 'map/personal/safaretjos'
+      location.hash = 'map/home/0'
     },
     isReady() {
       this.$emit("im-ready");
@@ -12,5 +12,13 @@ export default {
   },
   mounted: function() {
     this.isReady();
+  },
+  watch: {
+    // visible( val ) {
+    //   console.log( 'cover', val );
+    //   setTimeout(() => {
+    //     this.$el.style.width = !val && '0px';
+    //   }, 1000 )
+    // }
   }
 }

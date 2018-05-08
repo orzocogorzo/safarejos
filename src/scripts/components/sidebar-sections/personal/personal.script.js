@@ -1,19 +1,21 @@
-import ScrollController from '../../../workers/scroll-controller.component.vue';
+import SubsectionController from '../../../workers/subsection-controller.component.vue';
 
 export default {
   name: "personal-component",
-  props: [ "offset" ],
+  props: [ "offsetH", "offsetW", "subsection", "visible" ],
   components: {
-    ScrollController
+    SubsectionController
   },
   mounted: function() {
+    this.container = this.$el.getElementsByClassName('content-wrapper')[0];
     this.isReady();
   },
   data: function() {
     return {
       age: undefined,
       gender: undefined,
-      social_status: undefined
+      social_status: undefined,
+      container: undefined,
     }
   },
   watch: {
@@ -28,6 +30,21 @@ export default {
     gender( val ) {
       this.isReady();
       return val;
+    },
+    subsection( val ) {
+      if ( this.container ) {
+        this.container.style.marginLeft = (this.offsetW * val * -1) + 'px';
+      }
+      return val;
+    },
+    visible( val ) {
+      if ( val ) {
+        setTimeout(() => {
+          this.container.style.display = "flex";
+        }, 2000 );
+      } else {
+        this.container.style.display = "none";
+      }
     }
   },
   methods: {
@@ -48,6 +65,10 @@ export default {
     },
     onSocialChange( e ) {
       this.social_status = e.currentTarget.checked && e.currentTarget.value;
+    },
+    onInputChange( e,i ) {
+      // location.hash = 'map/personal/' + i;
+      // this.container.style.marginLeft = (this.offsetW * i * -1) + 'px';
     }
   }
 }

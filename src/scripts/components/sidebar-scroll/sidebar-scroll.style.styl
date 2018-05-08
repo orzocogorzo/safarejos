@@ -28,6 +28,11 @@
         flex: 1
         display: flex
         flex-direction: column
+        min-width: 200px
+        opacity 1
+        transition: opacity 1s
+        &:not([visible])
+          opacity 0
         .content-wrapper
           flex: 1
           display: flex

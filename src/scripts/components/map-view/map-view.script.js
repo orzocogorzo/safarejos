@@ -24,11 +24,11 @@ export default {
       
       let interval = setInterval(() => {
         this.map.invalidateSize();
-      }, 50 );
+      }, 20 );
       
       setTimeout(() => {
         clearInterval(interval);
-      }, 2500 );
+      }, 1600 );
     }
   },
   methods: {

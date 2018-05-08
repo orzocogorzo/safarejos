@@ -6,22 +6,33 @@
       :next="router.next"
       :previous="router.previous"
     ></scroll-controller>
-    <!-- v-on:mounted="onScrollMounted" -->
     <cover-component
-      :offset="offsetHeight"
+      :offsetH="offsetHeight"
+      :offsetW="offsetWidth"
       v-on:im-ready="onSectionReady"
+      :visible="router.current.name == 'cover'"
     ></cover-component>
-    <!-- v-on:on-scroll="onScroll( $event )" -->
-    <personal-component
-      :offset="offsetHeight"
-      v-on:im-ready="onSectionReady"
-    ></personal-component>
-    <!-- v-on:on-scroll="onScroll( $event )" -->
     <home-component
-      :offset="offsetHeight"
+      :offsetH="offsetHeight"
+      :offsetW="offsetWidth"
       v-on:im-ready="onSectionReady"
       v-on:add-map-data="addMapData"
+      :visible="router.current.name == 'home'"
     ></home-component>
-    <!-- v-on:on-scroll="onScroll( $event )" -->
+    <personal-component
+      :offsetH="offsetHeight"
+      :offsetW="offsetWidth"
+      v-on:im-ready="onSectionReady"
+      :subsection="subsection"
+      :visible="router.current.name == 'personal'"
+    ></personal-component>
+    <work-component
+      :offsetH="offsetHeight"
+      :offsetW="offsetWidth"
+      v-on:im-ready="onSectionReady"
+      :subsection="subsection"
+      :visible="router.current.name == 'work'"
+      v-on:add-map-data="addMapData"
+    ></work-component>
   </div>
 </div>
