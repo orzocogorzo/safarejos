@@ -1,2 +1,20 @@
-#work-component
+#work-component.work-component-wrapper
   display: flex
+  .content-wrapper
+    flex-direction: column
+    box-sizing: border-box
+    .message-wrapper
+      text-align: center
+      padding: 0px 10px
+    .continue-btn-wrapper
+      margin: 20px 0px
+      .continue-btn
+        background: #688298
+        margin: 0px 20px
+        text-align: center
+        color: #fff
+        border-radius: 10px
+        padding: 5px 10px
+        cursor: pointer
+        &:hover
+          background: lighten(#688298, 20)

@@ -2,6 +2,8 @@ import CoverComponent from '../sidebar-sections/cover/cover.component.vue';
 import PersonalComponent from '../sidebar-sections/personal/personal.component.vue';
 import HomeComponent from '../sidebar-sections/home/home.component.vue';
 import WorkComponent from '../sidebar-sections/work/work.component.vue';
+import EndComponent from  '../sidebar-sections/end/end.component.vue';
+
 import ScrollController from '../../workers/scroll-controller.component.vue';
 
 import routesMap from './scroll-heights.map';
@@ -44,6 +46,7 @@ export default {
     PersonalComponent,
     HomeComponent,
     WorkComponent,
+    EndComponent,
     ScrollController
   },
   watch: {
@@ -89,6 +92,10 @@ export default {
 
     addMapData( data, layerOptions, viewOptions ) {
       this.$emit("add-map-data", data, layerOptions, viewOptions );
+    },
+
+    onGenerateData( event ) {
+      this.$emit("generate-data", event );
     }
   }
 }

@@ -15,7 +15,8 @@ export default {
       }, true );
 
       if ( ready ) {
-        this.$emit("im-ready", "personal", JSON.parse(JSON.stringify(this.$data)));
+        let data = this.selection != "no-response" && JSON.parse(JSON.stringify({ lng: this.$data.selection.properties.Longitud_X, lat: this.$data.selection.properties.Latitud_Y })) || "no-response"
+        this.$emit("im-ready", "work", data);
       }
 
       return ready; 
@@ -44,7 +45,7 @@ export default {
         fillColor: "#f00"
       });
 
-      this.$emit( "im-ready", "home", JSON.parse(JSON.stringify(this.selection)));
+      this.$emit( "im-ready", "work", JSON.parse(JSON.stringify({ lng: this.$data.selection.properties.Longitud_X, lat: this.$data.selection.properties.Latitud_Y })));
     },
 
     onMouseOut( e ) {
@@ -83,6 +84,11 @@ export default {
         }
       }
       req.send();
+    },
+
+    onContinue(){
+      this.selection = "no-response",
+      this.$emit( "im-ready", "work", null );
     }
   },
   watch: {

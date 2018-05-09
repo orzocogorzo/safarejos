@@ -1,3 +1,11 @@
-<div id="work-component" class="work-component-wrapper">
-  WORK
+<div id="work-component" :visible="visible" class="work-component-wrapper sidebar-scroll-section" v-bind:style="{ maxHeight: offsetH+'px', minHeight: offsetH+'px' }">
+  <div class="content-wrapper">
+      <div class="message-wrapper">
+        En cas de realitzar desplaçaments "obligats" per motius com per exemple la feina o els estudis, assenyala sobre el mapa el municipi de destí.
+      </div>
+      <div class="continue-btn-wrapper">
+        <div class="continue-btn" v-on:click="onContinue()">Continuar sense contestar</div>
+      </div>
+      
+  </div>
 </div>

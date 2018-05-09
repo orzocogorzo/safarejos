@@ -55,7 +55,7 @@ export default {
       }, true );
 
       if ( ready ) {
-        this.$emit("im-ready", "personal", JSON.parse(JSON.stringify(this.$data)));
+        this.$emit("im-ready", "personal", JSON.parse(JSON.stringify({age: this.age, gender: this.gender, social_status: this.social_status })));
       }
 
       return ready; 

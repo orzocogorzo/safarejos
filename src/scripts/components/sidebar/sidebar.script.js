@@ -39,6 +39,20 @@ export default {
         this.map.setView( viewOptions.latlng, viewOptions.zoom ); 
       }
 
+    },
+
+    generateData() {
+      var file = new Blob([JSON.stringify(model)], {type: "json"});
+      var a = document.createElement("a"),
+              url = URL.createObjectURL(file);
+      a.href = url;
+      a.download = "data.json";
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function() {
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);  
+      }, 0);
     }
   },
   components: {

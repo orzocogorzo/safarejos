@@ -34,5 +34,12 @@
       :visible="router.current.name == 'work'"
       v-on:add-map-data="addMapData"
     ></work-component>
+    <end-component
+      :offsetH="offsetHeight"
+      :offsetW="offsetWidth"
+      v-on:im-ready="onSectionReady"
+      :visible="router.current.name == 'end'"
+      v-on:generate-data="onGenerateData( $event )"
+    ></end-component>
   </div>
 </div>

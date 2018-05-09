@@ -14,7 +14,7 @@ export default {
       let ready = this.selection;
 
       if ( ready ) {
-        this.$emit("im-ready", "home", this.selection );
+        this.$emit("im-ready", "home", JSON.parse(JSON.stringify({ lng: this.selection.properties.Longitud_X, lat: this.selection.properties.Latitud_Y })));
       }
 
       return ready;
@@ -43,7 +43,7 @@ export default {
         fillColor: "#f00"
       });
 
-      this.$emit( "im-ready", "home", JSON.parse(JSON.stringify(this.selection)));
+      this.$emit( "im-ready", "home", JSON.parse(JSON.stringify({ lng: this.selection.properties.Longitud_X, lat: this.selection.properties.Latitud_Y })));
     },
 
     onMouseOut( e ) {
