@@ -1,9 +1,12 @@
-export default {
+import baseSubsection from '../base-subsection/base-subsection.component';
+
+const component = {
   name: "end-component",
-  props: [ "offsetH", "offsetW", "map", "visible" ],
   methods: {
     generateData( e ) {
       this.$emit("generate-data", e );
     }
   }
-}
+};
+
+export default baseSubsection.extend( component );

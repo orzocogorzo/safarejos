@@ -5,7 +5,7 @@ import PointController from '../../../workers/point-controller';
 
 export default {
   name: "draw-control",
-  props: [ "map" ],
+  props: [ "map", "currentTool", "color" ],
   data() {
     return {
       options: [
@@ -52,7 +52,7 @@ export default {
         "type": "FeaturesCollection",
         "features": []
       },
-      color: '#900C3F' //'#C70039'
+      // color: '#900C3F'
     }
   },
   
@@ -79,16 +79,24 @@ export default {
     },
 
     selectMode( controller ) {
+      
+      Object.keys( this.controllers ).map((k) => {
+        this.controllers[k].active = false;
+      });
+
+      this.controller && this.controller.unbind();
+
       if (controller === "eraser" ) {
         this.clearMapData();
       } else if ( controller != "l-pan-controller" ) {
         this.$emit("mode-change", { drag: false });
-        this.storeMapData();
+        // this.storeMapData();
         this.controller = this.controllers[ controller ];
         this.controller.captureInteraction();
+        this.controller.active = true;
       } else {
         this.$emit("mode-change", { drag: true });
-        this.storeMapData();
+        // this.storeMapData();
       }
     },
 
@@ -116,7 +124,9 @@ export default {
         map: this.map,
         color: this.color,
         canvas: mapEl
-      })
+      });
+
+      // this.controllers["brush-controller"].active = true;
     }
   },
   watch: {
@@ -125,6 +135,11 @@ export default {
         this.setupControllers();
       }
       return val;
+    },
+    color( val ) {
+      Object.keys(this.controllers).map((k) => {
+        this.controllers[k].setColor(this.color);
+      })
     }
   }
 }

@@ -3,6 +3,10 @@ import PersonalComponent from '../sidebar-sections/personal/personal.component.v
 import HomeComponent from '../sidebar-sections/home/home.component.vue';
 import WorkComponent from '../sidebar-sections/work/work.component.vue';
 import EndComponent from  '../sidebar-sections/end/end.component.vue';
+import IdentityComponent from '../sidebar-sections/identity/identity.component.vue';
+import EquipmentsComponent from '../sidebar-sections/equipments/equipments.component.vue';
+import SocialComponent from '../sidebar-sections/social/social.component.vue';
+import BarriersComponent from '../sidebar-sections/barriers/barriers.component.vue';
 
 import ScrollController from '../../workers/scroll-controller.component.vue';
 
@@ -14,6 +18,12 @@ export default {
     this.offsetHeight = document.body.offsetHeight;
     this.offsetWidth = document.body.offsetWidth;
     this.scrollLayer = this.$el.children[0];
+    resizeListeners.push(() => {
+      setTimeout(() => {
+        this.offsetHeight = document.body.offsetHeight;
+        this.offsetWidth = document.body.offsetWidth;
+      }, 100 );
+    });
   },
   data: function() {
     return {
@@ -35,9 +45,7 @@ export default {
         }
       },
       subsection: undefined,
-      sectionData: {
-
-      }
+      section: undefined
     }
   },
   props: [ "scrollhash" ],
@@ -47,17 +55,27 @@ export default {
     HomeComponent,
     WorkComponent,
     EndComponent,
+    IdentityComponent,
+    EquipmentsComponent,
+    SocialComponent,
+    BarriersComponent,
     ScrollController
   },
   watch: {
     scrollhash: function( val ) {
-      this.subsection = val.subsection
+      this.subsection = val.subsection;
+      this.section = val.section;
       this.setMarginOffset( val.section );
       this.updateRouter( val );
 
       if ( !this.scrollLayer.style.transition ) {
         setTimeout(() => this.scrollLayer.style.transition = "margin 2s ease-in-out", 0);
       }
+    },
+    offsetHeight( val ) {
+      this.scrollLayer.style.transition = "margin 0s";
+      this.setMarginOffset( this.scrollhash.section );
+      setTimeout(() => this.scrollLayer.style.transition = "margin 2s ease-in-out", 2000 );
     }
   },
   methods: {
@@ -68,6 +86,10 @@ export default {
 
     onSectionReady( section ,data ) {
       this.$emit("add-section-data", section, data );
+      this.router.next.ready = true;
+    },
+
+    forceSectionReady() {
       this.router.next.ready = true;
     },
 
@@ -94,8 +116,20 @@ export default {
       this.$emit("add-map-data", data, layerOptions, viewOptions );
     },
 
+    clearMapLayers( viewOptions ){
+      this.$emit("clear-map-layers", viewOptions );
+    },
+
+    storeMapLayer( section, key ) {
+      this.$emit("store-map-layer", section, key );
+    },
+
     onGenerateData( event ) {
       this.$emit("generate-data", event );
+    },
+
+    onResetMapSelection( e ) {
+      this.$emit("reset-map-selection");
     }
   }
 }

@@ -1,53 +1,66 @@
 <div id="personal-component" :visible="visible" class="personal-component-wrapper sidebar-scroll-section" v-bind:style="{ maxHeight: offsetH+'px', minHeight: offsetH+'px' }">
   <div class="content-wrapper">
-    <!-- <div class="width-wrapper" :visible="visible"> -->
-      <div class="input-wrapper age-input" :visible="visible" v-bind:style="{ minWidth: visible && offsetW+'px' }">
+      <div class="input-wrapper age-input">
         <div class="input-title">Edat</div>
         <div class="input-content">
-          <input v-on:change="onInputChange( $event, 1 )" type="number" name="age" placeholder="introdueïx aquí la teva edat" v-model:value="age"/>
+          <input type="number" name="age" placeholder="introdueïx aquí la teva edat" v-model:value="age"/>
         </div>
         <subsection-controller
-          :current_subsection="subsection"
-          :boundaries="[0,2]"
-          :ready="Boolean(age)"
+          v-bind:visible="visible"
+          v-bind:offsetW="offsetW"
+          v-bind:container="h_container"
+          v-bind:section="'0'"
+          v-bind:current_section="section"
+          v-bind:current_subsection="subsection"
+          v-bind:boundaries="[0,2]"
+          v-bind:ready="age != null"
         ></subsection-controller>
       </div>
-      <div class="input-wrapper gender-input" :visible="visible" v-bind:style="{ minWidth: visible && offsetW+'px' }">
+      <div class="input-wrapper gender-input">
         <div class="input-title">Genere</div>
         <div class="input-content">
           <label>Dona</label>
-          <input v-on:change="onInputChange( $event, 2 )" type="radio" name="gender" value="female" v-on:click="onGenderChange( $event )" v-bind:checked="gender === 'female'"/>
+          <input type="radio" name="gender" value="female" v-on:click="onGenderChange( $event )" v-bind:checked="gender === 'female'"/>
           <label>Home</label>
-          <input v-on:change="onInputChange( $event, 2 )" type="radio" name="gender" value="male" v-on:click="onGenderChange( $event )" v-bind:checked="gender === 'male'"/>
+          <input type="radio" name="gender" value="male" v-on:click="onGenderChange( $event )" v-bind:checked="gender === 'male'"/>
           <label>Altres</label>
-          <input v-on:change="onInputChange( $event, 2 )" type="radio" name="gender" value="other" v-on:click="onGenderChange( $event )" v-bind:checked="gender === 'other'"/>
+          <input type="radio" name="gender" value="other" v-on:click="onGenderChange( $event )" v-bind:checked="gender === 'other'"/>
         </div>
         <subsection-controller
-          :current_subsection="subsection"
-          :boundaries="[0,2]"
-          :ready="Boolean(gender)"
+          v-bind:visible="visible"
+          v-bind:offsetW="offsetW"
+          v-bind:container="h_container"
+          v-bind:section="'1'"
+          v-bind:current_section="section"
+          v-bind:current_subsection="subsection"
+          v-bind:boundaries="[0,2]"
+          v-bind:ready="gender != null"
         ></subsection-controller>
       </div>
-      <div class="input-wrapper social-input" :visible="visible" v-bind:style="{ minWidth: visible && offsetW+'px' }">
+      <div class="input-wrapper social-input">
         <div class="input-title">Situació laboral</div>
         <div class="input-content">
           <label>Treballant</label>
-          <input v-on:change="onInputChange( $event, 2 )" type="radio" name="social_status" value="employee" v-bind:checked="social_status === 'employee'" v-on:click="onSocialChange( $event )"/>
+          <input type="radio" name="social_status" value="employee" v-bind:checked="social_status === 'employee'" v-on:click="onSocialChange( $event )"/>
           <label>Estudiant</label>
-          <input v-on:change="onInputChange( $event, 2 )" type="radio" name="social_status" value="student" v-bind:checked="social_status === 'student'" v-on:click="onSocialChange( $event )"/>
+          <input type="radio" name="social_status" value="student" v-bind:checked="social_status === 'student'" v-on:click="onSocialChange( $event )"/>
           <label>Aturat</label>
-          <input v-on:change="onInputChange( $event, 2 )" type="radio" name="social_status" value="unemployed" v-bind:checked="social_status === 'unemployed'" v-on:click="onSocialChange( $event )"/>
+          <input type="radio" name="social_status" value="unemployed" v-bind:checked="social_status === 'unemployed'" v-on:click="onSocialChange( $event )"/>
           <label>Jubilat</label>
-          <input v-on:change="onInputChange( $event, 2 )" type="radio" name="social_status" value="" v-bind:checked="social_status === 'retired'" v-on:click="onSocialChange( $event )"/>
+          <input type="radio" name="social_status" value="" v-bind:checked="social_status === 'retired'" v-on:click="onSocialChange( $event )"/>
           <label>Altres</label>
-          <input v-on:change="onInputChange( $event, 2 )" type="radio" name="social_status" value="" v-bind:checked="social_status === 'other'" v-on:click="onSocialChange( $event )"/>
+          <input type="radio" name="social_status" value="" v-bind:checked="social_status === 'other'" v-on:click="onSocialChange( $event )"/>
         </div>
         <subsection-controller
-          :current_subsection="subsection"
-          :boundaries="[0,2]"
-          :ready="Boolean(social_status)"
+          v-bind:visible="visible"
+          v-bind:offsetW="offsetW"
+          v-bind:container="h_container"
+          v-bind:section="'2'"
+          v-bind:current_section="section"
+          v-bind:current_subsection="subsection"
+          v-bind:boundaries="[0,2]"
+          v-bind:ready="social_status != null"
         ></subsection-controller>
       </div>
-    <!-- </div> -->
   </div>
 </div>

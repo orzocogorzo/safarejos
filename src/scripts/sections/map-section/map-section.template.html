@@ -9,6 +9,7 @@
     <map-view
       :mounted="sections.map.mounted"
       :styleList="sections.map.styleList"
+      :scrollhash="scrollHash"
       v-on:map-rendered="getMapInstance"
     ></map-view>
     <sidebar-view

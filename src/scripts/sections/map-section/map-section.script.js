@@ -51,7 +51,6 @@ export default {
       Object.keys(sectionsMap[val.section]).map(k => {
         this.sections[k].styleList = sectionsMap[val.section][k]; 
       });
-      return val;
     }
   }
 }

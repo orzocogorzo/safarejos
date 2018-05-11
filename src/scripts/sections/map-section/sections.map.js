@@ -4,18 +4,15 @@ export default {
       flex: 0
     },
     sidebar: {
-      flex: 1,
-      background: null
+      flex: 1
     }
   },
   personal: {
     map: {
-      flex: 0,
-      background: null
+      flex: 0
     },
     sidebar: {
-      flex: 1,
-      background: null
+      flex: 1
     }
   },
   home: {
@@ -23,8 +20,7 @@ export default {
       flex: 1
     },
     sidebar: {
-      flex: 0,
-      background: null
+      flex: 0
     }
   },
   work: {
@@ -32,8 +28,39 @@ export default {
       flex: 1
     },
     sidebar: {
-      flex: 0,
-      background: null
+      flex: 0
+    }
+  },
+  identity: {
+    map: {
+      flex: 0
+    },
+    sidebar: {
+      flex: 1
+    }
+  },
+  barriers: {
+    map: {
+      flex: 1
+    },
+    sidebar: {
+      flex: 0
+    }
+  },
+  social: {
+    map: {
+      flex: 1
+    },
+    sidebar: {
+      flex: 0
+    }
+  }, 
+  equipments: {
+    map: {
+      flex: 1
+    },
+    sidebar: {
+      flex: 0
     }
   },
   end: {
@@ -41,8 +68,7 @@ export default {
       flex: 0
     },
     sidebar: {
-      flex: 1,
-      background: null
+      flex: 1
     }
   }
 }

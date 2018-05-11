@@ -22,7 +22,7 @@ const BrushController = (function(){
 
   function onMouseMove( evt ) {
     if ( _state.down ) {
-      // console.log( evt, this.mapCoords );
+      console.log( 'mousemove', evt );
       currentFeature.geometry.coordinates.push([ this.mapCoords.lng, this.mapCoords.lat ]);
       
       if ( index != len ) {
@@ -36,7 +36,20 @@ const BrushController = (function(){
     }
   }
 
+  function onTouchMove( evt ) {
+    console.log( evt );
+    const e = new MouseEvent('mousemove', Object.keys(evt).reduce((m,k) => {
+      m[k] = evt[k];
+      return m;
+    }, {} ));
+    // const map = document.getElementById('map');
+    // document.dispatchEvent(e);
+    this.map.fireEvent('mousemove', e );
+    console.log( e );
+  }
+
   function onMouseUp( evt ) {
+    console.log( 'mouseUp' );
     _state.down = false;
     _state.up = true;
     currentFeature = undefined;
@@ -57,10 +70,20 @@ const BrushController = (function(){
       super( options || {} );
 
       this.eventsCallbacks = options.eventsCallbacks || {
+        "touchmove": _.throttle(( e ) => onTouchMove.bind( this )( e ), 50 ),
         "mousemove": _.throttle(( e ) => onMouseMove.bind( this )( e ), 50 ),
         "mousedown": onMouseDown.bind( this ),
-        "mouseup": onMouseUp.bind( this )
+        "touchstart": onMouseDown.bind( this ),
+        "mouseup": onMouseUp.bind( this ),
+        "touchend": onMouseUp.bind( this )
       };
+
+      this.layerStyle = {
+        "lineJoin": true,
+        "weight": 10,
+        "color": this.color,
+        "opacity": 0.7
+      }
 
       return this;
     }

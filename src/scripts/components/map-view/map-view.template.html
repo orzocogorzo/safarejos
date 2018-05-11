@@ -2,6 +2,8 @@
   <draw-control 
     v-on:mode-change="onDrawModeChange( $event )"
     :map="map"
+    :currentTool="drawTool"
+    :color="drawColor"
   ></draw-control>
   <div id="map"></div>
 </div>

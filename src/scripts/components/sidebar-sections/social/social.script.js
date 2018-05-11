@@ -1,17 +1,17 @@
 import baseSubsection from '../base-subsection/base-subsection.component';
 
 const component = {
-  name: "home-component",
+  name: "social-component",
   data: function() {
     return {
-      selection: false,
+      selection: null,
       h_rawData: undefined,
-      h_modelName: "home"
+      h_modelName: "social-network"
     }
   },
   methods: {
     getData: function() {
-      return { lng: this.selection.properties.Longitud_X, lat: this.selection.properties.Latitud_Y }
+      return this.selection;
     },
 
     onEachFeature( feature, layer ) {
@@ -22,22 +22,21 @@ const component = {
       });
     },
 
-    onFeatureClick( e ) {
-      this.selection = e.target.toGeoJSON();
+    onResetMapSelection( e ) {
+      this.selection = null;
+      this.$emit("reset-map-selection");
+    },
 
-      e.target._map.eachLayer(layer => {
-        if ( layer.options.isAuxiliar ) {
-          layer.setStyle({
-            fillColor: "#3388ff"
-          });
-        }
-      });
+    onFeatureClick( e ) {
+      const feature = e.target.toGeoJSON();
+      this.selection = this.selection || [];
+      this.selection.push({ lng: feature.properties.Longitud_X, lat: feature.properties.Latitud_Y });
 
       e.target.setStyle({
         fillColor: "#f00"
       });
 
-      this.$emit( "im-ready", "home", JSON.parse(JSON.stringify( this.getData() )));
+      // this.$emit( "im-ready", "social", JSON.parse(JSON.stringify( this.getData() )));
     },
 
     onMouseOut( e ) {
@@ -79,7 +78,6 @@ const component = {
   watch: {
     selection( val ) {
       this.isReady();
-      return val;
     },
     visible( val ) {
       if ( val ) {

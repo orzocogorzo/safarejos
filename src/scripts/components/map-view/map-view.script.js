@@ -4,14 +4,18 @@ import * as _ from 'lodash';
 
 import DrawControl from '../map-controls/draw-control/draw-control.vue'
 
+import drawOptionsMap from './draw-options.map';
+
 export default {
   name: "map-view",
   data() {
     return {
-      map: undefined
+      map: undefined,
+      drawTool: null,
+      drawColor: null
     }
   },
-  props: [ "mounted", "styleList" ],
+  props: [ "mounted", "styleList", "scrollhash" ],
   watch: {
     mounted: function( val ) {
       this.renderMap();
@@ -29,6 +33,10 @@ export default {
       setTimeout(() => {
         clearInterval(interval);
       }, 1600 );
+    },
+    scrollhash( val ) {
+      this.drawTool = drawOptionsMap[this.scrollhash.section] && drawOptionsMap[this.scrollhash.section].tool;
+      this.drawColor = ['#ff004d','#3c9ac7','#fff860','#55ab71'][this.scrollhash.subsection];
     }
   },
   methods: {

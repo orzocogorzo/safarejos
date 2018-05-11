@@ -31,12 +31,14 @@ const BaseController = (function(){
       this.map = options.map;
       this.color = options.color;
       this.canvas = options.canvas;
-      this.mapCoords = undefined
+      this.mapCoords = undefined;
+      this.active = null;
 
       this.events = options.events || {
         "touchstart": true,
         "touchmove": true,
         "touchend": true,
+        "touchmove": true,
         "mousemove": true,
         "mousedown": true,
         "mouseup": true,
@@ -47,6 +49,7 @@ const BaseController = (function(){
         "touchstart": _log,
         "touchmove": _log,
         "touchend": _log,
+        "touchmove": _log,
         "mousemove": _log,
         "mousedown": _log,
         "mouseup": _log,
@@ -58,12 +61,23 @@ const BaseController = (function(){
         "weight": 10,
         "color": this.color
       };
+
+      this.map.on('storeddata', (function(e) {
+        if ( this.active ) {
+          this.collection = this.genCollection()
+          this.layer = this.genLayer();
+        }
+      }).bind(this));
     }
 
     // public methods
     captureInteraction( ) {
       Object.keys( this.events ).map(k => {
         this.events[k] && this.canvas.addEventListener(k, this.eventsCallbacks[k] );
+      });
+
+      this.map.on('touchmove', ( evt ) => {
+        this.mapCoords = evt.latlng;
       });
 
       this.map.on('mousemove', ( evt ) => {
@@ -77,6 +91,10 @@ const BaseController = (function(){
         this.events[k] && this.canvas.removeEventListener( k, this.eventsCallbacks[k] );
       });
 
+      this.map.off('touchmove', ( evt ) => {
+        this.mapCoords = evt.latlng;
+      });
+      
       this.map.off('mousemove', ( evt ) => {
         this.mapCoords = evt.latlng;
       });
@@ -108,6 +126,12 @@ const BaseController = (function(){
         isOverlay: true
       });
       this.layer.addTo( this.map );
+    }
+
+    setColor( color ) {
+      this.color = color;
+      this.layerStyle.color = this.color;
+      this.layer && this.layer.setStyle(this.layerStyle);
     }
 
     static id() {

@@ -1,17 +1,17 @@
 import baseSubsection from '../base-subsection/base-subsection.component';
 
 const component = {
-  name: "home-component",
+  name: "equipments-component",
   data: function() {
     return {
-      selection: false,
+      selection: null,
       h_rawData: undefined,
-      h_modelName: "home"
+      h_modelName: "equipments"
     }
   },
   methods: {
     getData: function() {
-      return { lng: this.selection.properties.Longitud_X, lat: this.selection.properties.Latitud_Y }
+      return this.selection;
     },
 
     onEachFeature( feature, layer ) {
@@ -23,21 +23,18 @@ const component = {
     },
 
     onFeatureClick( e ) {
-      this.selection = e.target.toGeoJSON();
-
-      e.target._map.eachLayer(layer => {
-        if ( layer.options.isAuxiliar ) {
-          layer.setStyle({
-            fillColor: "#3388ff"
-          });
-        }
-      });
+      const feature = e.target.toGeoJSON();
+      this.selection = this.selection || [];
+      this.selection.push( { lng: feature.properties.Longitud_X, lat: feature.properties.Latitud_Y } );
 
       e.target.setStyle({
         fillColor: "#f00"
       });
+    },
 
-      this.$emit( "im-ready", "home", JSON.parse(JSON.stringify( this.getData() )));
+    onResetMapSelection( e ) {
+      this.selection = null;
+      this.$emit("reset-map-selection");
     },
 
     onMouseOut( e ) {
@@ -63,14 +60,14 @@ const component = {
 
       const self = this;
       const req = new XMLHttpRequest();
-      const url = location.protocol + '//' + location.host +'/' + environment.apiURL + "/parceles.json";
+      const url = location.protocol + '//' + location.host +'/' + environment.apiURL + "/equipaments.json";
       req.open( "get", url, true );
       req.onreadystatechange = function( ev ) {
         if ( this.status === 200 && this.readyState === 4 ) {
           self.h_rawData = JSON.parse( this.responseText);
           self.$emit("add-map-data", self.h_rawData, {
             onEachFeature: self.onEachFeature
-          }, { latlng: [ 41.43552791811532, 2.2124925255775456 ], zoom: 18 });
+          }, { latlng: [ 41.43625986499152, 2.2115993499755864 ], zoom: 15 });
         }
       }
       req.send();
@@ -79,7 +76,6 @@ const component = {
   watch: {
     selection( val ) {
       this.isReady();
-      return val;
     },
     visible( val ) {
       if ( val ) {

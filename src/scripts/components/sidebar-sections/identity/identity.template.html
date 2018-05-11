@@ -1,0 +1,175 @@
+<div id="identity-component" :visible="visible" class="identity-component-wrapper sidebar-scroll-section" v-bind:style="{ maxHeight: offsetH+'px', minHeight: offsetH+'px' }">
+  <div class="content-wrapper"> 
+    <div class="input-wrapper communication-input">
+      <div class="input-title">Com valoraries la teva relació/comuncació amb els veïns?</div>
+      <label class="input-info">del 0 al 10 on 0 significa molt dolenta i 10 molt bona</label>
+      <div class="input-content">
+        <div class="input-response-wrapper">
+          <div v-for=" item in [0,1,2,3,4,5,6,7,8,9,10]" class="input-response" 
+            v-bind:active="communication == item"
+            v-on:click="onResponseClick( $event, 'communication', item )">
+            <div class="input-value">{{item}}</div>
+          </div>
+        </div>
+        <input type="range" min="0" max="10" v-model="communication" />
+      </div>
+      <subsection-controller
+        v-bind:visible="visible"
+        v-bind:offsetW="offsetW"
+        v-bind:container="h_container"
+        v-bind:section="'0'"
+        v-bind:current_section="section"
+        v-bind:current_subsection="subsection"
+        v-bind:boundaries="[0,6]"
+        v-bind:ready="communication != null"
+      ></subsection-controller>
+    </div>
+    <div class="input-wrapper implication-input">
+      <div class="input-title">Com valoraries la teva implicació en el teixit associatiu del barri?</div>
+      <label class="input-info">del 0 al 10 on 0 significa molt dolenta i 10 molt bona</label>
+      <div class="input-content">
+        <div class="input-response-wrapper">
+          <div v-for=" item in [0,1,2,3,4,5,6,7,8,9,10]" class="input-response" 
+            v-bind:active="implication == item"
+            v-on:click="onResponseClick( $event, 'implication', item )">
+            <div class="input-value">{{item}}</div>
+          </div>
+        </div>
+        <input type="range" min="0" max="10" v-model="implication" />
+      </div>
+      <subsection-controller
+        v-bind:visible="visible"
+        v-bind:offsetW="offsetW"
+        v-bind:container="h_container"
+        v-bind:section="'1'"
+        v-bind:current_section="section"
+        v-bind:current_subsection="subsection"
+        v-bind:boundaries="[0,6]"
+        v-bind:ready="implication != null"
+      ></subsection-controller>
+    </div>
+    <div class="input-wrapper esteem-input">
+      <div class="input-title">Quina estima li tens al barri?</div>
+      <label class="input-info">del 0 al 10 on 0 significa molt dolenta i 10 molt bona</label>
+      <div class="input-content">
+        <div class="input-response-wrapper">
+          <div v-for=" item in [0,1,2,3,4,5,6,7,8,9,10]" class="input-response" 
+            v-bind:active="esteem == item"
+            v-on:click="onResponseClick( $event, 'esteem', item )">
+            <div class="input-value">{{item}}</div>
+          </div>
+        </div>
+        <input type="range" min="0" max="10" v-model="esteem" />
+      </div>
+      <subsection-controller
+        v-bind:visible="visible"
+        v-bind:offsetW="offsetW"
+        v-bind:container="h_container"
+        v-bind:section="'2'"
+        v-bind:current_section="section"
+        v-bind:current_subsection="subsection"
+        v-bind:boundaries="[0,6]"
+        v-bind:ready="esteem != null"
+      ></subsection-controller>
+    </div>
+    <div class="input-wrapper leisure-input">
+      <div class="input-title">Quantes de les teves activitats en temps lliure les durs a terme al barri?</div>
+      <label class="input-info">del 0 al 10 on 0 significa cap ni una i 10 totes</label>
+      <div class="input-content">
+        <div class="input-response-wrapper">
+          <div v-for=" item in [0,1,2,3,4,5,6,7,8,9,10]" class="input-response" 
+            v-bind:active="leisure == item"
+            v-on:click="onResponseClick( $event, 'leisure', item )">
+            <div class="input-value">{{item}}</div>
+          </div>
+        </div>
+        <input type="range" min="0" max="10" v-model="leisure" />
+      </div>
+      <subsection-controller
+        v-bind:visible="visible"
+        v-bind:offsetW="offsetW"
+        v-bind:container="h_container"
+        v-bind:section="'3'"
+        v-bind:current_section="section"
+        v-bind:current_subsection="subsection"
+        v-bind:boundaries="[0,6]"
+        v-bind:ready="leisure != null"
+      ></subsection-controller>
+    </div>
+    <div class="input-wrapper experience-input">
+        <div class="input-title">Com valoraries les teves vivències/experiències al barri?</div>
+        <label class="input-info">del 0 al 10 on 0 significa cap ni una i 10 totes</label>
+        <div class="input-content">
+          <div class="input-response-wrapper">
+            <div v-for=" item in [0,1,2,3,4,5,6,7,8,9,10]" class="input-response" 
+              v-bind:active="experience == item"
+              v-on:click="onResponseClick( $event, 'experience', item )">
+              <div class="input-value">{{item}}</div>
+            </div>
+          </div>
+          <input type="range" min="0" max="10" v-model="experience" />
+        </div>
+        <subsection-controller
+          v-bind:visible="visible"
+          v-bind:offsetW="offsetW"
+          v-bind:container="h_container"
+          v-bind:section="'4'"
+          v-bind:current_section="section"
+          v-bind:current_subsection="subsection"
+          v-bind:boundaries="[0,6]"
+          v-bind:ready="experience != null"
+        ></subsection-controller>
+      </div>
+      <div class="input-wrapper family-input">
+        <div class="input-content">
+          <div class="input-response-wrapper">
+            <div class="input-title">Quants membres de la familia viviu al barri?</div>
+            <div class="input-content">
+              <input type="number" name="family" placeholder="" v-model:value="family"/>
+            </div>
+          </div>
+        </div>
+        <subsection-controller
+          v-bind:visible="visible"
+          v-bind:offsetW="offsetW"
+          v-bind:container="h_container"
+          v-bind:section="'5'"
+          v-bind:current_section="section"
+          v-bind:current_subsection="subsection"
+          v-bind:boundaries="[0,6]"
+          v-bind:ready="family != null"
+        ></subsection-controller>
+      </div>
+      <div class="input-wrapper reasons-input">
+        <div class="input-content">
+          <div class="input-response-wrapper">
+            <div class="input-title">D'entre les seguents opcions, quin creus que explicaria millor els motius de la teva residència al barri?</div>
+            <div class="input-content">
+              <label>Feina</label>
+              <input type="radio" name="reasons" value="work" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'work'"/>
+              <label>Estudis</label>
+              <input type="radio" name="reasons" value="studies" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'studies'"/>
+              <label>Familia</label>
+              <input type="radio" name="reasons" value="family" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'family'"/>
+              <label>Preu vivenda</label>
+              <input type="radio" name="reasons" value="price" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'price'"/>
+              <label>Zona geogràfica</label>
+              <input type="radio" name="reasons" value="geography" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'geography'"/>
+              <label>Altres</label>
+              <input type="radio" name="reasons" value="other" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'other'"/>
+            </div>
+          </div>
+        </div>
+        <subsection-controller
+          v-bind:visible="visible"
+          v-bind:offsetW="offsetW"
+          v-bind:container="h_container"
+          v-bind:section="'6'"
+          v-bind:current_section="section"
+          v-bind:current_subsection="subsection"
+          v-bind:boundaries="[0,6]"
+          v-bind:ready="family != null"
+        ></subsection-controller>
+      </div>
+  </div>
+</div>

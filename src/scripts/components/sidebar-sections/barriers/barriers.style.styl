@@ -1,0 +1,48 @@
+#barriers-component.barriers-component-wrapper
+  max-width: 200px
+  .content-wrapper
+    flex-direction: column
+    .message-wrapper
+      display: flex
+      justify-content: center
+      align-items: center
+      box-sizing: border-box
+      padding: 20px 10px
+      text-align: center
+    .mode-options-wrapper
+      display: flex
+      flex-direction: column
+      .mode-btn
+        flex 1
+        height 30px
+        border-radius: 25px
+        text-align: center
+        line-height: 28px
+        color: #ffffff
+        margin: 5px 0px
+        font-size: 0.85em
+        padding: 0px 10px
+        cursor pointer
+        &[disabled]
+          pointer-events: none
+          opacity 0.5
+        &.architecture-mode
+          background-color: #ff004d
+          &:hover
+            background-color: lighten(#ff004d, 20%)
+        &.acoustic-mode
+          background-color: #3c9ac7
+          &:hover
+            background-color: lighten(#3c9ac7, 20%)
+        &.luminic-mode
+          background-color: #fff860
+          &:hover
+            background-color: lighten(#fff860, 20%)
+        &.social-mode
+          background-color: #55ab71
+          &:hover
+            background-color: lighten(#55ab71, 20%)
+        &.save-mode
+          background-color: #555555
+          &:hover
+            background-color: lighten(#555555, 20%)

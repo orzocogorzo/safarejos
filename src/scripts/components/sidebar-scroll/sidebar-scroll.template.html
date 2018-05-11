@@ -11,6 +11,7 @@
       :offsetW="offsetWidth"
       v-on:im-ready="onSectionReady"
       :visible="router.current.name == 'cover'"
+      :active="router.current.name == 'cover'"
     ></cover-component>
     <home-component
       :offsetH="offsetHeight"
@@ -18,27 +19,69 @@
       v-on:im-ready="onSectionReady"
       v-on:add-map-data="addMapData"
       :visible="router.current.name == 'home'"
+      :active="router.current.name == 'home'"
     ></home-component>
     <personal-component
       :offsetH="offsetHeight"
       :offsetW="offsetWidth"
       v-on:im-ready="onSectionReady"
       :subsection="subsection"
+      :section="section"
       :visible="router.current.name == 'personal'"
+      :active="router.current.name == 'personal'"
     ></personal-component>
     <work-component
       :offsetH="offsetHeight"
       :offsetW="offsetWidth"
       v-on:im-ready="onSectionReady"
-      :subsection="subsection"
       :visible="router.current.name == 'work'"
+      :active="router.current.name == 'work'"
       v-on:add-map-data="addMapData"
     ></work-component>
+    <identity-component
+      :offsetH="offsetHeight"
+      :offsetW="offsetWidth"
+      v-on:im-ready="onSectionReady"
+      :subsection="subsection"
+      :section="section"
+      :visible="router.current.name == 'identity'"
+      :active="router.current.name == 'identity'"
+    ></identity-component>
+    <barriers-component
+      :offsetH="offsetHeight"
+      :offsetW="offsetWidth"
+      v-on:im-ready="forceSectionReady"
+      :visible="router.current.name == 'barriers'"
+      :active="router.current.name == 'barriers'"
+      :subsection="subsection"
+      :section="section"
+      v-on:clear-map-layers="clearMapLayers"
+      v-on:store-map-layer="storeMapLayer"
+    ></barriers-component>
+    <social-component
+      :offsetH="offsetHeight"
+      :offsetW="offsetWidth"
+      v-on:im-ready="onSectionReady"
+      v-on:add-map-data="addMapData"
+      :visible="router.current.name == 'social'"
+      :active="router.current.name == 'social'"
+      v-on:reset-map-selection="onResetMapSelection"
+    ></social-component>
+    <equipments-component
+      :offsetH="offsetHeight"
+      :offsetW="offsetWidth"
+      v-on:im-ready="onSectionReady"
+      v-on:add-map-data="addMapData"
+      :visible="router.current.name == 'equipments'"
+      :active="router.current.name == 'equipments'"
+      v-on:reset-map-selection="onResetMapSelection"
+    ></equipments-component>
     <end-component
       :offsetH="offsetHeight"
       :offsetW="offsetWidth"
       v-on:im-ready="onSectionReady"
       :visible="router.current.name == 'end'"
+      :active="router.current.name == 'end'"
       v-on:generate-data="onGenerateData( $event )"
     ></end-component>
   </div>

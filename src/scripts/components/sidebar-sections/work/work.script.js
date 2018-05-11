@@ -1,25 +1,17 @@
-export default {
+import baseSubsection from '../base-subsection/base-subsection.component';
+
+const component = {
   name: "work-component",
-  props: [ "offsetH", "offsetW", "subsection", "visible" ],
   data() {
     return {
       selection: undefined,
-      rawData: undefined
+      rawData: undefined,
+      h_modelName: "work"
     }
   },
   methods: {
-    isReady() {
-      let ready = Object.keys(this.$data).reduce(( m, k ) => {
-        m = m && this.$data[k] != undefined;
-        return m;
-      }, true );
-
-      if ( ready ) {
-        let data = this.selection != "no-response" && JSON.parse(JSON.stringify({ lng: this.$data.selection.properties.Longitud_X, lat: this.$data.selection.properties.Latitud_Y })) || "no-response"
-        this.$emit("im-ready", "work", data);
-      }
-
-      return ready; 
+    getData() {
+      return this.selection != "no-response" && { lng: this.$data.selection.properties.Longitud_X, lat: this.$data.selection.properties.Latitud_Y } || "no-response";
     },
 
     onEachFeature( feature, layer ) {
@@ -44,27 +36,21 @@ export default {
       e.target.setStyle({
         fillColor: "#f00"
       });
-
-      this.$emit( "im-ready", "work", JSON.parse(JSON.stringify({ lng: this.$data.selection.properties.Longitud_X, lat: this.$data.selection.properties.Latitud_Y })));
     },
 
     onMouseOut( e ) {
-      const layer = e.target;
-      layer.setStyle({
+      e.target.setStyle({
         fillOpacity: 0.25
       });
     },
 
     onMouseOver( e ) {
-      const layer = e.target;
-      layer.setStyle({
+      e.target.setStyle({
         fillOpacity: 0.75
       });
     },
 
-    requestData( ) {
-      this.isReady();
-      
+    requestData( ) {      
       if ( this.rawData ) {
         this.$emit("add-map-data", this.rawData, {
           onEachFeature: this.onEachFeature
@@ -74,7 +60,7 @@ export default {
       
       const self = this;
       const req = new XMLHttpRequest();
-      req.open( "get", "http://localhost:8000/data/json/municipis.json", true );
+      req.open( "get", location.protocol + '//' + location.host +'/' + environment.apiURL + "/municipis.json", true );
       req.onreadystatechange = function( ev ) {
         if ( this.status === 200 && this.readyState === 4 ) {
           self.rawData = JSON.parse( this.responseText );
@@ -102,3 +88,5 @@ export default {
     }
   }
 };
+
+export default baseSubsection.extend( component );

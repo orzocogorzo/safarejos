@@ -2,6 +2,16 @@ import Vue from 'vue';
 import Router from './services/Router';
 import Controller from './services/Controller';
 
+window.onresize = function( e ) {
+  for ( let fn of this.resizeListeners ) {
+    if ( typeof fn === "function" ) {
+      fn( e );
+    }
+  }
+}
+
+window.resizeListeners = [];
+
 const routerComponent = {
   name: 'router-component',
   template: '<div id="router-component" class="router-component-wrapper"></div>',

@@ -11,6 +11,8 @@
       background-color: #688298
       > div:hover
         background-image: url('../../../../assets/images/right-double-arrow.svg')
+  &:not(.active)
+    display: none
   .draw-control-toggler
     border-radius: 50%
     border: 2px solid #fffa
@@ -50,6 +52,9 @@
       max-height 65px
       cursor: pointer
       transition: background-color 0.3s
+      &[disabled]
+        opacity 0.5
+        pointer-events: none
       &[active] .option-button__background-wrapper
         background-color: #ffffff33
         &:hover

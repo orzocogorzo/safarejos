@@ -6,9 +6,6 @@ export default {
   name: "sidebar-view",
   props: [ "scrollhash", "styleList", "map" ],
   watch: {
-    // scrollhash: function( val ) {
-    //   return val;
-    // },
     styleList: function( val ) {
       Object.keys( val ).map( k => {
         this.$el.style[k] = String(val[k]);
@@ -20,20 +17,32 @@ export default {
       model[section] = data;
     },
 
-    addMapData( data, layerOptions, viewOptions ) {
-      const _options = layerOptions || new Object();
-
+    clearMapLayers( viewOptions ) {
       this.map.eachLayer(layer => {
-        if ( layer.options.isAuxiliar ) {
+        if ( layer.options.isAuxiliar || layer.options.isOverlay ) {
           this.map.removeLayer( layer );
         }
       });
 
-      const layer = L.geoJSON(data, Object.assign(_options, {
+      if ( viewOptions ) {
+        this.map.setView( viewOptions.latlng, viewOptions.zoom ); 
+      }
+    },
+
+    addMapData( data, layerOptions, viewOptions ) {
+      const _options = layerOptions || new Object();
+
+      this.map.eachLayer(layer => {
+        if ( layer.options.isAuxiliar || layer.options.isOverlay ) {
+          this.map.removeLayer( layer );
+        }
+      });
+
+      const layer = L.geoJSON( data, Object.assign( _options, {
         isAuxiliar: true
       }));
       
-      layer.addTo(this.map);
+      layer.addTo( this.map );
 
       if ( viewOptions ) {
         this.map.setView( viewOptions.latlng, viewOptions.zoom ); 
@@ -53,6 +62,30 @@ export default {
           document.body.removeChild(a);
           window.URL.revokeObjectURL(url);  
       }, 0);
+    },
+
+    storeMapLayer( section, key ) {
+      this.map.eachLayer(( layer ) => {
+        if ( layer.options.isOverlay && !layer.options.isStored ) {
+          let json = layer.toGeoJSON();
+          if ( json.type === "FeatureCollection" ) {
+            model[section] = model[section] || new Object();
+            model[section][key] = json;
+            layer.options.isStored = true;
+          }
+        }
+      });
+      this.map.fire("storeddata");
+    },
+
+    resetMapSelection( e ) {
+      this.map.eachLayer(layer => {
+        if ( layer.options.isAuxiliar ) {
+          layer.setStyle({
+            fillColor: "#3388ff"
+          });
+        }
+      });
     }
   },
   components: {
