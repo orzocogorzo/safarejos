@@ -18,11 +18,13 @@ const BrushController = (function(){
       currentFeature = this.genFeature( 'LineString' );
       index++;
     }
+    // currentFeature = this.genFeature( 'LineString' );
+    // index++;
   }
 
   function onMouseMove( evt ) {
     if ( _state.down ) {
-      console.log( 'mousemove', evt );
+      // console.log( 'mousemove', evt );
       currentFeature.geometry.coordinates.push([ this.mapCoords.lng, this.mapCoords.lat ]);
       
       if ( index != len ) {
@@ -37,7 +39,7 @@ const BrushController = (function(){
   }
 
   function onTouchMove( evt ) {
-    console.log( evt );
+    // console.log( evt );
     const e = new MouseEvent('mousemove', Object.keys(evt).reduce((m,k) => {
       m[k] = evt[k];
       return m;
@@ -45,11 +47,11 @@ const BrushController = (function(){
     // const map = document.getElementById('map');
     // document.dispatchEvent(e);
     this.map.fireEvent('mousemove', e );
-    console.log( e );
+    // console.log( e );
   }
 
   function onMouseUp( evt ) {
-    console.log( 'mouseUp' );
+    // console.log( 'mouseUp' );
     _state.down = false;
     _state.up = true;
     currentFeature = undefined;
@@ -88,11 +90,11 @@ const BrushController = (function(){
       return this;
     }
 
-    unbind( ) {
-      super.unbind( );
-      setTimeout(() => this.collection = undefined, 0);
-      return this.collection;
-    }
+    // unbind( ) {
+    //   result = super.unbind( );
+    //   // setTimeout(() => this.collection = undefined, 0);
+    //   // return this.collection;
+    // }
 
     static id() {
       return "brush-controller";

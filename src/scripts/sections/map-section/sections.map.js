@@ -47,6 +47,14 @@ export default {
       flex: 0
     }
   },
+  paths: {
+    map: {
+      flex: 1
+    },
+    sidebar: {
+      flex: 0
+    }
+  },
   social: {
     map: {
       flex: 1

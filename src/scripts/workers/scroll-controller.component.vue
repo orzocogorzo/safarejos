@@ -43,7 +43,15 @@ export default {
     onPrevious( evt ) {
       location.hash = this.previous.ready && this.previous.hash || location.hash
     }
-  }
+  },
+  // watch: {
+  //   next: {
+  //     handler: ( val ) => {
+  //       console.log( val );
+  //     },
+  //     deep: true
+  //   }
+  // }
 }
 </script>
 

@@ -12,7 +12,10 @@ export default {
     return {
       map: undefined,
       drawTool: null,
-      drawColor: null
+      drawColor: null,
+      drawProperties: null,
+      section: null,
+      subsection: null
     }
   },
   props: [ "mounted", "styleList", "scrollhash" ],
@@ -35,8 +38,16 @@ export default {
       }, 1600 );
     },
     scrollhash( val ) {
-      this.drawTool = drawOptionsMap[this.scrollhash.section] && drawOptionsMap[this.scrollhash.section].tool;
-      this.drawColor = ['#ff004d','#3c9ac7','#fff860','#55ab71'][this.scrollhash.subsection];
+      this.drawTool = drawOptionsMap[val.section]
+        && drawOptionsMap[val.section].tools[val.subsection]
+        && drawOptionsMap[val.section].tools[val.subsection]
+        || [];
+      this.drawColor = ['#fff0','#ff004d','#3c9ac7','#fff860','#55ab71'][val.subsection];
+      this.drawProperties = drawOptionsMap[val.section]
+        && drawOptionsMap[val.section].properties
+        || [];
+      this.section = val.section;
+      this.subsection = val.subsection;
     }
   },
   methods: {
@@ -53,8 +64,8 @@ export default {
         this.map.dragging.enable();
         this.map.touchZoom.enable();
         this.map.doubleClickZoom.enable();
-        this.map.scrollWheelZoom.enable();
-        this.map.boxZoom.enable();
+        // this.map.scrollWheelZoom.enable();
+        // this.map.boxZoom.enable();
         this.map.keyboard.enable();
         if (this.map.tap) this.map.tap.enable();
         document.getElementById('map').style.cursor='-webkit-grab';
@@ -62,8 +73,8 @@ export default {
         this.map.dragging.disable();
         this.map.touchZoom.disable();
         this.map.doubleClickZoom.disable();
-        this.map.scrollWheelZoom.disable();
-        this.map.boxZoom.disable();
+        // this.map.scrollWheelZoom.disable();
+        // this.map.boxZoom.disable();
         this.map.keyboard.disable();
         if (this.map.tap) this.map.tap.disable();
         document.getElementById('map').style.cursor='crosshair';

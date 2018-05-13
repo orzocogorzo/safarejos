@@ -6,9 +6,10 @@ export default {
     work: 3,
     identity: 4,
     barriers: 5,
-    social: 6,
-    equipments: 7,
-    end: 8
+    paths: 6,
+    social: 7,
+    equipments: 8,
+    end: 9
   },
   index: {
     0: "cover",
@@ -17,8 +18,9 @@ export default {
     3: "work",
     4: "identity",
     5: "barriers",
-    6: "social",
-    7: "equipments",
-    8: "end"
+    6: "paths",
+    7: "social",
+    8: "equipments",
+    9: "end"
   }
 }

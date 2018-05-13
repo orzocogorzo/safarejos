@@ -7,6 +7,7 @@ import IdentityComponent from '../sidebar-sections/identity/identity.component.v
 import EquipmentsComponent from '../sidebar-sections/equipments/equipments.component.vue';
 import SocialComponent from '../sidebar-sections/social/social.component.vue';
 import BarriersComponent from '../sidebar-sections/barriers/barriers.component.vue';
+import PathsComponent from '../sidebar-sections/paths/paths.component.vue';
 
 import ScrollController from '../../workers/scroll-controller.component.vue';
 
@@ -59,7 +60,8 @@ export default {
     EquipmentsComponent,
     SocialComponent,
     BarriersComponent,
-    ScrollController
+    ScrollController,
+    PathsComponent
   },
   watch: {
     scrollhash: function( val ) {

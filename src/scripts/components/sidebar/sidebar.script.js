@@ -65,17 +65,10 @@ export default {
     },
 
     storeMapLayer( section, key ) {
-      this.map.eachLayer(( layer ) => {
-        if ( layer.options.isOverlay && !layer.options.isStored ) {
-          let json = layer.toGeoJSON();
-          if ( json.type === "FeatureCollection" ) {
-            model[section] = model[section] || new Object();
-            model[section][key] = json;
-            layer.options.isStored = true;
-          }
-        }
-      });
-      this.map.fire("storeddata");
+      this.map.fire("storedata");
+      // model[section] = model[section] || new Object();
+      model[section] = this.map.__data__;
+      // this.map.__data__ = null;
     },
 
     resetMapSelection( e ) {

@@ -50,7 +50,7 @@
     <barriers-component
       :offsetH="offsetHeight"
       :offsetW="offsetWidth"
-      v-on:im-ready="forceSectionReady"
+      v-on:im-ready="onSectionReady"
       :visible="router.current.name == 'barriers'"
       :active="router.current.name == 'barriers'"
       :subsection="subsection"
@@ -58,6 +58,17 @@
       v-on:clear-map-layers="clearMapLayers"
       v-on:store-map-layer="storeMapLayer"
     ></barriers-component>
+    <paths-component
+      :offsetH="offsetHeight"
+      :offsetW="offsetWidth"
+      v-on:im-ready="forceSectionReady"
+      :visible="router.current.name == 'paths'"
+      :active="router.current.name == 'paths'"
+      :subsection="subsection"
+      :section="section"
+      v-on:clear-map-layers="clearMapLayers"
+      v-on:store-map-layer="storeMapLayer"
+    ></paths-component>
     <social-component
       :offsetH="offsetHeight"
       :offsetW="offsetWidth"

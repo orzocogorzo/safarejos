@@ -1,4 +1,4 @@
-<div id="draw-control" class="draw-control-wrapper" :class="{ hidden: hidden, active: Boolean(currentTool) }">
+<div id="draw-control" class="draw-control-wrapper" :class="{ hidden: hidden, active: Boolean(currentTools) }">
   <div class="draw-control-content">
     <div 
       v-for="option in options"
@@ -7,7 +7,7 @@
       :controller="option.controller"
       v-on:click="onOptionClicked( $event, option )"
       class="option-button"
-      :disabled="option.name != currentTool && (option.name != 'eraser' && option.name != 'drag')">
+      :disabled="!currentTools || currentTools && currentTools.indexOf(option.name) == -1 && (option.name != 'eraser' && option.name != 'drag')">
       <div class="option-button__wrapper">
         <div class="option-button__background-wrapper"></div>
       </div>

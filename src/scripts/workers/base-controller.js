@@ -1,3 +1,5 @@
+var FeatureID = -1;
+
 const BaseController = (function(){
 
 //   // private code block
@@ -13,14 +15,18 @@ const BaseController = (function(){
     };
   });
 
-  const Feature = (function( type ) {
+  const Feature = (function( type, subsection ) {
+    FeatureID++;
     return {
       "type": "Feature",
       "geometry": {
         "type": type,
         "coordinates": []
       },
-      "properties": {}
+      "properties": {
+        "_id": FeatureID,
+        "_type": subsection
+      }
     };
   });
     
@@ -28,9 +34,13 @@ const BaseController = (function(){
 
     constructor( options ) {
       // public attributes
-      this.map = options.map;
-      this.color = options.color;
-      this.canvas = options.canvas;
+      // this.map = options.map;
+      // this.color = options.color;
+      // this.canvas = options.canvas;
+      Object.keys( options ).map(( k ) => {
+        this[k] = options[k];
+      });
+
       this.mapCoords = undefined;
       this.active = null;
 
@@ -62,12 +72,15 @@ const BaseController = (function(){
         "color": this.color
       };
 
-      this.map.on('storeddata', (function(e) {
+      this.map.on('storedata', ( function(e) {
         if ( this.active ) {
-          this.collection = this.genCollection()
-          this.layer = this.genLayer();
+          this.map.__data__.features = this.collection && this.map.__data__.features.concat(this.collection.features) 
+            || this.map.__data__.features;
+          this.genCollection()
+          this.genLayer();
         }
       }).bind(this));
+
     }
 
     // public methods
@@ -99,6 +112,13 @@ const BaseController = (function(){
         this.mapCoords = evt.latlng;
       });
 
+      setTimeout(() => {
+        this.genCollection()
+        this.genLayer()
+      }, 0);
+
+      return this.collection;
+
     }
 
     genCollection(){
@@ -106,12 +126,11 @@ const BaseController = (function(){
     }
 
     genFeature( type ) {
-      return new Feature( type );
+      return new Feature( type, this.type );
     }
 
     clearData() {
       if ( this.collection ) {
-        // this.layer.clearLayers();
         this.map.eachLayer( layer => {
           layer.options.isOverlay && this.map.removeLayer( layer );
         });
@@ -132,6 +151,10 @@ const BaseController = (function(){
       this.color = color;
       this.layerStyle.color = this.color;
       this.layer && this.layer.setStyle(this.layerStyle);
+    }
+
+    setSubsection( type ) {
+      this.type = type;
     }
 
     static id() {

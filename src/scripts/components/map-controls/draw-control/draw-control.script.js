@@ -2,10 +2,14 @@ import BrushController from '../../../workers/brush.controller';
 import LineController from '../../../workers/line.controller';
 import PolygonController from '../../../workers/polygon.controller';
 import PointController from '../../../workers/point-controller';
+import FormController from '../../../workers/form-controller';
+import EraseController from '../../../workers/erase-controller';
+
+import sectionsMap from './sections.map';
 
 export default {
   name: "draw-control",
-  props: [ "map", "currentTool", "color" ],
+  props: [ "map", "currentTools", "color", "properties", "section", "subsection" ],
   data() {
     return {
       options: [
@@ -35,24 +39,30 @@ export default {
           controller: "polygon-controller"
         },
         {
+          name: "form",
+          active: false,
+          controller: "form-controller"
+        },
+        {
           name: "eraser",
           active: false,
-          controller: "eraser"
-        }
+          controller: "erase-controller"
+        },
       ],
       hidden: true,
       controllers: {
         "brush-controller": null,
         "line-controller": null,
         "point-controller": null,
-        "polygon-controller": null
+        "polygon-controller": null,
+        "form-controller": null,
+        "erase-controller": null
       },
       controller: null,
       features: {
         "type": "FeaturesCollection",
         "features": []
-      },
-      // color: '#900C3F'
+      }
     }
   },
   
@@ -60,6 +70,7 @@ export default {
     toggleVisibility() {
       this.hidden = !this.hidden;
     },
+
     onOptionClicked( evt, option ) {
       this.options.map(d => d.active = false);
       option.active = !option.active;
@@ -69,13 +80,15 @@ export default {
     storeMapData() {
       let result = this.controller && this.controller.unbind() || { features: [] };
       this.features.features = this.features.features.concat( result.features );
+      this.map.__data__ = this.features;
     },
 
     clearMapData() {
-      this.controller && this.controller.clearData() || this.map.eachLayer(layer => {
-        layer.options.isOverlay && this.map.removeLayer( layer );
-      });
+      // this.controller && this.controller.clearData() || this.map.eachLayer(layer => {
+      //   layer.options.isOverlay && this.map.removeLayer( layer );
+      // });
       this.features.features = [];
+      this.map.__data__ = null;
     },
 
     selectMode( controller ) {
@@ -86,17 +99,21 @@ export default {
 
       this.controller && this.controller.unbind();
 
-      if (controller === "eraser" ) {
-        this.clearMapData();
+      if (controller === "erase-controller" ) {
+        this.$emit("mode-change", { drag: true });
+        this.storeMapData();
+        this.controller = this.controllers[ controller ];
+        this.controller.captureInteraction();
+        this.controller.active = true;
       } else if ( controller != "l-pan-controller" ) {
         this.$emit("mode-change", { drag: false });
-        // this.storeMapData();
+        this.storeMapData();
         this.controller = this.controllers[ controller ];
         this.controller.captureInteraction();
         this.controller.active = true;
       } else {
         this.$emit("mode-change", { drag: true });
-        // this.storeMapData();
+        this.storeMapData();
       }
     },
 
@@ -126,7 +143,18 @@ export default {
         canvas: mapEl
       });
 
-      // this.controllers["brush-controller"].active = true;
+      this.controllers["form-controller"] = new FormController({
+        map: this.map,
+        color: this.color,
+        canvas: mapEl,
+        properties: this.properties
+      });
+
+      this.controllers["erase-controller"] = new EraseController({
+        map: this.map,
+        color: this.color,
+        canvas: mapEl
+      });
     }
   },
   watch: {
@@ -134,12 +162,22 @@ export default {
       if ( val ) {
         this.setupControllers();
       }
-      return val;
     },
     color( val ) {
       Object.keys(this.controllers).map((k) => {
         this.controllers[k].setColor(this.color);
       })
+    },
+    section( val ) {
+      this.features = {
+        "type": "FeatureCollection",
+        "features": []
+      }
+    },
+    subsection( val ) {
+      Object.keys(this.controllers).map((k) => {
+        this.controllers[k].setSubsection( sectionsMap[this.section] && sectionsMap[this.section][this.subsection] || null )
+      });
     }
   }
 }

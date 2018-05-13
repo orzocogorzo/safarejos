@@ -5,6 +5,9 @@ const component = {
   methods: {
     generateData( e ) {
       this.$emit("generate-data", e );
+    },
+    isReady( e ) {
+      //
     }
   }
 };
