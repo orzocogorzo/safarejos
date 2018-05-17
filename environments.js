@@ -4,7 +4,7 @@ module.exports = {
     apiURL: 'data'
   },
   pi: {
-    name: 'raspberry',
+    name: 'raspberry_env',
     apiURL: 'rs/json',
     host: "http://www.orzopi.tk"
   },
