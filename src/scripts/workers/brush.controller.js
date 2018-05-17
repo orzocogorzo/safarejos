@@ -5,7 +5,11 @@ const BrushController = (function(){
 
   // private code block
 
+  let event;
+
   function onMouseDown( evt ) {
+    // console.log( 'mousedown', evt );
+    event = evt;
     _state.down = true;
     _state.up = false;
 
@@ -24,7 +28,9 @@ const BrushController = (function(){
 
   function onMouseMove( evt ) {
     if ( _state.down ) {
-      // console.log( 'mousemove', evt );
+      if ( !this.mapCoords ) {
+        return
+      }
       currentFeature.geometry.coordinates.push([ this.mapCoords.lng, this.mapCoords.lat ]);
       
       if ( index != len ) {
@@ -39,19 +45,12 @@ const BrushController = (function(){
   }
 
   function onTouchMove( evt ) {
-    // console.log( evt );
-    const e = new MouseEvent('mousemove', Object.keys(evt).reduce((m,k) => {
-      m[k] = evt[k];
-      return m;
-    }, {} ));
-    // const map = document.getElementById('map');
-    // document.dispatchEvent(e);
-    this.map.fireEvent('mousemove', e );
-    // console.log( e );
+    map.dispatchEvent( new MouseEvent('mousemove', evt.touches["0"]) );
+    onMouseMove.call( this );
   }
 
   function onMouseUp( evt ) {
-    // console.log( 'mouseUp' );
+    // console.log( 'mouseUp', evt );
     _state.down = false;
     _state.up = true;
     currentFeature = undefined;

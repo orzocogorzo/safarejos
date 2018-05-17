@@ -1,7 +1,7 @@
 import MapView from '../../components/map-view/map-view.vue';
 import SidebarView from '../../components/sidebar/sidebar.vue';
 
-import sectionsMap from './sections.map';
+import sectionsMap from '../../config-maps/layout-sections.map';
 
 export default {
   name: "map-section",

@@ -17,10 +17,27 @@
       // &:not([visible])
       //   min-width: 0px
       //   max-width: 0px
-      .input-content
+      .input-content-wrapper
         display: flex
-      &.social-input
+        width: 350px
+        justify-content: center //space-evenly
+        align-items: center
+        padding: 20px
+        .input-title
+          font-weight: 600
+          max-width: 100px
+          text-align: end
         .input-content
-          flex-direction: column
+          display: flex
+          min-width: 100px
+          margin-left: 20px
+          &.type-radio
+            flex-direction: column
+            .opt
+              display: flex
+              padding-left: 20%
+      // &.social-input
+      //   .input-content
+      //     flex-direction: column
       &.age-input
         flex: 0.5

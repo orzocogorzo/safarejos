@@ -26,7 +26,7 @@
     </div>
     <div class="input-wrapper implication-input">
       <div class="input-title">Com valoraries la teva implicació en el teixit associatiu del barri?</div>
-      <label class="input-info">del 0 al 10 on 0 significa molt dolenta i 10 molt bona</label>
+      <label class="input-info">del 0 al 10 on 0 significa inexistent i 10 molta</label>
       <div class="input-content">
         <div class="input-response-wrapper">
           <div v-for=" item in [0,1,2,3,4,5,6,7,8,9,10]" class="input-response" 
@@ -50,7 +50,7 @@
     </div>
     <div class="input-wrapper esteem-input">
       <div class="input-title">Quina estima li tens al barri?</div>
-      <label class="input-info">del 0 al 10 on 0 significa molt dolenta i 10 molt bona</label>
+      <label class="input-info">del 0 al 10 on 0 significa gens i 10 molta</label>
       <div class="input-content">
         <div class="input-response-wrapper">
           <div v-for=" item in [0,1,2,3,4,5,6,7,8,9,10]" class="input-response" 
@@ -98,7 +98,7 @@
     </div>
     <div class="input-wrapper experience-input">
         <div class="input-title">Com valoraries les teves vivències/experiències al barri?</div>
-        <label class="input-info">del 0 al 10 on 0 significa cap ni una i 10 totes</label>
+        <label class="input-info">del 0 al 10 on 0 significa molt dolentes i 10 molt bones</label>
         <div class="input-content">
           <div class="input-response-wrapper">
             <div v-for=" item in [0,1,2,3,4,5,6,7,8,9,10]" class="input-response" 
@@ -121,14 +121,10 @@
         ></subsection-controller>
       </div>
       <div class="input-wrapper family-input">
-        <div class="input-content">
-          <div class="input-response-wrapper">
-            <div class="input-title">Quants membres de la familia viviu al barri?</div>
-            <div class="input-content">
-              <input type="number" name="family" placeholder="" v-model:value="family"/>
-            </div>
+          <div class="input-title">Quants membres de la familia viviu al barri?</div>
+          <div class="input-content">
+            <input type="number" name="family" placeholder="" v-model:value="family"/>
           </div>
-        </div>
         <subsection-controller
           v-bind:visible="visible"
           v-bind:offsetW="offsetW"
@@ -141,23 +137,31 @@
         ></subsection-controller>
       </div>
       <div class="input-wrapper reasons-input">
-        <div class="input-content">
-          <div class="input-response-wrapper">
-            <div class="input-title">D'entre les seguents opcions, quin creus que explicaria millor els motius de la teva residència al barri?</div>
-            <div class="input-content">
-              <label>Feina</label>
-              <input type="radio" name="reasons" value="work" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'work'"/>
-              <label>Estudis</label>
-              <input type="radio" name="reasons" value="studies" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'studies'"/>
-              <label>Familia</label>
-              <input type="radio" name="reasons" value="family" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'family'"/>
-              <label>Preu vivenda</label>
-              <input type="radio" name="reasons" value="price" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'price'"/>
-              <label>Zona geogràfica</label>
-              <input type="radio" name="reasons" value="geography" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'geography'"/>
-              <label>Altres</label>
-              <input type="radio" name="reasons" value="other" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'other'"/>
-            </div>
+        <div class="input-title">D'entre les següents opcions, quin creus que explicaria millor els motius de la teva residència al barri?</div>
+        <div class="input-content type-radio">
+          <div class="opt">
+            <input type="radio" name="reasons" value="work" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'work'"/>
+            <label>Feina</label>
+          </div>
+          <div class="opt">
+            <input type="radio" name="reasons" value="studies" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'studies'"/>
+            <label>Estudis</label>
+          </div>
+          <div class="opt">
+            <input type="radio" name="reasons" value="family" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'family'"/>
+            <label>Familia</label>
+          </div>
+          <div class="opt">
+            <input type="radio" name="reasons" value="price" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'price'"/>
+            <label>Preu vivenda</label>
+          </div>
+          <div class="opt">
+            <input type="radio" name="reasons" value="geography" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'geography'"/>
+            <label>Zona geogràfica</label>
+          </div>
+          <div class="opt">
+            <input type="radio" name="reasons" value="other" v-on:click="onReasonsChange( $event )" v-bind:checked="reasons === 'other'"/>
+            <label>Altres</label>
           </div>
         </div>
         <subsection-controller

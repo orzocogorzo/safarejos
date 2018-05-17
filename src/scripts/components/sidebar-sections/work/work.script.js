@@ -1,13 +1,19 @@
 import baseSubsection from '../base-subsection/base-subsection.component';
+import municipis from '../../../data/municipis';
+
+var debouncedEmitter;
 
 const component = {
   name: "work-component",
   data() {
     return {
       selection: undefined,
-      rawData: undefined,
+      h_rawData: null,
       h_modelName: "work"
     }
+  },
+  mounted(){
+    this.h_rawData = municipis;
   },
   methods: {
     getData() {
@@ -34,42 +40,60 @@ const component = {
       });
 
       e.target.setStyle({
-        fillColor: "#f00"
+        fillColor: "#f53"
       });
+
+      clearTimeout( debouncedEmitter );
+      this.$emit("open-popup", L.popup()
+        .setLatLng( e.sourceTarget.getCenter() )
+        .setContent( e.sourceTarget.feature.properties.Municipi )
+      );
     },
 
     onMouseOut( e ) {
       e.target.setStyle({
         fillOpacity: 0.25
       });
+
+      clearTimeout( debouncedEmitter );
+      this.$emit("close-popup");
     },
 
     onMouseOver( e ) {
       e.target.setStyle({
         fillOpacity: 0.75
       });
+
+      clearTimeout( debouncedEmitter );
+      debouncedEmitter = setTimeout(() => {
+        this.$emit("open-popup", L.popup()
+          .setLatLng( e.sourceTarget.getCenter() )
+          .setContent( e.sourceTarget.feature.properties.Municipi )
+        );
+      }, 500 );
     },
 
     requestData( ) {      
-      if ( this.rawData ) {
-        this.$emit("add-map-data", this.rawData, {
+      if ( this.h_rawData ) {
+        this.$emit("add-map-data", this.h_rawData, {
           onEachFeature: this.onEachFeature
-        });
+        }, { latlng: [ 41.39844522006508, 2.059593200683594 ], zoom: 11 });
         return;
       }
       
-      const self = this;
-      const req = new XMLHttpRequest();
-      req.open( "get", location.protocol + '//' + location.host +'/' + environment.apiURL + "/municipis.json", true );
-      req.onreadystatechange = function( ev ) {
-        if ( this.status === 200 && this.readyState === 4 ) {
-          self.rawData = JSON.parse( this.responseText );
-          self.$emit("add-map-data", self.rawData, {
-            onEachFeature: self.onEachFeature
-          }, { latlng: [ 41.39844522006508, 2.059593200683594 ], zoom: 11 });
-        }
-      }
-      req.send();
+      // const self = this;
+      // const req = new XMLHttpRequest();
+      // const url = location.protocol + '//' + location.host +'/' + environment.apiURL + "/municipis.json";
+      // req.open( "get", url, true );
+      // req.onreadystatechange = function( ev ) {
+      //   if ( this.status === 200 && this.readyState === 4 ) {
+      //     self.rawData = JSON.parse( this.responseText );
+      //     self.$emit("add-map-data", self.rawData, {
+      //       onEachFeature: self.onEachFeature
+      //     }, { latlng: [ 41.39844522006508, 2.059593200683594 ], zoom: 11 });
+      //   }
+      // }
+      // req.send();
     },
 
     onContinue(){

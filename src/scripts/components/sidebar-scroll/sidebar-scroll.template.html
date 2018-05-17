@@ -37,6 +37,8 @@
       :visible="router.current.name == 'work'"
       :active="router.current.name == 'work'"
       v-on:add-map-data="addMapData"
+      v-on:open-popup="onOpenPopup"
+      v-on:close-popup="onClosePopup"
     ></work-component>
     <identity-component
       :offsetH="offsetHeight"
@@ -61,7 +63,7 @@
     <paths-component
       :offsetH="offsetHeight"
       :offsetW="offsetWidth"
-      v-on:im-ready="forceSectionReady"
+      v-on:im-ready="onSectionReady"
       :visible="router.current.name == 'paths'"
       :active="router.current.name == 'paths'"
       :subsection="subsection"
@@ -86,7 +88,18 @@
       :visible="router.current.name == 'equipments'"
       :active="router.current.name == 'equipments'"
       v-on:reset-map-selection="onResetMapSelection"
+      v-on:open-popup="onOpenPopup"
+      v-on:close-popup="onClosePopup"
     ></equipments-component>
+    <description-component
+      :offsetH="offsetHeight"
+      :offsetW="offsetWidth"
+      v-on:im-ready="onSectionReady"
+      :visible="router.current.name == 'description'"
+      :active="router.current.name == 'description'"
+      :subsection="subsection"
+      :section="section">
+    </description-component>
     <end-component
       :offsetH="offsetHeight"
       :offsetW="offsetWidth"

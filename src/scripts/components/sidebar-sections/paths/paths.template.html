@@ -1,5 +1,6 @@
 <div id="paths-component" :visible="visible" class="paths-component-wrapper sidebar-scroll-section" v-bind:style="{ maxHeight: offsetH+'px', minHeight: offsetH+'px' }">
   <div class="content-wrapper">
-    <div class="message-wrapper">Dibuixa sobre el mapa les rutes que segueixes habitualment</div>
+    <div class="message-wrapper">Dibuixa sobre el mapa els trajectes que realitzes habitualment, ja sigui caminant, en cotxe, transport públic o bicicleta.</div>
+    <div class="mode-btn save-mode" v-on:click="onStoreData">Guardar</div>
   </div>
 </div>

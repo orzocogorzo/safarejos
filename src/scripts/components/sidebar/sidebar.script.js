@@ -14,7 +14,9 @@ export default {
   },
   methods: {
     storeSectionData( section, data ) {
-      model[section] = data;
+      if ( section ) {
+        model[section] = data;
+      }
     },
 
     clearMapLayers( viewOptions ) {
@@ -79,6 +81,14 @@ export default {
           });
         }
       });
+    },
+
+    onOpenPopup( popup ) {
+      popup.openOn( this.map );
+    },
+
+    onClosePopup() {
+      this.map.closePopup();
     }
   },
   components: {

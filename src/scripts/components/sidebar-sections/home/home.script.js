@@ -4,10 +4,13 @@ const component = {
   name: "home-component",
   data: function() {
     return {
-      selection: false,
-      h_rawData: undefined,
+      selection: undefined,
+      h_rawData: null,
       h_modelName: "home"
     }
+  },
+  mounted() {
+    this.h_rawData = parceles;
   },
   methods: {
     getData: function() {
@@ -34,7 +37,7 @@ const component = {
       });
 
       e.target.setStyle({
-        fillColor: "#f00"
+        fillColor: "#f53"
       });
 
       this.$emit( "im-ready", "home", JSON.parse(JSON.stringify( this.getData() )));
@@ -58,22 +61,23 @@ const component = {
       if ( this.h_rawData ) {
         this.$emit("add-map-data", this.h_rawData, {
           onEachFeature: this.onEachFeature
-        });
+        }, { latlng: [ 41.43552791811532, 2.2124925255775456 ], zoom: 18 });
+        return
       }
 
-      const self = this;
-      const req = new XMLHttpRequest();
-      const url = location.protocol + '//' + location.host +'/' + environment.apiURL + "/parceles.json";
-      req.open( "get", url, true );
-      req.onreadystatechange = function( ev ) {
-        if ( this.status === 200 && this.readyState === 4 ) {
-          self.h_rawData = JSON.parse( this.responseText);
-          self.$emit("add-map-data", self.h_rawData, {
-            onEachFeature: self.onEachFeature
-          }, { latlng: [ 41.43552791811532, 2.2124925255775456 ], zoom: 18 });
-        }
-      }
-      req.send();
+      // const self = this;
+      // const req = new XMLHttpRequest();
+      // const url = location.protocol + '//' + location.host +'/' + environment.apiURL + "/parceles.json";
+      // req.open( "get", url, true );
+      // req.onreadystatechange = function( ev ) {
+      //   if ( this.status === 200 && this.readyState === 4 ) {
+      //     self.h_rawData = JSON.parse( this.responseText);
+      //     self.$emit("add-map-data", self.h_rawData, {
+      //       onEachFeature: self.onEachFeature
+      //     }, { latlng: [ 41.43552791811532, 2.2124925255775456 ], zoom: 18 });
+      //   }
+      // }
+      // req.send();
     }
   },
   watch: {

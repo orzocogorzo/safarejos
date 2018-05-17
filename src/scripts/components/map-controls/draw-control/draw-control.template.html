@@ -1,4 +1,4 @@
-<div id="draw-control" class="draw-control-wrapper" :class="{ hidden: hidden, active: Boolean(currentTools) }">
+<div id="draw-control" class="draw-control-wrapper" :class="{ hidden: hidden, active: Boolean(currentTools && currentTools.length) }">
   <div class="draw-control-content">
     <div 
       v-for="option in options"

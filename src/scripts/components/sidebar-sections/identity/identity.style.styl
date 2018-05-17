@@ -8,19 +8,43 @@
       align-items: center
       flex: 1
       transition: all 1s
+      .input-title
+        font-weight: 600
+        font-size: 0.9em
+        margin: 10px 0px
+        max-width: 80%
+        text-align: center
+      .input-info
+        color: #333
+        font-size: 0.8em
       .input-content
         display: flex
         flex-direction: column
         width: 60%
         padding: 20px
         box-sizing: border-box
+        align-items: center
+        &.type-radio
+          flex-direction: row
+          flex-wrap: wrap
+          .opt
+            min-width: 100px
+            flex: 1
+            display: flex
+            justify-content: flex-start
+            align-items: center
+            label
+              margin-left: 5px
         .input-response-wrapper
           display: flex
           flex-direction: row
           margin: 10px 0px
+          width: 100%
           .input-response
             cursor pointer
             flex: 1
+            display: flex
+            justify-content: center
             .input-value
               text-align: center
               border-radius: 50%
@@ -29,11 +53,15 @@
               justify-content: center
               line-height: 30px
               color: #fff
+            // &:hover .input-value
+            //   background: #bbb
             &[active] .input-value
               background: #c38096
-            &:hover .input-value
-              background: #bbb
+        input 
+          text-align: center
+          &:not([type=range])
+            max-width: 200px
         input[type=range]
-          margin: 0px 19px 0px 10px;
+          padding: 0px 4% 0px 4%;
           width: 100%
           box-sizing: border-box

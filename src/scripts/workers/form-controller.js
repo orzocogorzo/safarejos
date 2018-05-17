@@ -1,5 +1,6 @@
 import BaseController from './base-controller';
 import L from 'leaflet/dist/leaflet';
+import lang from '../lng/cat';
 
 const FormController = (function(){
 
@@ -10,7 +11,7 @@ const FormController = (function(){
 
     for ( let prop of this.properties ) {
       stringHTMLtemplate += ( '<div class="form-input-wrapper"><label class="popup-form-label">' +
-        prop +
+      lang[prop] +
       '</label><input name="' +
         prop + 
       '" type="text" ' + 
@@ -39,7 +40,7 @@ const FormController = (function(){
   }
   
   function onLayerClick( e ) {
-    const popUp = L.popup()
+    L.popup()
     .setLatLng( e.latlng )
     .setContent( buildPopupTemplate.call( this, e.sourceTarget.feature.properties ))
     .openOn( this.map );

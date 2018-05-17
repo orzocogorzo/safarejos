@@ -27,7 +27,7 @@ const component = {
       location.hash = 'map/barriers/' + toSection;
     },
     isReady() {
-      if ( this.selected == undefined ) {
+      if ( this.visible && this.selected == undefined ) {
         this.$emit("im-ready");
         return true;
       } else {

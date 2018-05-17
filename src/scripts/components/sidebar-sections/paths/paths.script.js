@@ -5,7 +5,7 @@ const component = {
   data: function() {
     return {
       h_modelName: "paths",
-      selected: undefined
+      saved: null
     }
   },
   watch: {
@@ -19,15 +19,25 @@ const component = {
       if ( this.visible ) {
         this.isReady();
       }
+    },
+    saved( val ) {
+      if ( val ) {
+        this.isReady();
+      }
     }
   },
   methods: {
     isReady() {
-      this.$emit("im-ready");
-      return true;
+      if ( this.saved ) {
+        this.$emit("im-ready");
+        return true;
+      } else {
+        return false
+      }
     },
     onStoreData( e ) {
       this.$emit("store-map-layer", this.h_modelName, "paths" );
+      this.saved = true
     }
   }
 }

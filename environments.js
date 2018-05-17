@@ -1,7 +1,7 @@
 module.exports = {
   dev: {
     name: 'development',
-    apiURL: 'data/json'
+    apiURL: 'data'
   },
   pi: {
     name: 'raspberry',

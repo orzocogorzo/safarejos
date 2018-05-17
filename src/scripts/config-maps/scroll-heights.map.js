@@ -9,7 +9,8 @@ export default {
     paths: 6,
     social: 7,
     equipments: 8,
-    end: 9
+    description: 9,
+    end: 10
   },
   index: {
     0: "cover",
@@ -21,6 +22,7 @@ export default {
     6: "paths",
     7: "social",
     8: "equipments",
-    9: "end"
+    9: "description",
+    10: "end"
   }
 }

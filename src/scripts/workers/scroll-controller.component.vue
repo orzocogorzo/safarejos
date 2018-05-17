@@ -47,7 +47,7 @@ export default {
   // watch: {
   //   next: {
   //     handler: ( val ) => {
-  //       console.log( val );
+  //       console.log( val.ready );
   //     },
   //     deep: true
   //   }

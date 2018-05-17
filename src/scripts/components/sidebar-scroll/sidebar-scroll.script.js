@@ -8,10 +8,11 @@ import EquipmentsComponent from '../sidebar-sections/equipments/equipments.compo
 import SocialComponent from '../sidebar-sections/social/social.component.vue';
 import BarriersComponent from '../sidebar-sections/barriers/barriers.component.vue';
 import PathsComponent from '../sidebar-sections/paths/paths.component.vue';
+import DescriptionComponent from '../sidebar-sections/description/description.component.vue';
 
 import ScrollController from '../../workers/scroll-controller.component.vue';
 
-import routesMap from './scroll-heights.map';
+import scrollHeightsMap from '../../config-maps/scroll-heights.map';
 
 export default {
   name: "sidebar-scroll",
@@ -60,8 +61,9 @@ export default {
     EquipmentsComponent,
     SocialComponent,
     BarriersComponent,
-    ScrollController,
-    PathsComponent
+    PathsComponent,
+    DescriptionComponent,
+    ScrollController
   },
   watch: {
     scrollhash: function( val ) {
@@ -83,7 +85,7 @@ export default {
   methods: {
 
     setMarginOffset( section ) {
-      this.scrollLayer.style.marginTop = String(routesMap.names[section] * this.offsetHeight * -1) + 'px';
+      this.scrollLayer.style.marginTop = String(scrollHeightsMap.names[section] * this.offsetHeight * -1) + 'px';
     },
 
     onSectionReady( section ,data ) {
@@ -98,17 +100,17 @@ export default {
     updateRouter( val ) {
       this.router = {
         previous: {
-          display:  Boolean(routesMap.index[routesMap.names[val.section]+1]) ? Boolean(routesMap.index[routesMap.names[val.section]-1]) && "block" || "none" : "none",
-          hash: 'map/'+routesMap.index[routesMap.names[val.section]-1] + '/0',
+          display:  Boolean(scrollHeightsMap.index[scrollHeightsMap.names[val.section]+1]) ? Boolean(scrollHeightsMap.index[scrollHeightsMap.names[val.section]-1]) && "block" || "none" : "none",
+          hash: 'map/'+scrollHeightsMap.index[scrollHeightsMap.names[val.section]-1] + '/0',
           ready: true
         },
         next: {
-          display: Boolean(routesMap.index[routesMap.names[val.section]-1]) ? Boolean(routesMap.index[routesMap.names[val.section]+1]) && "block" || "none" : "none",
-          hash: 'map/'+routesMap.index[routesMap.names[val.section]+1] + '/0',
+          display: Boolean(scrollHeightsMap.index[scrollHeightsMap.names[val.section]-1]) ? Boolean(scrollHeightsMap.index[scrollHeightsMap.names[val.section]+1]) && "block" || "none" : "none",
+          hash: 'map/'+scrollHeightsMap.index[scrollHeightsMap.names[val.section]+1] + '/0',
           ready: false
         },
         current: {
-          index: routesMap.names[val.section],
+          index: scrollHeightsMap.names[val.section],
           name: val.section
         }
       };
@@ -132,6 +134,14 @@ export default {
 
     onResetMapSelection( e ) {
       this.$emit("reset-map-selection");
+    },
+
+    onOpenPopup( popup ) {
+      this.$emit("open-popup", popup );
+    },
+
+    onClosePopup(){
+      this.$emit("close-popup");
     }
   }
 }

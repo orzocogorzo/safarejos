@@ -1,11 +1,14 @@
 import baseSubsection from '../base-subsection/base-subsection.component';
+import equipaments from '../../../data/equipaments';
+
+var debouncedEmitter;
 
 const component = {
   name: "equipments-component",
   data: function() {
     return {
       selection: null,
-      h_rawData: undefined,
+      h_rawData: equipaments,
       h_modelName: "equipments"
     }
   },
@@ -25,11 +28,31 @@ const component = {
     onFeatureClick( e ) {
       const feature = e.target.toGeoJSON();
       this.selection = this.selection || [];
-      this.selection.push( { lng: feature.properties.Longitud_X, lat: feature.properties.Latitud_Y } );
 
-      e.target.setStyle({
-        fillColor: "#f00"
+      clearTimeout( debouncedEmitter );
+      this.$emit("open-popup", L.popup()
+        .setLatLng( e.sourceTarget.getCenter() )
+        .setContent( e.sourceTarget.feature.properties.NOM_EQUIP )
+      );
+      
+      let index;
+      this.selection.map(( d, i ) => {
+        if ( d.id == feature.properties.OBJECTID_12 ) {
+          index = i;
+        }
       });
+
+      if ( index != undefined ) {
+        this.selection.splice(index,1);
+        e.target.setStyle({
+          fillColor: "#3388ff"
+        });
+      } else {
+        this.selection.push( { id: feature.properties.OBJECTID_12, lng: feature.properties.Longitud_X, lat: feature.properties.Latitud_Y } );
+        e.target.setStyle({
+          fillColor: "#f53"
+        });
+      }
     },
 
     onResetMapSelection( e ) {
@@ -42,6 +65,9 @@ const component = {
       layer.setStyle({
         fillOpacity: 0.25
       });
+
+      clearTimeout( debouncedEmitter );
+      this.$emit("close-popup");
     },
 
     onMouseOver( e ) {
@@ -49,28 +75,36 @@ const component = {
       layer.setStyle({
         fillOpacity: 0.75
       });
+
+      clearTimeout( debouncedEmitter );
+      debouncedEmitter = setTimeout(() => {
+        this.$emit("open-popup", L.popup()
+          .setLatLng( e.sourceTarget.getCenter() )
+          .setContent( e.sourceTarget.feature.properties.NOM_EQUIP )
+        );
+      }, 500 );
     },
 
     requestData() {
       if ( this.h_rawData ) {
         this.$emit("add-map-data", this.h_rawData, {
           onEachFeature: this.onEachFeature
-        });
+        }, { latlng: [ 41.43625986499152, 2.2115993499755864 ], zoom: 15 });
       }
 
-      const self = this;
-      const req = new XMLHttpRequest();
-      const url = location.protocol + '//' + location.host +'/' + environment.apiURL + "/equipaments.json";
-      req.open( "get", url, true );
-      req.onreadystatechange = function( ev ) {
-        if ( this.status === 200 && this.readyState === 4 ) {
-          self.h_rawData = JSON.parse( this.responseText);
-          self.$emit("add-map-data", self.h_rawData, {
-            onEachFeature: self.onEachFeature
-          }, { latlng: [ 41.43625986499152, 2.2115993499755864 ], zoom: 15 });
-        }
-      }
-      req.send();
+      // const self = this;
+      // const req = new XMLHttpRequest();
+      // const url = location.protocol + '//' + location.host +'/' + environment.apiURL + "/equipaments.json";
+      // req.open( "get", url, true );
+      // req.onreadystatechange = function( ev ) {
+      //   if ( this.status === 200 && this.readyState === 4 ) {
+      //     self.h_rawData = JSON.parse( this.responseText);
+      //     self.$emit("add-map-data", self.h_rawData, {
+      //       onEachFeature: self.onEachFeature
+      //     }, { latlng: [ 41.43625986499152, 2.2115993499755864 ], zoom: 15 });
+      //   }
+      // }
+      // req.send();
     }
   },
   watch: {

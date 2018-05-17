@@ -71,6 +71,14 @@ export default {
       flex: 0
     }
   },
+  description: {
+    map: {
+      flex: 0
+    },
+    sidebar: {
+      flex: 1
+    }
+  },
   end: {
     map: {
       flex: 0

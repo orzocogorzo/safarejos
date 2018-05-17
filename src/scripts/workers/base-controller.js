@@ -8,6 +8,33 @@ const BaseController = (function(){
     console.log( evt );
   }
 
+  function xScale( evt, px, geo ) {
+    const r = px.x / geo.x;
+    return evt.x / r;
+  }
+
+  function yScale( evt, px, geo ) {
+    const r = px.y / geo.y;
+    return evt.y / r;
+  }
+  
+  function getLatLng( evt ) {
+    const mapBox = this.map.getContainer().getBoundingClientRect();
+    const evtCoords =  {x: evt.pageX - mapBox.x, y: evt.pageY - mapBox.y };
+    const bounds = this.map.getBounds();
+    const mapGeoSize = {
+      x: Math.abs(bounds._northEast.lng - bounds._southWest.lng),
+      y: Math.abs(bounds._northEast.lat - bounds._southWest.lat)
+    }
+
+    const mapPxSize = this.map.getSize();
+
+    return {
+      lng: bounds._southWest.lng + xScale( evtCoords, mapPxSize, mapGeoSize ),
+      lat: bounds._southWest.lat + yScale( evtCoords, mapPxSize, mapGeoSize )
+    }
+  }
+
   const FeatureCollection = (function() {
     return {
       "type" : "FeatureCollection",
@@ -94,7 +121,11 @@ const BaseController = (function(){
       });
 
       this.map.on('mousemove', ( evt ) => {
-        this.mapCoords = evt.latlng;
+        if ( !evt.latlng ) {
+          this.mapCoords = getLatLng.call( this, evt );
+        } else {
+          this.mapCoords = evt.latlng;
+        }
       });
 
     }

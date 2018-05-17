@@ -5,7 +5,7 @@ import PointController from '../../../workers/point-controller';
 import FormController from '../../../workers/form-controller';
 import EraseController from '../../../workers/erase-controller';
 
-import sectionsMap from './sections.map';
+import drawProperties from '../../../config-maps/draw-properties.map';
 
 export default {
   name: "draw-control",
@@ -172,12 +172,17 @@ export default {
       this.features = {
         "type": "FeatureCollection",
         "features": []
-      }
+      },
+      Object.keys(this.controllers).map((k) => {
+        this.controllers[k].setSubsection( drawProperties[this.section] && drawProperties[this.section][this.subsection] || null )
+      });
+      this.controllers["form-controller"].properties = this.properties;
     },
     subsection( val ) {
       Object.keys(this.controllers).map((k) => {
-        this.controllers[k].setSubsection( sectionsMap[this.section] && sectionsMap[this.section][this.subsection] || null )
+        this.controllers[k].setSubsection( drawProperties[this.section] && drawProperties[this.section][this.subsection] || null )
       });
+      this.controllers["form-controller"].properties = this.properties;
     }
   }
 }
