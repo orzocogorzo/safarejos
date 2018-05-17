@@ -1,1 +1,1 @@
-web: node express/app.js --server --env=prod
+web: npm run server:prod
