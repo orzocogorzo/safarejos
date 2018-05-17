@@ -10,7 +10,7 @@ const baseSubsection = (function(){
         return {
           isReady() {
             let ready = Object.keys(this.$data).reduce(( m, k ) => {
-              if ( k[0] != 'h_' ) {
+              if ( k.slice(0,2) != 'h_' ) {
                 m = m && this.$data[k] != undefined;
                 return m;
               } else {
