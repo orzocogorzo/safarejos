@@ -1,0 +1,247 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434307.5790578988,
+          4587316.296415935
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "family": "88",
+        "social_status": "",
+        "reasons": "geography",
+        "gender": "other",
+        "age": "45",
+        "leisure": 7,
+        "experience": 7,
+        "communication": 4,
+        "implication": 6,
+        "esteem": 9
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434218.1930589465,
+          4587354.964442618
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "family": "1",
+        "social_status": "retired",
+        "reasons": "family",
+        "gender": "male",
+        "age": "32",
+        "leisure": 8,
+        "experience": 7,
+        "communication": 3,
+        "implication": 9,
+        "esteem": 2
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434256.2330004298,
+          4587492.588421801
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "family": "0",
+        "social_status": "student",
+        "reasons": "studies",
+        "gender": "male",
+        "age": "25",
+        "leisure": 3,
+        "experience": 8,
+        "communication": 5,
+        "implication": 7,
+        "esteem": 2
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434285.1033152284,
+          4587420.602457921
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "family": "3",
+        "social_status": "unemployed",
+        "reasons": "price",
+        "gender": "male",
+        "age": "25",
+        "leisure": 4,
+        "experience": 4,
+        "communication": 3,
+        "implication": 4,
+        "esteem": 4
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434214.7227855807,
+          4587430.092378297
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "family": "2",
+        "social_status": "employee",
+        "reasons": "work",
+        "gender": "female",
+        "age": "55",
+        "leisure": 8,
+        "experience": 3,
+        "communication": 4,
+        "implication": 7,
+        "esteem": 3
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434233.16178216884,
+          4587412.972109288
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "family": "3",
+        "social_status": "student",
+        "reasons": "studies",
+        "gender": "female",
+        "age": "23",
+        "leisure": 8,
+        "experience": 8,
+        "communication": "10",
+        "implication": 8,
+        "esteem": 8
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434324.1704848298,
+          4587350.977754062
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "family": "0",
+        "social_status": "employee",
+        "reasons": "price",
+        "gender": "female",
+        "age": "41",
+        "leisure": 6,
+        "experience": 4,
+        "communication": 2,
+        "implication": 4,
+        "esteem": 2
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434234.1562937053,
+          4587437.426513014
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "family": "1",
+        "social_status": "other",
+        "reasons": "studies",
+        "gender": "other",
+        "age": "25",
+        "leisure": 5,
+        "experience": 5,
+        "communication": 5,
+        "implication": 5,
+        "esteem": 5
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434302.4675716546,
+          4587436.422371124
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "family": "3",
+        "social_status": "student",
+        "reasons": "other",
+        "gender": "male",
+        "age": "25",
+        "leisure": 5,
+        "experience": 5,
+        "communication": "8",
+        "implication": "4",
+        "esteem": "4"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434206.86971276806,
+          4587468.85247579
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "family": "3",
+        "social_status": "employee",
+        "reasons": "price",
+        "gender": "female",
+        "age": "25",
+        "leisure": 8,
+        "experience": 3,
+        "communication": 7,
+        "implication": 6,
+        "esteem": 3
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434236.830330872,
+          4587380.622685921
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "family": "0",
+        "social_status": "student",
+        "reasons": "geography",
+        "gender": "male",
+        "age": "28",
+        "leisure": 3,
+        "experience": 8,
+        "communication": 4,
+        "implication": 7,
+        "esteem": 7
+      }
+    }
+  ]
+}

@@ -4,9 +4,10 @@
   "license": "MIT",
   "scripts": {
     "serve:dev": "node express/app.js --dev --env=dev",
-    "serve:pi": "node express/app.js --dev --env=pi",
+    "serve:pi": "node express/app.js --dev --env=pi  --basehref=map",
     "build:pi": "node express/app.js --build --env=dev --basehref=map",
-    "build:dev": "node express/app.js --build --env=pi --basehref=map"
+    "build:dev": "node express/app.js --build --env=pi",
+    "server:prod": "node express/app.js --server --env=prod" 
   },
   "dependencies": {
     "d3": "^5.1.0",

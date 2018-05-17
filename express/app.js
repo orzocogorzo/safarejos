@@ -29,7 +29,7 @@ function flagMatcher(flag){
   envConfig[name.replace(/\-+/,'')] = val || true;
 }
 
-function registerEnvironment(callback){
+function registerEnvironment( callback ) {
   const environments =  require(config.envFile); //require('../environments.js');
 
   if (!environments[envConfig["env"]]) {
@@ -41,13 +41,24 @@ function registerEnvironment(callback){
     apiURL: 'data/json'
   };
 
-  fs.writeFile( path.resolve( config.distDir, 'environment.js' ), ' window.environment='+JSON.stringify(env)+';', function( err ) {
+  fs.writeFile( path.resolve( config.distDir, 'environment.js' ), 'window.environment='+JSON.stringify(env)+';', function( err ) {
     if ( err ) {
       console.log('Error on writing env dist file\n');
       return;
     };
     console.log('Environment variable registered with exit. Defined as ' + env.name);
     callback();
+  });
+}
+
+function registerLivereload( register ) {
+  let scriptContent = register ? 'document.write(\'<script src="http://\'\n\t+ (location.host || \'localhost\').split(\':\')[0]\n\t+ \':35729/livereload.js"></\'\n\t+ \'script>\')' : '';
+  fs.writeFile( path.resolve( config.distDir, 'livereload.js' ), scriptContent, function( err ) {
+    if ( err ) {
+      console.log( 'Error while writing the livereload script\n' );
+      return;
+    };
+    console.log( 'Livereload script registered!' );
   });
 }
 
@@ -167,11 +178,13 @@ function main(){
   
   var compiler;
 
-  if ( envConfig["dev"] || !envConfig["build"] ) {
+  if ( envConfig["dev"] ) {
 
-    if ( !envConfig["dev"] ) {
-      console.warn( "Unrecognized target action. Fired development mode by default" );
-    }
+    // if ( !envConfig["dev"] ) {
+    //   console.warn( "Unrecognized target action. Fired development mode by default" );
+    // }
+
+    registerLivereload();
 
     function callback(){
       const app = setupApp();
@@ -212,16 +225,36 @@ function main(){
         console.log( new Date().toLocaleTimeString() + ": webpack build process ends with exit status" );
       });
     }
+
   } else if ( envConfig[ "build" ] ) {
     function callback() {
       
       config.api.set( "mode", envConfig["prod"] && "production" || "development" );
+
+      registerLivereload( false );
 
       setupConfig();
 
       compiler = webpack( config.api.get(), ( err, stats ) => {
         if (err) throw err;
         console.log("Webpack build ends with exit status");
+      });
+    }
+  } else if ( envConfig["server"] ) {
+    function callback() {
+      const app = setupApp();
+      
+      // config.api.set("watch", true);
+      config.api.set("mode", "production");
+
+      // Serve the files on port 8000.
+      server = http.createServer( app );
+      
+      // server livereload
+      reload( app );
+
+      server.listen( app.get('port'), function () {
+        console.log( 'Node server listening on port ' + app.get('port') );
       });
     }
   }

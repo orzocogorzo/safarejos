@@ -16,7 +16,7 @@ const config = {
     plugins: [
       new CleanWebpackPlugin(path.resolve(__dirname, 'dist/'), { 
         root: path.resolve(__dirname),
-        exclude: ['environment.js']
+        exclude: ['environment.js','livereload.js']
       }),
       new HtmlWebpackPlugin({
         filename: 'index.html',

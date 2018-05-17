@@ -7,5 +7,9 @@ module.exports = {
     name: 'raspberry',
     apiURL: 'rs/json',
     host: "http://www.orzopi.tk"
+  },
+  prod: {
+    name: 'production',
+    apiURL: 'data/json'
   }
 }

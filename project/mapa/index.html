@@ -1,0 +1,774 @@
+<!doctype html>
+<html>
+<head>
+  <!-- STYLES -->
+  <link rel="stylesheet" href="leaflet/leaflet.css" />
+  <link rel="stylesheet" href="css_pag_web6_nou.css" />
+  
+  <!-- VENDOR -->
+  <script src="leaflet/leaflet.js"></script>
+  <script src="leaflet/leaflet-heat.js"></script>  
+  <script src="Leaflet.Canvas-Flowmap-Layer-master/src/CanvasFlowmapLayer.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.min.js"></script>
+
+  <style>
+    #map_cris {
+      width: 50%;
+      height: 100vh;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Helvetica,Arial,sans-serif;
+    }
+  </style>
+</head>
+
+
+<body>
+  <div id="map_cris" class="my-first-map">
+  <canvas id="myCanvas" width="200" height="100"></canvas>
+  </div>
+  <div class=column>
+    <div class="scroll-viewport">
+      <div class=imatge></div>
+      <div class="controlls">
+        <div class="filters"><!-- / posar lestat dels filters de la capa que carrego x defecte -->
+          <div class="option-wrapper">
+            <div class="option-btn">Dona</div>
+          </div>
+          <div class="option-wrapper">
+            <div class="option-btn">Home</div>
+          </div>
+          <div class="option-wrapper">
+              <div class="option-btn">15-25</div>
+            </div>
+            <div class="option-wrapper">
+              <div class="option-btn">26-35</div>
+            </div>
+        </div>
+        <div class=layers></div>
+        <div class=imatge_ac></div>
+      </div>
+      <div class='graphics'>
+        <div name=graphic_1 class='q-container' style='max-width:900px; display:block; position:relative'>
+          <div style='padding-bottom:41.7%; position:relative'>
+            <iframe src=http://www.quadrigram.com/hosting/taller_tematic/identitats/ width='100%' height='100%' style='border: none; position:absolute'></iframe>
+          </div>
+          <div style='text-align:right; font-size: 10px'>
+            <a href='http://www.quadrigram.com' target='_blank'>Powered by Quadrigram</a>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <div class=label_map>
+    <p class=label></p>
+  </div>
+  
+  <!-- DATA -->
+  <script src="json/cadastre_clip_camps.json"></script>
+  <script src="json/parceles_edat_sexe.json"></script>
+  <script src="json/punts_per_identitats2.json"></script>
+  <script src="json/paths.json"></script>
+  <script src="json/social_relationships.json"></script>
+  <script src="json/local_relationships.json"></script>
+  <script src="json/points_flows_easy3.json"></script>
+  <script src="json/municipis.json"></script>
+  <script src="json/barriers.json"></script>
+
+  <!-- MAP -->
+  <script src="index.js"></script>
+
+  <!-- LAYERS -->
+  <script src="layers/barriers.layer.js"></script>
+  <script src="layers/identity.layer.js"></script>
+  <script src="layers/local-relations.layer.js"></script>
+  <script src="layers/metro-relations.layer.js"></script>
+  <script src="layers/sostres.layer.js"></script>
+  <script src="layers/paths.layer.js"></script>
+  <script src="layers/social-network.layer.js"></script>
+
+  <!-- CONTROLS -->
+  <script src="map-controls.js"></script>
+
+<!-- <script>
+
+  // //Create map
+  // var map=L.map("map_cris");
+  // var column = document.getElementsByClassName('column')[0];//Use Js to get an HTML object
+  // var label = document.getElementsByClassName('label')[0]; //Use Js to get an HTML object
+  // var layers = column.getElementsByClassName('layers')[0];//Use Js to get an HTML object
+  // var graphicContainer = column.getElementsByClassName('q-container')[0];//Use Js to get an HTML object
+  // var filtersContainer = column.getElementsByClassName('filters')[0];
+ 
+ 
+  
+  // map.setView([41.435435, 2.212861],18);
+  
+  
+  // var myTileLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png', {
+  //     maxZoom: 19,
+  //     id: 'orzoc.181b5b9d'  
+  //   }).addTo(map);
+
+  // L.control.scale({
+  //   metric:true,
+  //   imperial: true,
+  //   maxWidth: 200
+  // }).addTo(map);
+  
+
+//ADD LAYERS JSON
+  
+  
+
+  
+
+  // var parceles_edat_sexe_layer = new L.geoJson(parceles_edat_sexe,{
+  //   style:styleCadastre,
+  //   onEachFeature: onEachFeature
+  // }); //.addTo(map);
+
+  // var currentLayer = parceles_edat_sexe_layer;
+  // var currentFilterCriteria = {
+  //   home: true,
+  //   dona: true,
+  //   "0-15": true,
+  //   "16-25": true,
+  //   "26-40": true
+  // };
+  // // map.addLayer(cadastre_clip);
+
+  // var paths_layer=new L.geoJson(paths,{
+  //   style:stylePaths,
+  //   onEachFeature:onEachFeaturePaths
+  // });
+  
+  // var social_relationships_layer=new L.geoJson(social_relationships,{
+    
+  // });
+  // var local_relationships_layer=new L.geoJson(local_relationships,{
+    
+  // });
+
+
+// MAP INTERACTION
+  
+//   var blurredDelay;
+
+//   function highlightFeature(event){
+//     var layer = event.target;
+//     var npl = event.target.feature.properties.NPL_flotants+"<span class=label2>  PLANTES</span>";
+//     label.innerHTML = npl;//label es el class que he decidit posar al num que es va actualitzant
+//     layer.setStyle({
+//         weight: 5,
+//         color: '#666',
+//         dashArray: '',
+//         fillOpacity: 1
+//     });
+
+//     clearTimeout(blurredDelay);
+//     //info.update(layer.feature.properties);
+//   }
+
+//   function resetHighlight(e) {
+//       parceles_edat_sexe_layer.resetStyle(e.target);
+      
+//       clearTimeout(blurredDelay);//si li passo una funcio amb delay la para i no sexecuta
+
+//       blurredDelay = setTimeout(function(){//setTimeout executa una funcio en un temps
+//         label.innerHTML = '';
+//       }, 500 );
+//       //info.update();
+//   }
+
+//   function zoomToFeature(e) {
+//     map.fitBounds(e.target.getBounds());
+// }
+
+//   function onEachFeature(feature_A,layer_B){
+//     layer_B.bindPopup("<h1 class='popup-content'>Plantes Construides: <span class='popup-content2'>"+feature_A.properties.PL_reals+"</span></h1>"+ "<h1 class='popup-content'>Plantes per planejament: <span class=popup-content2>"+feature_A.properties.PL_Planej+"</span></h1>")
+//     layer_B.on({
+//         mouseover: highlightFeature,
+//         mouseout: resetHighlight,
+//         click: zoomToFeature
+//     });
+//   }
+
+
+
+  // function highlightFeaturePlanejament(event){
+  //   var layer = event.target;
+  //   var clau_pd = event.target.feature.properties.IEN.toFixed(2)+"<span class=label2> m2sostre/m2sòl</span>";
+  //   label.innerHTML = clau_pd;//label es el class que he decidit posar al num que es va actualitzant
+  //   layer.setStyle({
+  //       weight: 5,
+  //       color: '#666',
+  //       dashArray: '',
+  //       fillOpacity: 1
+  //   });
+  //   //info.update(layer.feature.properties);
+  // }
+
+  // function resetHighlightPlanejament(e) {
+  //     sostre.resetStyle(e.target);
+  //     //info.update();
+  // }
+
+  // function onEachFeaturePlanejament(feature_A,layer_B){
+  //   layer_B.bindPopup("<h1 class='popup-content'>Clau de planejament: <br /></h1>" + feature_A.properties.CLAU_PD)
+  //   layer_B.on({
+  //       mouseover: highlightFeaturePlanejament,
+  //       mouseout: resetHighlightPlanejament,
+  //       click: zoomToFeature
+  //   });
+  // }
+
+
+  
+
+  
+
+//  function highlightFeaturePaths(event){
+//     var layer = event.target;
+//     layer.setStyle({
+//         weight: 10,
+//         color: '#04FFFF',
+//         fillOpacity: 1,
+//         opacity: 1,
+//     });
+//     //info.update(layer.feature.properties);
+//   }
+
+//   function resetHighlightPaths(e) {
+//       paths.resetStyle(e.target);
+//       //info.update();
+//   };
+
+//   function onEachFeaturePaths(feature_A,layer_B){
+//     layer_B.bindPopup(feature_A.properties.Name+"<span><br /></span>" + feature_A.properties.Reason)
+//     layer_B.on({
+//         mouseover: highlightFeaturePaths,
+//         mouseout: resetHighlightPaths,
+//         click: zoomToFeature
+//     });
+//   }
+
+//CREATE STYLES
+
+  // function fillColor(d) {
+  //   return  d < 0 ?  'rgba(255,0,0,0.6)' : 
+  //       d == 0 ?  '#00000055' : 
+  //       d == 1 ?  '#80ff80' : 
+  //       d == 2 ?  '#33ff33' : 
+  //       d == 3 ?  '#00e600' : 
+  //       d == 4 ?   '#00b300' : 
+  //       d == 5 ?   '#009900' :
+  //       d == 6 ?   '#008000' :
+  //       d == 7 ?   '#006600' :
+  //       d == 30 ?   '#004d00' :
+  //               '#80ff80'; 
+  // }
+
+
+  // function color(d) {
+  //   return  d == 0 ?  'white' :
+
+  //       d>0? '#009900':
+        
+  //               '#00000055'; 
+  // }
+
+  // function weight(d) {
+  //   return  d >= 0 ?  2 : 
+        
+  //               1; 
+  // }
+
+  // function styleCadastre(feature) {
+  //   return {
+  //     fillColor: fillColor(feature.properties.NPL_flotants),
+  //     color: color(feature.properties.NPL_flotants),
+  //     weight: weight(feature.properties.NPL_flotants),
+  //     opacity: 0.25,
+  //     fillOpacity: 0.5,
+  //     clickable: true
+  //   };
+  // }
+
+   
+
+  // function getColorVolums(d) {
+  //   return  d == 32 ?  '#264d00' : 
+  //       d == 7 ?  '#408000' : 
+  //       d == 6 ?  '#4d9900' : 
+  //       d == 5 ?  '#66cc00' : 
+  //       d == 4 ?  '#59b300' : 
+  //       d == 3 ?   '#99ff33' : 
+  //       d == 2 ?   '#b3ff66' :
+  //       d == 1 ?   '#d9ffb3' :
+  //               'rgba(0,0,0,0)'; 
+  // }
+
+  // function styleVolums(feature) {
+  //   return {
+  //     fillColor: getColorVolums(feature.properties.PLANTES_EQUIV),
+  //     color: 'white',
+  //     weight: 2,
+  //     opacity: 0.25,
+  //     fillOpacity: 0.5,
+  //     clickable: true
+  //   };
+  // }
+
+  // function getColor3(d) {
+  //   return d <= 1.9 ?  '#ecffb3': 
+  //       d <= 2.5 ?  '#d9ff66' : 
+  //       d <= 3.5 ?  '#bfff00' :
+  //       d <= 4.5 ? '#99cc00':
+  //       d <= 6 ?  '#739900' : 
+  //       d > 6 ?   '#4d6600' : 
+  //               '#00000055'; 
+  // }
+
+  // function styleSostre(feature) {
+  //   return {
+  //     fillColor: getColor3(feature.properties.IEN),
+  //     color: 'black',
+  //     weight: 1,
+  //     opacity: 1,
+  //     fillOpacity: 0.5,
+  //     clickable: true
+  //   };
+  // }
+
+
+//  function stylePaths(feature) {
+//     return {
+      
+//       color: 'white',
+//       weight: 10,
+//       opacity: 0.25,
+//       fillOpacity: 0.5,
+//       clickable: true
+//     };
+//   }
+
+
+//CREATE LABELS
+
+  /*var info = L.control({position: 'bottomleft'});
+    
+    info.onAdd = function (map) {
+      this._div = L.DomUtil.create('div', 'info');
+      this.update();
+      return this._div;
+    };
+    
+    info.update = function (props) {
+      this._div.innerHTML = '<h4>Sostre flotant</h4>' + (props ? 
+          '<b>' + props.NPL_flotants + '</b><br />' 
+          + ' Cobertura: ' + String(props.NPL_flotants).split(".")[0] + ' % <br />'
+          : '<br /><br />');
+    };
+    
+    info.addTo(map);*/
+
+  
+//     function geoJson2heat(geojson, weight) {
+//           return geojson.features.map(function(feature) {
+//             return [
+//               feature.geometry.coordinates[1],
+//               feature.geometry.coordinates[0],
+//               feature.properties[weight]
+//             ];
+//           });
+//         }
+        
+
+        
+// var punts_per_identitat_heat = geoJson2heat(punts_per_identitats2,
+//                                       'neighborhood_identity');
+// var layer_identitat_points_heat= new L.heatLayer(punts_per_identitat_heat, {
+//   radius: 25,
+//   max: 10,
+//   minOpacity: 0.8,
+//   gradient: {0: '#d7191c', 0.60: '#fdae61', 0.80:'#ffffbf', 0.85: '#BE788D', 1: '#F90527'}})
+
+
+
+// var canvasRenderer=L.canvas()
+// function style_flows(geoJsonFeature) {
+//   // use leaflet's path styling options
+
+//   // since the GeoJSON feature properties are modified by the layer,
+//   // developers can rely on the "isOrigin" property to set different
+//   // symbols for origin vs destination CircleMarker stylings
+
+//   if (geoJsonFeature.properties.isOrigin) {
+//     return {
+//       renderer: canvasRenderer, // recommended to use your own L.canvas()
+//       radius: 5,
+//       weight: 1,
+//       color: 'rgb(187, 223, 0)',
+//       fillColor: 'rgba(0, 0, 0, 1)',
+//       fillOpacity: 1
+//     };
+//   } else {
+//     return {
+//       renderer: canvasRenderer,
+//       radius: 7.5,
+//       weight: 1,
+//       color: 'rgb(255, 255, 255)',
+//       fillColor: 'rgb(255, 255, 255)',
+//       fillOpacity: 0.7
+//     };
+//   }
+// }
+
+
+// var exampleFlowmapLayer = new L.canvasFlowmapLayer(points_flows_easy, {
+//   style:style_flows,
+//   // required property for this custom layer,
+//   // which relies on the property names of your own data
+//   originAndDestinationFieldIds: {
+//     originUniqueIdField: 'id_start',
+//     originGeometry: {
+//       x: 'x_start',
+//       y: 'y_start'
+//     },
+//     destinationUniqueIdField: 'id_end',
+//     destinationGeometry: {
+//       x: 'x_end',
+//       y: 'y_end'
+//     },
+//   },
+
+//   // some custom options
+//   pathDisplayMode: 'all',
+//   animationStarted: true,
+//   animationEasingFamily: 'Cubic',
+//   animationEasingType: 'In',
+//   animationDuration: 2000
+// }).addTo(map);
+
+
+// var popUp= L.popup()
+
+// exampleFlowmapLayer.on('click', function(e) {
+//   if (e.sharedOriginFeatures.length) {
+//     exampleFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
+//     map.fitBounds(e.target.getBounds());
+//   }
+//   if (e.sharedDestinationFeatures.length) {
+//     exampleFlowmapLayer.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
+//     map.fitBounds(e.target.getBounds());
+//   }
+//   if (!e.isOriginFeature){
+//     popUp.setLatLng(e.latlng);
+//     popUp.setContent(e.layer.feature.properties.Facility);
+//     popUp.openOn(map);
+
+//     console.log(e);
+//   }
+// });
+
+
+
+
+  // var myLayers = [
+  //   {
+  //     name: "Sostre potencial",
+  //     layer: parceles_edat_sexe_layer,
+  //     graphic: "graphic_1",
+  //     url: "http://www.quadrigram.com/hosting/taller_tematic/identitats/",
+  //     filters: ["dona","home","0-15","16-25","26-40"],
+  //     filterCriteria: {
+  //       home: true,
+  //       dona: true,
+  //       "0-15": true,
+  //       "16-25": true,
+  //       "26-40": true
+
+  //     },
+  //     data: parceles_edat_sexe,//data
+  //     onEachFeature: onEachFeature,
+  //     style: styleCadastre
+  //   },
+  //   {
+  //     name: "Identitats",
+  //     layer: layer_identitat_points_heat,
+  //     graphic: "graphic_2",
+  //     url: "http://www.quadrigram.com/hosting/taller_tematic/sostre_potencial/",
+  //     filters: ["dona","home", "15-25", "26-35"],
+  //     filterCriteria: {
+  //       home: true,
+  //       dona: true,
+  //       "0-15": true,
+  //       "16-25": true,
+  //       "26-40": true
+  //     },
+  //     data: punts_per_identitats2
+  //   },
+  //   {
+  //     name:"Percepció de fronteres",
+  //     layer:parceles_edat_sexe,
+  //     graphic: "graphic_3",
+  //     url: "http://www.quadrigram.com/hosting/taller_tematic/fronteres/",
+  //     filters: ["dona","home"],
+  //     filterCriteria: {
+  //       home: true,
+  //       dona: true,
+        
+  //     },
+  //     data: cadastre_clip
+  //   },
+  //   {
+  //     name: "Xarxes socials",
+  //     layer: social_relationships_layer,
+  //     graphic: "graphic_4",
+  //     url: "http://www.quadrigram.com/hosting/taller_tematic/xarxes_socials/",
+  //     filters: ["dona","home"],
+  //     filterCriteria: {
+  //       home:true,
+  //       dona:true,
+        
+  //     },
+  //     data: social_relationships
+  //   },
+  //   {
+  //     name: "Recorreguts",
+  //     layer: paths_layer,
+  //     graphic: "graphic_5",
+  //     url: "http://www.quadrigram.com/hosting/taller_tematic/relcions_locals/",
+  //     filters: ["dona","home"],
+  //     filterCriteria: {
+  //       home: true,
+  //       dona: true,
+        
+  //     },
+  //     data: paths
+  //   },
+  //   {
+  //     name: "Relacions locals",
+  //     layer: local_relationships_layer,
+  //     graphic: "graphic_6",
+  //     url: "http://www.quadrigram.com/hosting/taller_tematic/recorreguts/",
+  //     filters: ["dona","home","male","female"],
+  //     filterCriteria: {
+  //       home: true,
+  //       dona: true,
+  //     },
+  //     data: local_relationships
+  //   },
+  //   {
+  //     name: "Relacions metropolitanes",
+  //     layer: parceles_edat_sexe_layer,
+  //     graphic: "graphic_7" ,
+  //     url: "http://www.quadrigram.com/hosting/taller_tematic/relacions_metropolitanes/",
+  //     filters: ["dona","home"],
+  //     filterCriteria: {
+  //       home: true,
+  //       dona: true
+  //     },
+  //     data: cadastre_clip,
+      
+  //   }
+  // ];
+
+
+//   var myLayers = [
+//     {
+//       name: "Sostre potencial",
+//       layer: parceles_edat_sexe_layer,
+//       graphic: "graphic_1",
+//       url: "http://www.quadrigram.com/hosting/taller_tematic/identitats/",
+//       filters: ["dona","home","0-15","16-25","26-40"],
+//       filterCriteria: {
+//         home: true,
+//         dona: true,
+//         "0-15": true,
+//         "16-25": true,
+//         "26-40": true
+
+//       },
+//       data: parceles_edat_sexe,//data
+//       onEachFeature: onEachFeature,
+//       style: styleCadastre
+      
+//     },
+//     {
+//       name: "Identitats",
+//       layer: layer_identitat_points_heat,
+//       graphic: "graphic_2",
+//       url: "http://www.quadrigram.com/hosting/taller_tematic/sostre_potencial/",
+//       filters: ["dona","home", "15-25", "26-35"],
+//       filterCriteria: {
+//         home: true,
+//         dona: true,
+//         "0-15": true,
+//         "16-25": true,
+//         "26-40": true
+//       },
+//       data: punts_per_identitats2
+      
+//     },
+//     {
+//       name:"Percepció de fronteres",
+//       layer:parceles_edat_sexe_layer,
+//       graphic: "graphic_3",
+//       url: "http://www.quadrigram.com/hosting/taller_tematic/fronteres/",
+//       filters: ["dona","home"],
+//       filterCriteria: {
+//         home: true,
+//         dona: true
+//       },
+//       data: cadastre_clip      
+//     },
+//     {
+//       name: "Xarxes socials",
+//       layer: social_relationships_layer,
+//       graphic: "graphic_4",
+//       url: "http://www.quadrigram.com/hosting/taller_tematic/xarxes_socials/",
+//       filters: ["dona","home"],
+//       filterCriteria: {
+//         home:true,
+//         dona:true,
+        
+//       },
+//       data: social_relationships,
+//       onEachFeature: onEachFeature,
+      
+//     },
+//     {
+//       name: "Recorreguts",
+//       layer: paths_layer,
+//       graphic: "graphic_5",
+//       url: "http://www.quadrigram.com/hosting/taller_tematic/relcions_locals/",
+//       filters: ["dona","home"],
+//       filterCriteria: {
+//         home: true,
+//         dona: true,
+        
+//       },
+//       data: paths,
+//       onEachFeature: onEachFeature,
+      
+//     },
+//     {
+//       name: "Relacions locals",
+//       layer: local_relationships_layer,
+//       graphic: "graphic_6",
+//       url: "http://www.quadrigram.com/hosting/taller_tematic/recorreguts/",
+//       filters: ["dona","home"],
+//       filterCriteria: {
+//         home: true,
+//         dona: true,
+//       },
+//       data: local_relationships,
+//       onEachFeature: onEachFeature,
+      
+//     },
+//     {
+//       name: "Relacions metropolitanes",
+//       layer: exampleFlowmapLayer,
+//       graphic: "graphic_7" ,
+//       url: "http://www.quadrigram.com/hosting/taller_tematic/relacions_metropolitanes/",
+//       filters: ["dona","home"]
+//     }
+//   ];
+// //control layers
+//   for (let enterLayer of myLayers){
+//     var htmlEl = document.createElement('div');
+//     htmlEl.setAttribute('class','layers-list-item');
+//     htmlEl.innerText = enterLayer.name;
+
+//     layers.appendChild(htmlEl);
+
+//     // binding events
+//     htmlEl.addEventListener('click', function(){
+//       for (let exitLayer of myLayers){
+//         map.removeLayer(exitLayer.layer);
+//       }
+//       //update map
+//       //map.addLayer(enterLayer.layer);
+//       enterLayer.layer.addTo(map);
+
+//       currentLayer = enterLayer.layer;
+//       currentFilterCriteria = enterLayer.filterCriteria;
+
+//       // quadrigram graphs update
+//       graphicContainer.getElementsByTagName('iframe')[0].setAttribute('src', enterLayer.url);
+
+//       // filters update
+//       var filtersHTMLString = '';
+//       for (let filter of enterLayer.filters ) {
+//         filtersHTMLString += '<div class="option-wrapper"><div class="option-btn" >'+ filter + '</div></div>';
+//       }
+
+//       filtersContainer.innerHTML = filtersHTMLString;
+
+//       var buttons = filtersContainer.getElementsByClassName('option-btn');
+
+//       for (let index in buttons){
+//         btn = buttons[index];
+//         if ( btn.addEventListener ) {
+//           btn.addEventListener('click', function(e) {
+//             onFilterButtonClick( e, enterLayer.filters[index], enterLayer );
+//           });
+//         }
+//       }
+//     });
+//   }
+
+// function onFilterButtonClick( e, filterValue, enterLayer ) {
+//   var button = e.currentTarget;
+//   button.classList.toggle('selected');// toggle removes the class "selected" if it has it or adds it if i doesn't have it
+  
+//   currentFilterCriteria[filterValue] = !currentFilterCriteria[filterValue]; //per passar de true a false
+//   showLayer( enterLayer );
+// }
+
+// function showLayer( enterLayer ){
+  
+//   if ( currentLayer  ) {
+//     map.removeLayer( currentLayer );
+//   }
+
+//   enterLayer.layer  = new L.geoJson(enterLayer.data, {
+//     filter: filterFn,
+//     onEachFeature:enterLayer.onEachFeature, 
+//     style:enterLayer.style
+//   }).addTo(map);
+
+//   currentLayer = enterLayer.layer;
+// }
+
+// function filterFn( feature ){
+//   var isValid = true;
+
+//   Object.keys(feature.properties).map( function( k ) {
+//     // feature.properties[k] = 'home';
+//     // filterCriteria[feature.properties[k]] = false;
+//     if (currentFilterCriteria[feature.properties[k]]!=undefined){
+//       isValid = isValid && Boolean(currentFilterCriteria[feature.properties[k]]);
+//     }
+//   });
+
+//   return isValid;
+// }
+
+// var buttons = filtersContainer.getElementsByClassName('option-btn');
+// for (let index in buttons) {
+//   btn = buttons[index];
+//   if ( btn.addEventListener ) {
+//     btn.addEventListener('click', function(e) {
+//       onFilterButtonClick( e, myLayers[0].filters[index], myLayers[0] );
+//     });
+//   }
+// }
+</script> -->
+</body>
+</html>

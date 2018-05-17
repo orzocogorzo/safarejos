@@ -1,0 +1,192 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434307.5790578988,
+          4587316.296415935
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "lat": 4587316.296415935,
+        "gender": "other",
+        "age": "45",
+        "lng": 434307.5790578988,
+        "social_status": ""
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434218.1930589465,
+          4587354.964442618
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "lat": 4587354.964442618,
+        "gender": "male",
+        "age": "32",
+        "lng": 434218.1930589465,
+        "social_status": "retired"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434256.2330004298,
+          4587492.588421801
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "lat": 4587492.588421801,
+        "gender": "male",
+        "age": "25",
+        "lng": 434256.2330004298,
+        "social_status": "student"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434285.1033152284,
+          4587420.602457921
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "lat": 4587420.602457921,
+        "gender": "male",
+        "age": "25",
+        "lng": 434285.1033152284,
+        "social_status": "unemployed"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434214.7227855807,
+          4587430.092378297
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "lat": 4587430.092378297,
+        "gender": "female",
+        "age": "55",
+        "lng": 434214.7227855807,
+        "social_status": "employee"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434233.16178216884,
+          4587412.972109288
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "lat": 4587412.972109288,
+        "gender": "female",
+        "age": "23",
+        "lng": 434233.16178216884,
+        "social_status": "student"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434324.1704848298,
+          4587350.977754062
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "lat": 4587350.977754062,
+        "gender": "female",
+        "age": "41",
+        "lng": 434324.1704848298,
+        "social_status": "employee"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434234.1562937053,
+          4587437.426513014
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "lat": 4587437.426513014,
+        "gender": "other",
+        "age": "25",
+        "lng": 434234.1562937053,
+        "social_status": "other"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434302.4675716546,
+          4587436.422371124
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "lat": 4587436.422371124,
+        "gender": "male",
+        "age": "25",
+        "lng": 434302.4675716546,
+        "social_status": "student"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434206.86971276806,
+          4587468.85247579
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "lat": 4587468.85247579,
+        "gender": "female",
+        "age": "25",
+        "lng": 434206.86971276806,
+        "social_status": "employee"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          434236.830330872,
+          4587380.622685921
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "lat": 4587380.622685921,
+        "gender": "male",
+        "age": "28",
+        "lng": 434236.830330872,
+        "social_status": "student"
+      }
+    }
+  ]
+}
