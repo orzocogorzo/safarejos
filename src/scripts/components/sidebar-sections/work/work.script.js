@@ -12,9 +12,9 @@ const component = {
       h_modelName: "work"
     }
   },
-  mounted(){
-    this.h_rawData = municipis;
-  },
+  // mounted(){
+  //   this.h_rawData = municipis;
+  // },
   methods: {
     getData() {
       return this.selection != "no-response" && { lng: this.$data.selection.properties.Longitud_X, lat: this.$data.selection.properties.Latitud_Y } || "no-response";
@@ -81,19 +81,19 @@ const component = {
         return;
       }
       
-      // const self = this;
-      // const req = new XMLHttpRequest();
-      // const url = location.protocol + '//' + location.host +'/' + environment.apiURL + "/municipis.json";
-      // req.open( "get", url, true );
-      // req.onreadystatechange = function( ev ) {
-      //   if ( this.status === 200 && this.readyState === 4 ) {
-      //     self.rawData = JSON.parse( this.responseText );
-      //     self.$emit("add-map-data", self.rawData, {
-      //       onEachFeature: self.onEachFeature
-      //     }, { latlng: [ 41.39844522006508, 2.059593200683594 ], zoom: 11 });
-      //   }
-      // }
-      // req.send();
+      const self = this;
+      const req = new XMLHttpRequest();
+      const url = location.protocol + '//' + location.host +'/' + environment.apiURL + "/municipis.json";
+      req.open( "get", url, true );
+      req.onreadystatechange = function( ev ) {
+        if ( this.status === 200 && this.readyState === 4 ) {
+          self.rawData = JSON.parse( this.responseText );
+          self.$emit("add-map-data", self.rawData, {
+            onEachFeature: self.onEachFeature
+          }, { latlng: [ 41.39844522006508, 2.059593200683594 ], zoom: 11 });
+        }
+      }
+      req.send();
     },
 
     onContinue(){

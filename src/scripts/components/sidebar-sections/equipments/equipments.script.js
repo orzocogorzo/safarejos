@@ -1,5 +1,5 @@
 import baseSubsection from '../base-subsection/base-subsection.component';
-import equipaments from '../../../data/equipaments';
+// import equipaments from '../../../data/equipaments';
 
 var debouncedEmitter;
 
@@ -8,7 +8,7 @@ const component = {
   data: function() {
     return {
       selection: null,
-      h_rawData: equipaments,
+      h_rawData: null,
       h_modelName: "equipments"
     }
   },
@@ -92,19 +92,19 @@ const component = {
         }, { latlng: [ 41.43625986499152, 2.2115993499755864 ], zoom: 15 });
       }
 
-      // const self = this;
-      // const req = new XMLHttpRequest();
-      // const url = location.protocol + '//' + location.host +'/' + environment.apiURL + "/equipaments.json";
-      // req.open( "get", url, true );
-      // req.onreadystatechange = function( ev ) {
-      //   if ( this.status === 200 && this.readyState === 4 ) {
-      //     self.h_rawData = JSON.parse( this.responseText);
-      //     self.$emit("add-map-data", self.h_rawData, {
-      //       onEachFeature: self.onEachFeature
-      //     }, { latlng: [ 41.43625986499152, 2.2115993499755864 ], zoom: 15 });
-      //   }
-      // }
-      // req.send();
+      const self = this;
+      const req = new XMLHttpRequest();
+      const url = location.protocol + '//' + location.host +'/' + environment.apiURL + "/equipaments.json";
+      req.open( "get", url, true );
+      req.onreadystatechange = function( ev ) {
+        if ( this.status === 200 && this.readyState === 4 ) {
+          self.h_rawData = JSON.parse( this.responseText);
+          self.$emit("add-map-data", self.h_rawData, {
+            onEachFeature: self.onEachFeature
+          }, { latlng: [ 41.43625986499152, 2.2115993499755864 ], zoom: 15 });
+        }
+      }
+      req.send();
     }
   },
   watch: {

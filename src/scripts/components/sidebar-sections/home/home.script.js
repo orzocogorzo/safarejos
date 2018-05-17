@@ -9,9 +9,9 @@ const component = {
       h_modelName: "home"
     }
   },
-  mounted() {
-    this.h_rawData = parceles;
-  },
+  // mounted() {
+  //   this.h_rawData = parceles;
+  // },
   methods: {
     getData: function() {
       return { lng: this.selection.properties.Longitud_X, lat: this.selection.properties.Latitud_Y }
@@ -65,19 +65,19 @@ const component = {
         return
       }
 
-      // const self = this;
-      // const req = new XMLHttpRequest();
-      // const url = location.protocol + '//' + location.host +'/' + environment.apiURL + "/parceles.json";
-      // req.open( "get", url, true );
-      // req.onreadystatechange = function( ev ) {
-      //   if ( this.status === 200 && this.readyState === 4 ) {
-      //     self.h_rawData = JSON.parse( this.responseText);
-      //     self.$emit("add-map-data", self.h_rawData, {
-      //       onEachFeature: self.onEachFeature
-      //     }, { latlng: [ 41.43552791811532, 2.2124925255775456 ], zoom: 18 });
-      //   }
-      // }
-      // req.send();
+      const self = this;
+      const req = new XMLHttpRequest();
+      const url = location.protocol + '//' + location.host +'/' + environment.apiURL + "/parceles.json";
+      req.open( "get", url, true );
+      req.onreadystatechange = function( ev ) {
+        if ( this.status === 200 && this.readyState === 4 ) {
+          self.h_rawData = JSON.parse( this.responseText);
+          self.$emit("add-map-data", self.h_rawData, {
+            onEachFeature: self.onEachFeature
+          }, { latlng: [ 41.43552791811532, 2.2124925255775456 ], zoom: 18 });
+        }
+      }
+      req.send();
     }
   },
   watch: {

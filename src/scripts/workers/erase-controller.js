@@ -13,6 +13,12 @@ const FormController = (function(){
     index != undefined && this.map.__data__.features.splice(index,1);
   }
 
+  
+  function featureEraser( e ) {
+    filterMapData.call( this, e.sourceTarget.feature.properties._id );
+    this.map.removeLayer( e.sourceTarget );
+  }
+
   class FormController extends BaseController {
 
     constructor( options ) {
@@ -20,22 +26,18 @@ const FormController = (function(){
     }
 
     unbind( ) {
-      this.map.eachLayer((layer) => {
-        layer.off('click', ( e ) => {
-          filterMapData.call( this, e.sourceTarget.feature.properties._id );
-          this.map.removeLayer(e.sourceTarget);
-        });
+      this.map.eachLayer(( layer ) => {
+        if ( layer.options.isOverlay ) {
+          layer.off('click'); //, featureEraser );
+        }
       });
-      super.unbind( );
+      // super.unbind( );
     }
 
     captureInteraction( ) {
-      this.map.eachLayer((layer) => {
+      this.map.eachLayer(( layer ) => {
         if ( layer.options.isOverlay ) {
-          layer.on('click', ( e ) => {
-            filterMapData.call( this, e.sourceTarget.feature.properties._id );
-            this.map.removeLayer(e.sourceTarget);
-          });
+          layer.on('click', featureEraser.bind(this) );
         }
       });
     }
