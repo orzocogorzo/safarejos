@@ -170,7 +170,7 @@ function setupApp(){
     }
   });
 
-  app.set('port', envConfig.port || 8000);
+  app.set('port', process.env.PORT || envConfig.port || 8000);
 
   return app;
 ;}
@@ -267,7 +267,7 @@ function main(){
         console.log("Webpack build ends with exit status");
         server = http.createServer( app );
 
-        server.listen( port, '127.0.0.1' , function () {
+        server.listen( port, function () {
           console.log( 'Node server listening on port ' + port );
         });
       });
