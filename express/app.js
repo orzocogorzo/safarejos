@@ -241,6 +241,13 @@ function main(){
       });
     }
   } else if ( envConfig["server"] ) {
+    
+    try {
+      fs.mkdirSync( config.distDir );
+    } catch (err) {
+      if (err.code !== 'EEXIST') throw err;
+    }
+
     function callback() {
       const app = setupApp();
       
