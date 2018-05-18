@@ -12,6 +12,8 @@ const express = require('express');
 const reload = require('./liveserver');
 const open = require("open");
 
+var port;
+
 function setupConfig(){
   config.api.set('output',config.output);
   config.api.set('entry',config.entry);
@@ -253,7 +255,7 @@ function main(){
 
     function callback() {
       const app = setupApp();
-      
+      port = app.get.port || 8000;
       registerLivereload( false );
 
       setupConfig();
@@ -265,8 +267,8 @@ function main(){
         console.log("Webpack build ends with exit status");
         server = http.createServer( app );
 
-        server.listen( app.get('port'), '127.0.0.1' , function () {
-          console.log( 'Node server listening on port ' + app.get('port') );
+        server.listen( port, '127.0.0.1' , function () {
+          console.log( 'Node server listening on port ' + port );
         });
       });
     }
