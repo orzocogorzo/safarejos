@@ -8,11 +8,14 @@ const envConfig = new Object();
 
 const http = require('http');
 const express = require('express');
+const bodyParser = require('body-parser');
 // const livereload = require('express-livereload');
 const reload = require('./liveserver');
 const open = require("open");
 
-var port;
+var MongoClient = require('mongodb').MongoClient;
+var database;
+
 
 function setupConfig(){
   config.api.set('output',config.output);
@@ -75,13 +78,10 @@ function buildRegex( urlParam ){
 };
 
 function request( host, req, res, filePath, redirect ) {
-  // console.log(host);
   if ( !host || host === "localhost" || host === "local" ) {
-    console.log('requesting on ', host );
     filePath = path.resolve( config.root, filePath );
     fs.exists( filePath, ( exists ) => {
       if (exists){
-        console.log( 'file exists' );
         var stats = fs.statSync( filePath );
         if (!stats.isFile()){
           if (redirect){
@@ -139,11 +139,18 @@ function response( host, req, res, filePath, redirect ) {
   }
 }
 
+function getMongoDB() {
+  var URI = process.env.MONGODB_URI; 
+  MongoClient.connect(URI, function(err, db) {
+    if (err) throw err;
+    database = db.db("heroku_k9l4gvz8");
+  });
+}
+
 function setupApp(){
   var app = express();
-
+  app.use(bodyParser.json());
   app.get('/', ( req, res ) => {
-    console.log('request recived on root');
     response( envConfig.env.host, req, res, config.distDir + '/index.html', false );
   });
 
@@ -153,6 +160,17 @@ function setupApp(){
 
   app.get('/main.js', ( req, res ) => {
     response( envConfig.env.host, req, res, config.distDir + '/main.js', false );
+  });
+
+  app.post('/bulk', ( req, res ) => {
+    if ( database ) {
+      database.collection('responses').insertOne( req.body, function( err, res ) {
+        if ( err ) throw err;
+        res.sendStatus(200);
+      });
+    } else {
+      console.log( req.body );
+    }
   });
 
   app.get(buildRegex(), ( req, res ) => {
@@ -185,16 +203,15 @@ function main(){
 
   if ( envConfig["dev"] ) {
 
-    // if ( !envConfig["dev"] ) {
-    //   console.warn( "Unrecognized target action. Fired development mode by default" );
-    // }
+    if ( !envConfig["dev"] ) {
+      console.warn( "Unrecognized target action. Fired development mode by default" );
+    }
 
     registerLivereload();
 
     function callback(){
       const app = setupApp();
       
-      // config.api.set("watch", true);
       config.api.set("mode", "development");
 
       setupConfig();
@@ -216,10 +233,10 @@ function main(){
           LISTENING=true;
         });
       }
-      compiler = webpack( config.api.get() ); //, (err, stats) => {
-      //   if (err) throw err;
-      //   startApp();
-      // });
+      compiler = webpack( config.api.get(), (err, stats) => {
+        if (err) throw err;
+        startApp();
+      });
 
       compiler.watch({
         aggregateTimeout: 300,
@@ -255,6 +272,7 @@ function main(){
 
     function callback() {
       const app = setupApp();
+      getMongoDB();
       port = process.env.PORT || app.get.port || 8000;
       registerLivereload( false );
 

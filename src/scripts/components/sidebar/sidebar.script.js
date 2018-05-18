@@ -53,17 +53,27 @@ export default {
     },
 
     generateData() {
-      var file = new Blob([JSON.stringify(model)], {type: "json"});
-      var a = document.createElement("a"),
-              url = URL.createObjectURL(file);
-      a.href = url;
-      a.download = "data.json";
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(function() {
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);  
-      }, 0);
+      // var file = new Blob([JSON.stringify(model)], {type: "json"});
+      // var a = document.createElement("a"),
+      //         url = URL.createObjectURL(file);
+      // a.href = url;
+      // a.download = "data.json";
+      // document.body.appendChild(a);
+      // a.click();
+      // setTimeout(function() {
+      //     document.body.removeChild(a);
+      //     window.URL.revokeObjectURL(url);  
+      // }, 0);
+      const req = new XMLHttpRequest();
+      const url = location.protocol + '//' + location.host + "/bulk";
+      req.open( "POST", url, true );
+      req.onreadystatechange = function( ev ) {
+        if ( this.status === 200 && this.readyState === 4 ) {
+          console.log('Inserted One');
+        }
+      }
+      req.setRequestHeader('Content-Type', 'application/json');
+      req.send(JSON.stringify(model));
     },
 
     storeMapLayer( section, key ) {

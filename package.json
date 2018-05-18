@@ -7,14 +7,16 @@
     "serve:pi": "node express/app.js --dev --env=pi  --basehref=map",
     "build:pi": "node express/app.js --build --env=dev --basehref=map",
     "build:dev": "node express/app.js --build --env=pi",
-    "start": "node express/app.js --server --env=prod" 
+    "start": "node express/app.js --server --env=prod"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "d3": "^5.1.0",
     "leaflet": "^1.3.1",
     "lodash": "^4.17.10",
     "mapbox-gl": "^0.45.0-beta.1",
     "mapbox-gl-draw": "^0.16.0",
+    "mongodb": "^3.1.0-beta4",
     "qtip2": "^3.0.3",
     "rxjs": "^5.5.10",
     "vue": "^2.5.16",
