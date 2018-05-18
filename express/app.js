@@ -265,7 +265,7 @@ function main(){
         console.log("Webpack build ends with exit status");
         server = http.createServer( app );
 
-        server.listen( app.get('port'), function () {
+        server.listen( app.get('port'), '127.0.0.1' , function () {
           console.log( 'Node server listening on port ' + app.get('port') );
         });
       });
