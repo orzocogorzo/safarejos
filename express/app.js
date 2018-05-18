@@ -75,9 +75,11 @@ function buildRegex( urlParam ){
 function request( host, req, res, filePath, redirect ) {
   // console.log(host);
   if ( !host || host === "localhost" || host === "local" ) {
+    console.log('requesting on ', host );
     filePath = path.resolve( config.root, filePath );
     fs.exists( filePath, ( exists ) => {
       if (exists){
+        console.log( 'file exists' );
         var stats = fs.statSync( filePath );
         if (!stats.isFile()){
           if (redirect){
@@ -139,15 +141,15 @@ function setupApp(){
   var app = express();
 
   app.get('/', ( req, res ) => {
-    response( 'localhost', req, res, config.distDir + '/index.html', false );
+    response( envConfig.env.host, req, res, config.distDir + '/index.html', false );
   });
 
   app.get('/environment.js', ( req, res ) => {
-    response( 'localhost', req, res, config.distDir + '/environment.js', false );
+    response( envConfig.env.host, req, res, config.distDir + '/environment.js', false );
   });
 
   app.get('/main.js', ( req, res ) => {
-    response( 'localhost', req, res, config.distDir + '/main.js', false );
+    response( envConfig.env.host, req, res, config.distDir + '/main.js', false );
   });
 
   app.get(buildRegex(), ( req, res ) => {
