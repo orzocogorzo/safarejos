@@ -255,7 +255,7 @@ function main(){
 
     function callback() {
       const app = setupApp();
-      port = app.get.port || 8000;
+      port = process.env.PORT || app.get.port || 8000;
       registerLivereload( false );
 
       setupConfig();
