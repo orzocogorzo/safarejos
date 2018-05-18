@@ -244,17 +244,20 @@ function main(){
     function callback() {
       const app = setupApp();
       
-      // config.api.set("watch", true);
+      registerLivereload( false );
+
+      setupConfig();
+
       config.api.set("mode", "production");
 
-      // Serve the files on port 8000.
-      server = http.createServer( app );
-      
-      // server livereload
-      reload( app );
+      compiler = webpack( config.api.get(), ( err, stats ) => {
+        if (err) throw err;
+        console.log("Webpack build ends with exit status");
+        server = http.createServer( app );
 
-      server.listen( app.get('port'), function () {
-        console.log( 'Node server listening on port ' + app.get('port') );
+        server.listen( app.get('port'), function () {
+          console.log( 'Node server listening on port ' + app.get('port') );
+        });
       });
     }
   }
