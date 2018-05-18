@@ -141,6 +141,7 @@ function setupApp(){
   var app = express();
 
   app.get('/', ( req, res ) => {
+    console.log('request recived on root');
     response( envConfig.env.host, req, res, config.distDir + '/index.html', false );
   });
 
