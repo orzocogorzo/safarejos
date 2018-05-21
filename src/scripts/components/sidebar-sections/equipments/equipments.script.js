@@ -37,7 +37,7 @@ const component = {
       
       let index;
       this.selection.map(( d, i ) => {
-        if ( d.id == feature.properties.OBJECTID_12 ) {
+        if ( d.geom_id == feature.properties.geom_id ) {
           index = i;
         }
       });
@@ -48,7 +48,7 @@ const component = {
           fillColor: "#3388ff"
         });
       } else {
-        this.selection.push( { id: feature.properties.OBJECTID_12, lng: feature.properties.Longitud_X, lat: feature.properties.Latitud_Y } );
+        this.selection.push( { geom_id: feature.properties.geom_id, lng: feature.properties.Longitud_X, lat: feature.properties.Latitud_Y } );
         e.target.setStyle({
           fillColor: "#f53"
         });
