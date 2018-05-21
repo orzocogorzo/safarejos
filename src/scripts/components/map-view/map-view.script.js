@@ -53,7 +53,7 @@ export default {
   methods: {
     renderMap() {
       this.map = L.map('map').setView( [ 41.4354394404612, 2.2126132249832158 ], 16 );
-      L.tileLayer('https://api.mapbox.com/styles/v1/orzoc/cjeh8ep1s8xls2rpdmaidmh1d/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoib3J6b2MiLCJhIjoiY2lzZGEzNXhmMDAwdjJvcGZ4NXU2bzU0NCJ9.RzrN_JISe561WfI1SjWCvw')
+      L.tileLayer('https://api.mapbox.com/styles/v1/orzoc/ciu8cr5ar002t2imlm7l0s7zy/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoib3J6b2MiLCJhIjoiY2lzZGEzNXhmMDAwdjJvcGZ4NXU2bzU0NCJ9.RzrN_JISe561WfI1SjWCvw', {})
         .addTo( this.map );
 
       this.$emit("map-rendered", this.map );
