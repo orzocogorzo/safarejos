@@ -9,7 +9,7 @@ for line in jsonDump.readlines():
 
 dimensions = data[0].keys()
 
-layers = { dimension: { "type": "FeatureCollection", "features": [] } for dimension in dimensions }
+layers = { dimension: { "type": "FeatureCollection", "features": [], "crs": {"type": "EPSG", "properties": {"code": 3857, "name": "epsg:3857" }} } for dimension in dimensions }
 
 index = 0
 for d in data:
@@ -41,7 +41,7 @@ for d in data:
             "id_start": index,
             "x_end": item["lng"],
             "y_end": item["lat"],
-            "id_end": item["geom_id"]
+            # "id_end": item["geom_id"]
           })
 
           new_features.append({
@@ -56,7 +56,7 @@ for d in data:
           })
 
         layers[dim]["features"] = layers[dim]["features"] + new_features
-      elspe:
+      else:
         personalData = dict(
           gender=d["personal"]["gender"],
           age=d["personal"]["age"],
@@ -78,4 +78,3 @@ for d in data:
 
 for layer in layers:
   open( os.path.join('result', (layer + '.json')), 'w').write(json.dumps(layers[layer]))
-  
