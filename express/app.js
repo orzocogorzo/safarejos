@@ -147,7 +147,7 @@ function getMongoDB() {
   });
 }
 
-function setupApp(){
+function setupApp() {
   var app = express();
   app.use(bodyParser.json());
   app.get('/', ( req, res ) => {
@@ -164,12 +164,12 @@ function setupApp(){
 
   app.post('/bulk', ( req, res ) => {
     if ( database ) {
-      database.collection('responses').insertOne( req.body, function( err, res ) {
+      database.collection('responses').insertOne( req.body, function( err, source ) {
         if ( err ) throw err;
         res.sendStatus(200);
       });
     } else {
-      console.log( req.body );
+      console.log( source.body );
     }
   });
 
