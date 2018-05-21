@@ -2,10 +2,10 @@
   <div class="content-wrapper">
     <div class="message-wrapper">Dibuixa sobre el mapa les fronteres que perceps al teu barri</div>
     <div class="mode-options-wrapper">
-      <div class="mode-btn architecture-mode" :disabled="selected != undefined && selected != 1" v-on:click="onChangeSubsection( 1 )">Arquitectòniques</div>
-      <div class="mode-btn acoustic-mode" :disabled="selected != undefined && selected != 2" v-on:click="onChangeSubsection( 2 )">Acústiques</div>
-      <div class="mode-btn luminic-mode" :disabled="selected != undefined && selected != 3" v-on:click="onChangeSubsection( 3 )">Lumíniques</div>
-      <div class="mode-btn social-mode" :disabled="selected != undefined && selected != 4" v-on:click="onChangeSubsection( 4 )">Socials</div>
+      <div class="mode-btn architecture-mode" :disabled="selected != undefined && selected != 1" v-on:click="onChangeSubsection( 1 )">Obstacle</div>
+      <div class="mode-btn acoustic-mode" :disabled="selected != undefined && selected != 2" v-on:click="onChangeSubsection( 2 )">Soroll</div>
+      <div class="mode-btn luminic-mode" :disabled="selected != undefined && selected != 3" v-on:click="onChangeSubsection( 3 )">Foscor</div>
+      <div class="mode-btn social-mode" :disabled="selected != undefined && selected != 4" v-on:click="onChangeSubsection( 4 )">Social</div>
       <div class="mode-btn save-mode" :disabled="selected == undefined" v-on:click="onStoreData">Guardar</div>
     </div>
   </div>

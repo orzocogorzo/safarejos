@@ -17,7 +17,8 @@ const component = {
   // },
   methods: {
     getData() {
-      return this.selection != "no-response" && { lng: this.$data.selection.properties.Longitud_X, lat: this.$data.selection.properties.Latitud_Y } || "no-response";
+      return this.selection;
+      //return this.selection != "no-response" && { lng: this.$data.selection.properties.Longitud_X, lat: this.$data.selection.properties.Latitud_Y } || "no-response";
     },
 
     onEachFeature( feature, layer ) {
@@ -29,19 +30,42 @@ const component = {
     },
 
     onFeatureClick( e ) {
-      this.selection = e.target.toGeoJSON();
+      // this.selection = e.target.toGeoJSON();
 
-      e.target._map.eachLayer(layer => {
-        if ( layer.options.isAuxiliar ) {
-          layer.setStyle({
-            fillColor: "#3388ff"
-          });
+      const feature = e.target.toGeoJSON();
+      this.selection = this.selection || [];
+      
+      let index;
+      this.selection.map(( d, i ) => {
+        if ( d.id === feature.properties.OBJECTID ) {
+          index = i;
         }
       });
 
-      e.target.setStyle({
-        fillColor: "#f53"
-      });
+      if ( index != undefined ) {
+        this.selection.splice(index,1);
+        e.target.setStyle({
+          fillColor: "#3388ff"
+        });
+      } else {
+        this.selection.push( { id: feature.properties.OBJECTID, lng: feature.properties.Longitud_X, lat: feature.properties.Latitud_Y } );
+        e.target.setStyle({
+          fillColor: "#f53"
+        });
+      }
+
+
+      // e.target._map.eachLayer(layer => {
+      //   if ( layer.options.isAuxiliar ) {
+      //     layer.setStyle({
+      //       fillColor: "#3388ff"
+      //     });
+      //   }
+      // });
+
+      // e.target.setStyle({
+      //   fillColor: "#f53"
+      // });
 
       clearTimeout( debouncedEmitter );
       this.$emit("open-popup", L.popup()
@@ -77,7 +101,7 @@ const component = {
       if ( this.h_rawData ) {
         this.$emit("add-map-data", this.h_rawData, {
           onEachFeature: this.onEachFeature
-        }, { latlng: [ 41.39844522006508, 2.059593200683594 ], zoom: 11 });
+        }, { latlng: [ 41.39844522006508, 2.059593200683594 ], zoom: 10 });
         return;
       }
       
@@ -90,7 +114,7 @@ const component = {
           self.rawData = JSON.parse( this.responseText );
           self.$emit("add-map-data", self.rawData, {
             onEachFeature: self.onEachFeature
-          }, { latlng: [ 41.39844522006508, 2.059593200683594 ], zoom: 11 });
+          }, { latlng: [ 41.39844522006508, 2.059593200683594 ], zoom: 10 });
         }
       }
       req.send();

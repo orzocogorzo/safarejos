@@ -16,7 +16,7 @@
         width: 100%
         position absolute
         z-index 20
-        height: 100px
+        height: 50px
         left: 0px
         &.top-gradient
           top: 0px
@@ -28,9 +28,12 @@
         flex: 1
         display: flex
         flex-direction: column
-        min-width: 200px
+        width: 100%
         opacity 1
         transition: opacity 1s
+        min-width 100%
+        box-sizing border-box
+        padding-top: 20px
         &:not([visible])
           opacity 0
         .content-wrapper
@@ -38,6 +41,8 @@
           display: flex
           justify-content: center
           align-items: center
+          min-width: 180px
+          font-size: 0.9em
         .scroll-controller-wrapper
           flex: 0
           height: 50px

@@ -11,8 +11,8 @@
     color #000000
     display flex
     flex 1
-    height 50px
-    max-width 50px
+    height 40px
+    max-width 40px
     background-color #b96983
     z-index 30
     background-size contain

@@ -169,7 +169,7 @@ function setupApp() {
         res.sendStatus(200);
       });
     } else {
-      console.log( source.body );
+      console.log( res.body );
     }
   });
 
@@ -233,10 +233,11 @@ function main(){
           LISTENING=true;
         });
       }
-      compiler = webpack( config.api.get(), (err, stats) => {
-        if (err) throw err;
-        startApp();
-      });
+
+      compiler = webpack( config.api.get() ) //, (err, stats) => {
+      //   if (err) throw err;
+      //   startApp();
+      // });
 
       compiler.watch({
         aggregateTimeout: 300,

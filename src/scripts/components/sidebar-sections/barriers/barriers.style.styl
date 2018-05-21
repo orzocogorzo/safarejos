@@ -12,20 +12,25 @@
       color: #222
       font-size: 1.1em
       font-weight: 800
+      font-size: 0.75em
     .mode-options-wrapper
       display: flex
-      flex-direction: column
+      flex-direction: row
+      flex-wrap: wrap
       .mode-btn
         flex 1
-        height 30px
-        border-radius: 25px
+        height 20px
+        // border-radius: 25px
         text-align: center
-        line-height: 28px
+        line-height: 20px
         color: #ffffff
-        margin: 5px 0px
+        // margin: 5px 0px
         font-size: 0.85em
         padding: 0px 10px
         cursor pointer
+        min-width: calc(50% - 20px)
+        width: calc(50% - 20px)
+        max-width: calc(50% - 20px)
         &[disabled]
           pointer-events: none
           opacity 0.5
@@ -47,5 +52,8 @@
           //   background-color: lighten(#55ab71, 20%)
         &.save-mode
           background-color: #555555
+          min-width: 100%
+          width: 100%
+          max-width: 100%
           // &:hover
           //   background-color: lighten(#555555, 20%)

@@ -61,7 +61,7 @@ const component = {
       if ( this.h_rawData ) {
         this.$emit("add-map-data", this.h_rawData, {
           onEachFeature: this.onEachFeature
-        }, { latlng: [ 41.43552791811532, 2.2124925255775456 ], zoom: 18 });
+        }, { latlng: [ 41.43552791811532, 2.2124925255775456 ], zoom: 17 });
         return
       }
 
@@ -74,7 +74,7 @@ const component = {
           self.h_rawData = JSON.parse( this.responseText);
           self.$emit("add-map-data", self.h_rawData, {
             onEachFeature: self.onEachFeature
-          }, { latlng: [ 41.43552791811532, 2.2124925255775456 ], zoom: 18 });
+          }, { latlng: [ 41.43552791811532, 2.2124925255775456 ], zoom: 17 });
         }
       }
       req.send();
