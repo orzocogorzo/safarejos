@@ -96,6 +96,7 @@ const Controller = (function() {
     renderMap() {
       if ( !this.initialized ) {
         this.redirectToDefault();
+        return;
       }
 
       _app.router_component.$el.innerHTML = "";
@@ -106,6 +107,7 @@ const Controller = (function() {
     scrollToSection( args ) {
       if ( !this.initialized ) {
         this.redirectToDefault();
+        return;
       }
 
       if ( !this.currentSection ) {
