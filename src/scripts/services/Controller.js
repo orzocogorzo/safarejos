@@ -77,13 +77,14 @@ const Controller = (function() {
     constructor( appInstance ) {
       // class public properties
       this.routes = {
-        '': this.redirectToDefault,
+        '': this.redirectToDefault.bind( this ),
         'map': this.renderMap.bind( this ),  
         'map/:section/:scroll': this.scrollToSection.bind( this ),
       };
 
       this.currentSection = undefined;
       this.initialized = false;
+
       _app = appInstance;
     };
 
@@ -95,7 +96,7 @@ const Controller = (function() {
   
     renderMap() {
       if ( !this.initialized ) {
-        this.redirectToDefault();
+        location.hash = '';
         return;
       }
 
@@ -106,7 +107,7 @@ const Controller = (function() {
   
     scrollToSection( args ) {
       if ( !this.initialized ) {
-        this.redirectToDefault();
+        location.hash = '';
         return;
       }
 
