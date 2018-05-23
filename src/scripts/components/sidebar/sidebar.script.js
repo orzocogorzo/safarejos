@@ -87,7 +87,7 @@ export default {
       this.map.eachLayer(layer => {
         if ( layer.options.isAuxiliar ) {
           layer.setStyle({
-            fillColor: "#3388ff"
+            fillColor: "#465b6d"
           });
         }
       });

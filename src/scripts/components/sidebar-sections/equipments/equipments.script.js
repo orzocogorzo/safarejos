@@ -45,7 +45,7 @@ const component = {
       if ( index != undefined ) {
         this.selection.splice(index,1);
         e.target.setStyle({
-          fillColor: "#3388ff"
+          fillColor: "#465b6d"
         });
       } else {
         this.selection.push( { geom_id: feature.properties.geom_id, lng: feature.properties.Longitud_X, lat: feature.properties.Latitud_Y } );
