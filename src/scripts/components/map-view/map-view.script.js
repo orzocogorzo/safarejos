@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 
 import DrawControl from '../map-controls/draw-control/draw-control.vue'
 
-import drawOptionsMap from './draw-options.map';
+import drawOptionsMap from '../../config-maps/draw-options.map';
 
 export default {
   name: "map-view",

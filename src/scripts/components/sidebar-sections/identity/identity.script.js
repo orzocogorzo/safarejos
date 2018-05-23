@@ -20,6 +20,7 @@ const component = {
       experience: null,
       family: null,
       reasons: null,
+      identity: null,
       h_container: null,
       h_modelName: "identity"
     }

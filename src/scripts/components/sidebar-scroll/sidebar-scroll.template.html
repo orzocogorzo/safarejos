@@ -5,6 +5,7 @@
     <scroll-controller
       :next="router.next"
       :previous="router.previous"
+      v-on:restart-map-drag="restartMapDrag"
     ></scroll-controller>
     <cover-component
       :offsetH="offsetHeight"
@@ -39,6 +40,7 @@
       v-on:add-map-data="addMapData"
       v-on:open-popup="onOpenPopup"
       v-on:close-popup="onClosePopup"
+      v-on:reset-map-selection="onResetMapSelection"
     ></work-component>
     <identity-component
       :offsetH="offsetHeight"

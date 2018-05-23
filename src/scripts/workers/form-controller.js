@@ -6,33 +6,58 @@ const FormController = (function(){
 
   // private code block
 
-  function buildPopupTemplate( properties ) {
+  function buildSelectTemplate( prop, featurePropsVal ) {
+    let contentStr = '';
+    for ( let opt of prop.options ) {
+      contentStr += `<option value="${opt}"  ${ opt == featurePropsVal && 'selected' || '' }>${lang[opt]}</option>`;
+    }
+    return contentStr;
+  }
+  
+  function buildPopupInput( prop, featurePropsVal ) {
+    let contentStr;
+    switch( prop.type ) {
+      case "text":
+        contentStr = `<input type="${prop.type}" name="${prop.name}" value="${ featurePropsVal || '' }" class="popup-form-input"></input>`;
+        break;
+      case "select":
+        contentStr = `<select  name="${prop.name}" class="popup-form-input">${ buildSelectTemplate( prop, featurePropsVal ) }</select>`;
+        break;
+      default: 
+        contentStr = `<input type="${prop.type}" name="${prop}" value="${ featurePropsVal || '' }" class="popup-form-input" ></input>`;
+        break;
+    }
+
+    return contentStr;
+  }
+
+  function buildPopupTemplate( featureProps ) {
     let stringHTMLtemplate = '';
 
     for ( let prop of this.properties ) {
-      stringHTMLtemplate += ( '<div class="form-input-wrapper"><label class="popup-form-label">' +
-      lang[prop] +
-      '</label><input name="' +
-        prop + 
-      '" type="text" ' + 
-        ( properties[prop] && ( 'value="' + properties[prop] + '"' ) || '' ) +
-      ' class="popup-form-input"/></div>' )
+      stringHTMLtemplate += (
+        '<div class="form-input-wrapper"><label class="popup-form-label">'
+        + lang[prop.name]
+        + '</label>'
+        + buildPopupInput( prop, featureProps[prop.name] )
+        + '</div>'
+      )
     }
 
     const wrapper = document.createElement('div');
     wrapper.setAttribute('class','popup-form-wrapper');
     wrapper.innerHTML = stringHTMLtemplate;
 
-    const inputs = wrapper.getElementsByTagName('input');
+    const inputs = wrapper.getElementsByClassName('popup-form-input');
     for ( let input of inputs ) {
-      input.addEventListener('change', (e) => {
+      input.addEventListener('change', ( e ) => {
 
         let index;
         this.map.__data__.features.map(( f, i ) => {
-          if ( f.properties._id == properties._id ) index = i
+          if ( f.properties._id == featureProps._id ) index = i
         });
 
-        properties[e.currentTarget.name] = e.currentTarget.value;
+        featureProps[e.currentTarget.name] = e.currentTarget.value;
         this.map.__data__.features[index].properties[e.currentTarget.name] = e.currentTarget.value;
       });
     }

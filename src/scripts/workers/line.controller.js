@@ -82,8 +82,8 @@ const LineController = (function(){
 
       this.layerStyle = {
         "lineJoin": true,
-        "weight": 4,
-        "dashArray": '8, 8',
+        "weight": 8,
+        "dashArray": '16, 16',
         "dashOffset": "10",
         "color": this.color
       };

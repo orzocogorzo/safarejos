@@ -20,7 +20,7 @@
         v-bind:section="'0'"
         v-bind:current_section="section"
         v-bind:current_subsection="subsection"
-        v-bind:boundaries="[0,6]"
+        v-bind:boundaries="[0,7]"
         v-bind:ready="communication != null"
       ></subsection-controller>
     </div>
@@ -44,7 +44,7 @@
         v-bind:section="'1'"
         v-bind:current_section="section"
         v-bind:current_subsection="subsection"
-        v-bind:boundaries="[0,6]"
+        v-bind:boundaries="[0,7]"
         v-bind:ready="implication != null"
       ></subsection-controller>
     </div>
@@ -68,7 +68,7 @@
         v-bind:section="'2'"
         v-bind:current_section="section"
         v-bind:current_subsection="subsection"
-        v-bind:boundaries="[0,6]"
+        v-bind:boundaries="[0,7]"
         v-bind:ready="esteem != null"
       ></subsection-controller>
     </div>
@@ -92,7 +92,7 @@
         v-bind:section="'3'"
         v-bind:current_section="section"
         v-bind:current_subsection="subsection"
-        v-bind:boundaries="[0,6]"
+        v-bind:boundaries="[0,7]"
         v-bind:ready="leisure != null"
       ></subsection-controller>
     </div>
@@ -116,7 +116,7 @@
           v-bind:section="'4'"
           v-bind:current_section="section"
           v-bind:current_subsection="subsection"
-          v-bind:boundaries="[0,6]"
+          v-bind:boundaries="[0,7]"
           v-bind:ready="experience != null"
         ></subsection-controller>
       </div>
@@ -132,7 +132,7 @@
           v-bind:section="'5'"
           v-bind:current_section="section"
           v-bind:current_subsection="subsection"
-          v-bind:boundaries="[0,6]"
+          v-bind:boundaries="[0,7]"
           v-bind:ready="family != null"
         ></subsection-controller>
       </div>
@@ -171,7 +171,23 @@
           v-bind:section="'6'"
           v-bind:current_section="section"
           v-bind:current_subsection="subsection"
-          v-bind:boundaries="[0,6]"
+          v-bind:boundaries="[0,7]"
+          v-bind:ready="family != null"
+        ></subsection-controller>
+      </div>
+      <div class="input-wrapper identity-input">
+        <div class="input-title">Com descriuries en una frase el que vol dir identitat per a tu?</div>
+        <div class="input-content type-textarea">
+          <textarea v-model:value="identity" ></textarea>
+        </div>
+        <subsection-controller
+          v-bind:visible="visible"
+          v-bind:offsetW="offsetW"
+          v-bind:container="h_container"
+          v-bind:section="'7'"
+          v-bind:current_section="section"
+          v-bind:current_subsection="subsection"
+          v-bind:boundaries="[0,7]"
           v-bind:ready="family != null"
         ></subsection-controller>
       </div>

@@ -169,7 +169,8 @@ function setupApp() {
         res.sendStatus(200);
       });
     } else {
-      console.log( res.body );
+      console.log( req.body );
+      res.sendStatus(200);
     }
   });
 

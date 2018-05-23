@@ -99,6 +99,10 @@ export default {
 
     onClosePopup() {
       this.map.closePopup();
+    },
+
+    restartMapDrag() {
+      this.map.fire('restart:drag');
     }
   },
   components: {

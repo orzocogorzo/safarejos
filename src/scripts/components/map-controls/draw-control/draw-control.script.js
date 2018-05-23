@@ -16,7 +16,7 @@ export default {
         {
           name: "drag",
           active: true,
-          controller: "l-pan-controller"
+          controller: "l-drag-controller"
         },
         {
           name: "brush",
@@ -105,7 +105,7 @@ export default {
         this.controller = this.controllers[ controller ];
         this.controller.captureInteraction();
         this.controller.active = true;
-      } else if ( controller != "l-pan-controller" ) {
+      } else if ( controller != "l-drag-controller" ) {
         this.$emit("mode-change", { drag: false });
         this.storeMapData();
         this.controller = this.controllers[ controller ];
@@ -161,6 +161,12 @@ export default {
     map: function( val ) {
       if ( val ) {
         this.setupControllers();
+        this.map.once('restart:drag', () => {
+          this.options.map((opt) => {
+            opt.active = opt.name === "drag"
+          });
+          this.selectMode( 'l-drag-controller' );
+        });
       }
     },
     color( val ) {

@@ -83,21 +83,31 @@ const Controller = (function() {
       };
 
       this.currentSection = undefined;
+      this.initialized = false;
       _app = appInstance;
     };
 
     // class public methods
     redirectToDefault() {
+      this.initialized = true;
       location.hash = 'map'
     };
   
     renderMap() {
+      if ( !this.initialized ) {
+        this.redirectToDefault();
+      }
+
       _app.router_component.$el.innerHTML = "";
       this.currentSection = _appendView.call( this, MapSection );
       location.hash = 'map/cover/safaretjos';
     };
   
     scrollToSection( args ) {
+      if ( !this.initialized ) {
+        this.redirectToDefault();
+      }
+
       if ( !this.currentSection ) {
         this.currentSection = _appendView.call( this, MapSection );
       }

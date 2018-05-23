@@ -85,7 +85,14 @@ const component = {
     requestData() {
       if ( this.h_rawData ) {
         this.$emit("add-map-data", this.h_rawData, {
-          onEachFeature: this.onEachFeature
+          onEachFeature: this.onEachFeature,
+          style: function(){
+            return {
+              fillColor: "#465b6d",
+              color: "#465b6d",
+              weight: 1
+            }
+          }
         }, { latlng: [ 41.43552791811532, 2.2124925255775456 ], zoom: 17 });
         return
       }
@@ -98,7 +105,14 @@ const component = {
         if ( this.status === 200 && this.readyState === 4 ) {
           self.h_rawData = JSON.parse( this.responseText);
           self.$emit("add-map-data", self.h_rawData, {
-            onEachFeature: self.onEachFeature
+            onEachFeature: self.onEachFeature,
+            style: function(){
+              return {
+                fillColor: "#465b6d",
+                color: "#465b6d",
+                weight: 1
+              }
+            }
           }, { latlng: [ 41.43552791811532, 2.2124925255775456 ], zoom: 17 });
         }
       }

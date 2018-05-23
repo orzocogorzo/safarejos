@@ -38,9 +38,11 @@ export default {
   props: [ "next", "previous" ],
   methods: {
     onNext( evt ) {
+      this.$emit('restart-map-drag');
       location.hash = this.next.ready && this.next.hash || location.hash
     },
     onPrevious( evt ) {
+      this.$emit('restart-map-drag');
       location.hash = this.previous.ready && this.previous.hash || location.hash
     }
   },

@@ -100,7 +100,14 @@ const component = {
     requestData( ) {      
       if ( this.h_rawData ) {
         this.$emit("add-map-data", this.h_rawData, {
-          onEachFeature: this.onEachFeature
+          onEachFeature: this.onEachFeature,
+          style: function(){
+            return {
+              fillColor: "#465b6d",
+              color: "#465b6d",
+              weight: 1
+            }
+          }
         }, { latlng: [ 41.39844522006508, 2.059593200683594 ], zoom: 10 });
         return;
       }
@@ -113,7 +120,14 @@ const component = {
         if ( this.status === 200 && this.readyState === 4 ) {
           self.rawData = JSON.parse( this.responseText );
           self.$emit("add-map-data", self.rawData, {
-            onEachFeature: self.onEachFeature
+            onEachFeature: self.onEachFeature,
+            style: function(){
+              return {
+                fillColor: "#465b6d",
+                color: "#465b6d",
+                weight: 1
+              }
+            }
           }, { latlng: [ 41.39844522006508, 2.059593200683594 ], zoom: 10 });
         }
       }
@@ -121,8 +135,13 @@ const component = {
     },
 
     onContinue(){
-      this.selection = "no-response",
+      this.selection = "no-response";
+      this.$emit("reset-map-selection");
       this.$emit( "im-ready", "work", null );
+    },
+    
+    onResetResponse() {
+      this.$emit("reset-map-selection");
     }
   },
   watch: {

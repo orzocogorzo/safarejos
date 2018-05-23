@@ -142,6 +142,10 @@ export default {
 
     onClosePopup(){
       this.$emit("close-popup");
+    },
+
+    restartMapDrag() {
+      this.$emit('restart-map-drag');
     }
   }
 }
