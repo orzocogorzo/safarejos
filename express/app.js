@@ -86,6 +86,17 @@ function setupPWA( ) {
   });
 }
 
+function removeMainHash() {
+  fs.readFile( path.resolve( config.distDir, 'index.html' ), 'utf-8', ( err, data ) => {
+    if ( err ) throw err;
+    data = data.replace(/main.js[^"]+/,'main.js')
+    fs.writeFile( path.resolve( config.distDir, 'index.html' ), data, err => {
+      if ( err ) throw err;
+      console.log( 'Hash removed!' );
+    });
+  });
+}
+
 function buildRegex( urlParam ){
   let basehref = envConfig.basehref || envConfig.env.basehref || null
   if ( urlParam ){
@@ -281,6 +292,7 @@ function main(){
 
       compiler = webpack( config.api.get(), ( err, stats ) => {
         if (err) throw err;
+        removeMainHash();
         console.log("Webpack build ends with exit status");
       });
     }
@@ -305,6 +317,7 @@ function main(){
 
       compiler = webpack( config.api.get(), ( err, stats ) => {
         if (err) throw err;
+        removeMainHash();
         console.log("Webpack build ends with exit status");
         server = http.createServer( app );
 
