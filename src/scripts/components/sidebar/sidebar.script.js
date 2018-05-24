@@ -102,7 +102,7 @@ export default {
     },
 
     restartMapDrag() {
-      this.map.fire('restart:drag');
+      this.map.fire('restartdrag');
     }
   },
   components: {

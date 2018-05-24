@@ -161,7 +161,7 @@ export default {
     map: function( val ) {
       if ( val ) {
         this.setupControllers();
-        this.map.once('restart:drag', () => {
+        this.map.on('restartdrag', () => {
           this.options.map((opt) => {
             opt.active = opt.name === "drag"
           });

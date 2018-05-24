@@ -8,6 +8,9 @@ var filesToCache = [
   '/manifest.json'
 ];
 
+console.log( environment );
+const log = environment.name === "production" ? (d) => console.log( d ) : function(){};
+
 self.addEventListener('install', function(e) {
   console.log('[ServiceWorker] Install');
   e.waitUntil(

@@ -12,7 +12,7 @@ import vendor from '../styles/vendor.css';
 
 var app = new App();
 
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && environment.name === "production" ) {
   navigator.serviceWorker
            .register('./service-worker.js')
            .then(function() { console.log('Service Worker Registered'); });

@@ -45,15 +45,7 @@ export default {
       this.$emit('restart-map-drag');
       location.hash = this.previous.ready && this.previous.hash || location.hash
     }
-  },
-  // watch: {
-  //   next: {
-  //     handler: ( val ) => {
-  //       console.log( val.ready );
-  //     },
-  //     deep: true
-  //   }
-  // }
+  }
 }
 </script>
 
