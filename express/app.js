@@ -176,18 +176,22 @@ function setupApp() {
   var app = express();
   app.use(bodyParser.json());
   app.get('/', ( req, res ) => {
+    res.setHeader('Content-Type','text/html');
     response( envConfig.env.host, req, res, config.distDir + '/index.html', false );
   });
 
   app.get('/environment.js', ( req, res ) => {
+    res.setHeader('Content-Type','text/javascript');
     response( envConfig.env.host, req, res, config.distDir + '/environment.js', false );
   });
 
   app.get('/main.js', ( req, res ) => {
+    res.setHeader('Content-Type','text/javascript');
     response( envConfig.env.host, req, res, config.distDir + '/main.js', false );
   });
 
   app.get('/service-worker.js', ( req, res ) => {
+    res.setHeader('Content-Type','text/javascript');
     response( envConfig.env.host, req, res, config.distDir + '/service-worker.js', false );
   });
 
