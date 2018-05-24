@@ -4,7 +4,8 @@ var filesToCache = [
   '/index.html',
   '/main.js',
   '/livereload.js',
-  '/environment.js'
+  '/environment.js',
+  '/manifest.json'
 ];
 
 self.addEventListener('install', function(e) {
