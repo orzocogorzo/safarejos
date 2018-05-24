@@ -23,7 +23,8 @@ const config = {
         template: 'index.html',
         minify: true,
         hash: true,
-        cache: true
+        cache: true,
+        title: 'safaretjos'
       }),
       new WebpackLiveReload()
     ],

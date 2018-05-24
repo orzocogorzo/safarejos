@@ -195,6 +195,11 @@ function setupApp() {
     response( envConfig.env.host, req, res, config.distDir + '/service-worker.js', false );
   });
 
+  app.get('/icons/:icon', ( req, res ) => {
+    res.setHeader('Content-Type','image/png');
+    response( envConfig.env.host, req, res, config.distDir + '/' + icon, false );
+  });
+
   app.post('/bulk', ( req, res ) => {
     if ( database ) {
       database.collection('responses').insertOne( req.body, function( err, source ) {
