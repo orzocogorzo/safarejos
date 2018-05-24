@@ -197,7 +197,7 @@ function setupApp() {
 
   app.get('/icons/:icon', ( req, res ) => {
     res.setHeader('Content-Type','image/png');
-    response( envConfig.env.host, req, res, config.distDir + '/' + icon, false );
+    response( envConfig.env.host, req, res, config.distDir + '/icons/' + req.params.icon, false );
   });
 
   app.post('/bulk', ( req, res ) => {
