@@ -111,7 +111,7 @@ function request( host, req, res, filePath, redirect ) {
   if ( !host || host === "localhost" || host === "local" ) {
     filePath = path.resolve( config.root, filePath );
     fs.exists( filePath, ( exists ) => {
-      if (exists){
+      if ( exists ) {
         var stats = fs.statSync( filePath );
         if (!stats.isFile()){
           if (redirect){
@@ -120,7 +120,12 @@ function request( host, req, res, filePath, redirect ) {
             res.sendStatus(404);
             return;
           }
-        };
+        } else {
+          fs.readFile( filePath, 'utf-8', ( err, data ) => {
+            if ( err ) throw err;
+            res.send( data );
+          }); 
+        }
       } else {
         if (redirect) {
           filePath = path.resolve( config.root, config.distDir, 'index.html' );
@@ -129,16 +134,6 @@ function request( host, req, res, filePath, redirect ) {
           return;
         }
       };
-      fs.exists( filePath, ( exists ) => {
-        if (exists) {
-          fs.readFile( filePath, 'utf-8', ( err, data ) => {
-            res.send( data );
-          });
-        } else {
-          res.sendStatus(404);
-          return;
-        }
-      });
     });
   } else {
     // filePath = filePath.replace(new RegExp(`${config.dataDir}\/`),'');
@@ -190,6 +185,10 @@ function setupApp() {
 
   app.get('/main.js', ( req, res ) => {
     response( envConfig.env.host, req, res, config.distDir + '/main.js', false );
+  });
+
+  app.get('/service-worker.js', ( req, res ) => {
+    response( envConfig.env.host, req, res, config.distDir + '/service-worker.js', false );
   });
 
   app.post('/bulk', ( req, res ) => {
