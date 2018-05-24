@@ -7,6 +7,7 @@
     "serve:pi": "node express/app.js --dev --env=pi  --basehref=map",
     "build:pi": "node express/app.js --build --env=dev --basehref=map",
     "build:dev": "node express/app.js --build --env=pi",
+    "build:prod": "node express/app.js --build --env=prod",
     "start": "node express/app.js --server --env=prod"
   },
   "dependencies": {
@@ -30,6 +31,7 @@
     "css-loader": "^0.28.11",
     "express": "^4.16.3",
     "express-livereload": "^0.0.24",
+    "fs-extra": "^6.0.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "open": "^0.0.5",

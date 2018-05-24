@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 
 const webpack = require('webpack');
@@ -64,6 +64,25 @@ function registerLivereload( register ) {
       return;
     };
     console.log( 'Livereload script registered!' );
+  });
+}
+
+function setupPWA( ) {
+  fs.readFile( path.resolve( __dirname, '../pwa/manifest.json' ), 'utf-8', ( err, data ) => {
+    if ( err ) throw err;
+    fs.writeFile( path.resolve( config.distDir, 'manifest.json' ), data, function( err ) {
+      if ( err ) throw err;
+      fs.copy( path.resolve( __dirname, '../pwa/icons' ), path.resolve( config.distDir, 'icons' ), err => {
+        if ( err ) throw err;
+        fs.readFile( path.resolve( __dirname, '../pwa/service-worker.js' ), 'utf-8', ( err, data ) => {
+          if ( err ) throw err;
+          fs.writeFile( path.resolve( config.distDir, 'service-worker.js' ), data, function( err ) {
+            if ( err ) throw err;
+            console.log( 'PWA setted up!' );
+          });
+        });
+      });
+    });
   });
 }
 
@@ -256,6 +275,7 @@ function main(){
       config.api.set( "mode", envConfig["prod"] && "production" || "development" );
 
       registerLivereload( false );
+      setupPWA();
 
       setupConfig();
 
@@ -277,6 +297,7 @@ function main(){
       getMongoDB();
       port = process.env.PORT || app.get.port || 8000;
       registerLivereload( false );
+      setupPWA();
 
       setupConfig();
 

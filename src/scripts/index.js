@@ -11,3 +11,9 @@ import vendor from '../styles/vendor.css';
 // window.municipis = municipis;
 
 var app = new App();
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+           .register('./service-worker.js')
+           .then(function() { console.log('Service Worker Registered'); });
+}
