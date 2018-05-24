@@ -10,7 +10,7 @@ const config = {
   	entry: path.resolve(__dirname, "src/scripts/index.js"),
   	output: {
     		path: path.resolve(__dirname, 'dist'),
-    		filename: '[hash].[name].js'
+    		filename: 'main.js'
   	},
     envFile: path.resolve(__dirname, 'environments.js'),
     plugins: [

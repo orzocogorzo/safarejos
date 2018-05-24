@@ -37,6 +37,9 @@ self.addEventListener('fetch', function(e) {
   console.log('[ServiceWorker] Fetch', e.request.url);
   e.respondWith(
     caches.match(e.request).then(function(response) {
+      if ( !response ) {
+        console.log( '[ServiceWorker] no response cached for ' + e.request.url );
+      }
       return response || fetch(e.request);
     })
   );
