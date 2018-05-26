@@ -69,7 +69,8 @@ export default {
       req.open( "POST", url, true );
       req.onreadystatechange = function( ev ) {
         if ( this.status === 200 && this.readyState === 4 ) {
-          location.hash = 'map/cover/0'
+          // location.hash = 'map/cover/0'
+          window.location.reload();
         }
       }
       req.setRequestHeader('Content-Type', 'application/json');
